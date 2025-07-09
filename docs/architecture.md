@@ -157,9 +157,9 @@ A sample of the expected audit document format is shown below.
 {
   "id": "collection1-{hash(analyzer-block)}",
   "config-id": "audit-file-v1.0",
-  "lease-config-hash": "{hash(analyzer-block)}",
+  "extraction-config-hash": "{hash(analyzer-block)}",
   "information": {
-    "leases": [
+    "entities": [
       {
         "name": "lease 1",
         "original-documents": [
