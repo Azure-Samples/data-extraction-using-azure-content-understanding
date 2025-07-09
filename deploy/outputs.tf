@@ -150,6 +150,7 @@ output "function_app_storage_account_name" {
 # Environment configuration for applications
 output "app_config" {
   description = "Configuration values for applications"
+  sensitive   = true
   value = {
     cosmosdb_endpoint               = azurerm_cosmosdb_account.main.endpoint
     cosmosdb_database              = azurerm_cosmosdb_mongo_database.main.name
@@ -170,6 +171,8 @@ output "app_config" {
     function_app_url                = "https://${azurerm_linux_function_app.main.name}.azurewebsites.net"
     openai_endpoint                 = azurerm_cognitive_account.openai.endpoint
     openai_deployment_name          = azurerm_cognitive_deployment.gpt4o.name
+    application_insights_key        = azurerm_application_insights.main.instrumentation_key
+    application_insights_connection_string = azurerm_application_insights.main.connection_string
   }
 }
 
@@ -188,4 +191,27 @@ output "openai_key" {
 output "gpt4o_deployment_name" {
   description = "The name of the GPT-4o deployment"
   value       = azurerm_cognitive_deployment.gpt4o.name
+}
+
+# Application Insights outputs
+output "application_insights_name" {
+  description = "The name of the Application Insights instance"
+  value       = azurerm_application_insights.main.name
+}
+
+output "application_insights_instrumentation_key" {
+  description = "The instrumentation key for Application Insights"
+  value       = azurerm_application_insights.main.instrumentation_key
+  sensitive   = true
+}
+
+output "application_insights_connection_string" {
+  description = "The connection string for Application Insights"
+  value       = azurerm_application_insights.main.connection_string
+  sensitive   = true
+}
+
+output "application_insights_app_id" {
+  description = "The App ID for Application Insights"
+  value       = azurerm_application_insights.main.app_id
 }

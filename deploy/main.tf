@@ -175,6 +175,16 @@ resource "azurerm_service_plan" "function_app" {
   tags = var.tags
 }
 
+# Application Insights for Function App monitoring
+resource "azurerm_application_insights" "main" {
+  name                = "ai-data-extract-${random_string.suffix.result}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  application_type    = "web"
+
+  tags = var.tags
+}
+
 # Function App for document processing
 resource "azurerm_linux_function_app" "main" {
   name                = "func-data-extract-${random_string.suffix.result}"
@@ -194,6 +204,8 @@ resource "azurerm_linux_function_app" "main" {
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"       = "python"
     "AzureWebJobsFeatureFlags"       = "EnableWorkerIndexing"
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.main.instrumentation_key
+    "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.main.connection_string
   }
 
   identity {
@@ -395,6 +407,20 @@ resource "azurerm_key_vault_secret" "lease_documents_collection_name" {
 resource "azurerm_key_vault_secret" "configurations_collection_name" {
   name         = "configurations-collection-name"
   value        = azurerm_cosmosdb_mongo_collection.configurations.name
+  key_vault_id = azurerm_key_vault.main.id
+}
+
+# Store Application Insights connection string in Key Vault
+resource "azurerm_key_vault_secret" "application_insights_connection_string" {
+  name         = "application-insights-connection-string"
+  value        = azurerm_application_insights.main.connection_string
+  key_vault_id = azurerm_key_vault.main.id
+}
+
+# Store Application Insights instrumentation key in Key Vault
+resource "azurerm_key_vault_secret" "application_insights_key" {
+  name         = "application-insights-key"
+  value        = azurerm_application_insights.main.instrumentation_key
   key_vault_id = azurerm_key_vault.main.id
 }
 
