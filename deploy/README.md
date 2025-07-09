@@ -1,26 +1,26 @@
 # Terraform Data Extraction Infrastructure
 
-This directory contains Terraform configuration files to deploy the Azure infrastructure required for the data extraction project using Azure AI Foundry with Content Understanding.
+This directory contains Terraform configuration files to deploy the Azure infrastructure required for the data extraction project using Azure AI Foundry with Content Understanding, Azure OpenAI, and serverless document processing.
 
 ## Resources Created
 
 - **Resource Group**: Container for all resources
-- **CosmosDB Account**: NoSQL database for storing extracted data and metadata
+- **CosmosDB Account**: MongoDB API database for storing extracted data and metadata
   - Database: `documents`
-  - Containers: `extracted-data`, `document-metadata`
+  - Collections: `Lease_Documents`, `Configurations`
 - **Azure AI Foundry Hub**: Central hub for AI services (uses System-Assigned managed identity)
 - **Azure AI Foundry Project**: Project workspace for Content Understanding capabilities
-- **Storage Account**: Blob storage for document processing
-  - Containers: `input-documents`, `processed-documents`
-- **Key Vault**: Secure storage for connection strings and IDs
-
-## Important Notes
-
-- **Regional Availability**: Content Understanding is only available in specific regions:
-  - West US (`westus`)
-  - Sweden Central (`swedencentral`) 
-  - Australia East (`australiaeast`)
-- **Service Type**: Uses Azure AI Foundry Hub and Project resources (requires Azure Provider v4.35+)
+- **Azure AI Services**: Cognitive services for Content Understanding
+- **Azure OpenAI Service**: OpenAI service with GPT-4o (2024-11-20) model deployment
+  - **GPT-4o Model**: Deploys the latest GPT-4o model (2024-11-20) for AI processing
+- **Storage Accounts**: Multiple storage accounts for different purposes
+  - **AI Foundry Storage**: For AI Foundry workspace
+  - **Lease Documents Storage**: For Function App triggers and lease management
+    - Container: `lease-documents`
+  - **Function App Storage**: Dedicated storage for Azure Function runtime
+- **Function App**: Azure Function with Python 3.11 runtime for document processing
+- **Application Insights**: Monitoring and telemetry for the Function App
+- **Key Vault**: Secure storage for connection strings, API keys, and configuration
 
 ## Prerequisites
 
@@ -63,31 +63,63 @@ This directory contains Terraform configuration files to deploy the Azure infras
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `location` | Azure region (West US, Sweden Central, or Australia East) | "West US" | No |
+| `subscription_id` | Azure subscription ID | - | Yes |
+| `location` | Azure region (West US, Sweden Central, or Australia East) | "westus" | No |
 | `tags` | Resource tags | See variables.tf | No |
-| `cosmos_consistency_level` | CosmosDB consistency level | "Session" | No |
-| `storage_account_tier` | Storage account tier | "Standard" | No |
-| `storage_replication_type` | Storage replication type | "LRS" | No |
+
+**Note**: The `subscription_id` variable is marked as sensitive and must be provided in your `terraform.tfvars` file.
 
 ## Outputs
 
 After successful deployment, Terraform will output:
 
-- Resource names and endpoints
-- Connection information for applications
-- Key Vault URI for accessing secrets
+- **Resource Information**: Names, endpoints, and IDs for all created resources
+- **AI Services**: Azure AI Foundry Hub, Project, and OpenAI service details
+- **Storage**: Connection strings and endpoints for all storage accounts
+- **Database**: CosmosDB connection details and collection names
+- **Function App**: Function App URL and configuration
+- **Application Insights**: Monitoring configuration and connection strings
+- **Key Vault**: URI and access information
+- **App Configuration**: Consolidated configuration object with all application settings
+
+All sensitive outputs are marked as sensitive and stored securely in Azure Key Vault.
 
 ## Security
 
-- All sensitive values (connection strings, API keys) are stored in Azure Key Vault
-- Storage containers have private access by default
-- CosmosDB is configured with Session consistency for optimal performance
+- **Key Vault Integration**: All sensitive values (connection strings, API keys, database credentials) are stored in Azure Key Vault
+- **Managed Identity**: Function App uses System-Assigned managed identity for secure access to Key Vault
+- **Private Containers**: Storage containers have private access by default
+- **Access Policies**: Key Vault configured with proper access policies for Terraform and Function App
+- **Network Security**: Public network access enabled for management while maintaining security through access policies
+- **Secret Management**: Automatic rotation and secure storage of all sensitive configuration
+
+## Key Vault Secrets
+
+The following secrets are automatically stored in Key Vault:
+
+- `cosmosdb-connection-string`: CosmosDB connection string
+- `cosmosdb-database-name`: Database name
+- `lease-documents-collection-name`: Lease documents collection name
+- `configurations-collection-name`: Configurations collection name
+- `ai-foundry-endpoint`: AI Foundry service endpoint
+- `ai-foundry-key`: AI Foundry access key
+- `open-ai-endpoint`: Azure OpenAI service endpoint
+- `open-ai-key`: Azure OpenAI access key
+- `application-insights-connection-string`: Application Insights connection string
+- `application-insights-key`: Application Insights instrumentation key
+- `ai-foundry-storage-connection-string`: AI Foundry storage connection string
+- `lease-storage-connection-string`: Lease documents storage connection string
+- `function-app-storage-connection-string`: Function App storage connection string
+- `function-app-url`: Function App URL
 
 ## Cost Optimization
 
-- CosmosDB is configured with serverless billing model
-- Storage uses Standard tier with LRS replication
-- AI Foundry Hub uses System-Assigned managed identity for secure access to storage and key vault
+- **CosmosDB**: Configured with serverless billing model and MongoDB API
+- **Storage**: Uses Standard tier with LRS replication across multiple accounts
+- **Function App**: Consumption (Y1) plan for automatic scaling and pay-per-execution
+- **AI Services**: S0 tier for predictable costs
+- **Managed Identity**: No additional costs for authentication and authorization
+- **Application Insights**: Standard pricing with configurable data retention
 
 ## Clean Up
 
@@ -96,18 +128,3 @@ To destroy the infrastructure:
 ```bash
 terraform destroy
 ```
-
-## Troubleshooting
-
-1. **Authentication issues**: Ensure you're logged in with `az login`
-2. **Permission errors**: Verify you have Contributor role on the subscription
-3. **Resource name conflicts**: The configuration uses random suffixes to avoid conflicts
-4. **Quota limits**: Check Azure quotas for Cognitive Services in your region
-
-## Next Steps
-
-After deployment, update your application configuration with the output values:
-
-1. Get the outputs: `terraform output`
-2. Configure your application with the connection strings from Key Vault
-3. Update your code to use the created resource endpoints

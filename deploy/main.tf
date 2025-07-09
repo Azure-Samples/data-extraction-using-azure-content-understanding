@@ -319,20 +319,6 @@ resource "azurerm_cognitive_deployment" "gpt4o" {
   }
 }
 
-# Storage Container for input documents
-resource "azurerm_storage_container" "input_documents" {
-  name                  = "input-documents"
-  storage_account_name  = azurerm_storage_account.ai_foundry.name
-  container_access_type = "private"
-}
-
-# Storage Container for processed documents
-resource "azurerm_storage_container" "processed_documents" {
-  name                  = "processed-documents"
-  storage_account_name  = azurerm_storage_account.ai_foundry.name
-  container_access_type = "private"
-}
-
 # Storage Container for lease documents (Function App triggers)
 resource "azurerm_storage_container" "lease_documents" {
   name                  = "lease-documents"
