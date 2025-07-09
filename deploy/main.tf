@@ -349,5 +349,26 @@ resource "azurerm_key_vault_secret" "function_app_url" {
   key_vault_id = azurerm_key_vault.main.id
 }
 
+# Store CosmosDB MongoDB database name in Key Vault
+resource "azurerm_key_vault_secret" "cosmosdb_database_name" {
+  name         = "cosmosdb-database-name"
+  value        = azurerm_cosmosdb_mongo_database.main.name
+  key_vault_id = azurerm_key_vault.main.id
+}
+
+# Store Lease Documents collection name in Key Vault
+resource "azurerm_key_vault_secret" "lease_documents_collection_name" {
+  name         = "lease-documents-collection-name"
+  value        = azurerm_cosmosdb_mongo_collection.lease_documents.name
+  key_vault_id = azurerm_key_vault.main.id
+}
+
+# Store Configurations collection name in Key Vault
+resource "azurerm_key_vault_secret" "configurations_collection_name" {
+  name         = "configurations-collection-name"
+  value        = azurerm_cosmosdb_mongo_collection.configurations.name
+  key_vault_id = azurerm_key_vault.main.id
+}
+
 # Data source for current Azure client configuration
 data "azurerm_client_config" "current" {}
