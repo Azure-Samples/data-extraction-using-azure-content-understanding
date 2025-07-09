@@ -35,8 +35,8 @@ sequenceDiagram
 
     %% rect rgb(255,255,224)
     activate Doc Enquiry Azure Function
-    Doc Enquiry Azure Function ->> Doc Enquiry Azure Function: Semantic Kernel (SK): extract Site ID from user query 
-    Doc Enquiry Azure Function ->> CosmosDB: SK: Retrieve site information (all fields)
+    Doc Enquiry Azure Function ->> Doc Enquiry Azure Function: Semantic Kernel (SK): extract collection ID from user query 
+    Doc Enquiry Azure Function ->> CosmosDB: SK: Retrieve collection information (all fields)
     Doc Enquiry Azure Function ->> Azure OpenAI Service: SK: Formulate response from LLM
     Doc Enquiry Azure Function ->> User: Returns LLM-generated response
     deactivate Doc Enquiry Azure Function
@@ -73,14 +73,14 @@ Configurations will be versioned to facilitate experimentation.
 
 The configuration will contain information that will be used at both ingestion and inference time.
 
-A sample of the expected configuration format is shown below (and can also be found [here](../design/rest-api/configuration.json)).
+A sample of the expected configuration format is shown below.
 
 ```json
 {
-    "id": "audit-file-v1.0",
-    "name": "Audit File",
+    "id": "document-extraction-v1.0",
+    "name": "Document Extraction Profile",
     "version": "1.0",
-    "prompt": "You are a helpful assistant tasked with using the necessary tools to retrieve lease information based on the site ID provided by the user.",
+    "prompt": "You are a helpful assistant tasked with using the necessary tools to retrieve document information based on the collection ID provided by the user.",
     "collection_rows": [
       {
           "data_type": "LeaseAgreement",
@@ -95,11 +95,11 @@ A sample of the expected configuration format is shown below (and can also be fo
           "analyzer_id": "test-analyzer"
       }
     ],
-    "lease_config_hash": "<sha256-hash-of-lease-configs>"
+    "extraction_config_hash": "<sha256-hash-of-extraction-configs>"
 }
 ```
 
-**NOTE(\*):** The lease config hash is a SHA-256 hash computed from the set of lease document configurations. This hash uniquely identifies the lease document configurations and helps detect changes or duplicates.
+**NOTE(\*):** The extraction config hash is a SHA-256 hash computed from the set of document configurations for Azure AI Content Understanding. This hash uniquely identifies the extraction document configurations and helps detect changes or duplicates.
 
 ## Document Ingestion Workflows
 
@@ -118,7 +118,6 @@ sequenceDiagram
     participant Doc Ingest Azure Function (Blob)
     participant CosmosDB
     participant Azure Content Understanding
-    participant PII Detection
 
     User ->> ADLS: Upload document
     ADLS ->> Doc Ingest Azure Function (Blob): File upload triggers ingestion
@@ -128,10 +127,10 @@ sequenceDiagram
     Doc Ingest Azure Function (Blob) ->> CosmosDB: Get Ingest Config
 
     Doc Ingest Azure Function (Blob) ->> Azure Content Understanding: Extract fields per analyzer schema
-    Azure Content Understanding -->> Doc Ingest Azure Function (Blob): Eextracted fields (+ bounding boxes) and markdown format document
+    Azure Content Understanding -->> Doc Ingest Azure Function (Blob): Extracted fields (+ bounding boxes) and markdown format document
 
     Doc Ingest Azure Function (Blob) ->> Doc Ingest Azure Function (Blob): Result unification
-
+å
     Doc Ingest Azure Function (Blob) ->> CosmosDB: Store key-value results and bounding box locations in site audit document
 
     deactivate Doc Ingest Azure Function (Blob)
@@ -141,22 +140,22 @@ sequenceDiagram
 
 Assumptions:
 
-- Each extracted document stored in Cosmos DB will be uniquely identified by a composite key structured as `{SiteID}-{sha256-hash-of-lease-config}`. The SHA-256 hash is computed based on the extraction configuration used, enabling detection of configuration changes and ensuring data consistency.
+- Each extracted document stored in Cosmos DB will be uniquely identified by a composite key structured as `{CollectionID}-{sha256-hash-of-extraction-config}`. The SHA-256 hash is computed based on the extraction configuration used, enabling detection of configuration changes and ensuring data consistency.
 - Bounding box locations of all the extracted key-value pairs will be stored in Cosmos for traceability
 - All extracted fields that contain non-null values will be explicitly stored in Cosmos DB, ensuring completeness and consistency of the structured data.
-- Note that this flow does not include any kind of vectorization or vector DB - all lookups will involve documents keyed by the site ID.
-- This architecture is specifically designed to support workflows where questions are focused on a single site. Multi-site queries are not currently supported and will require additional design considerations for future implementation.
+- Note that this flow does not include any kind of vectorization or vector DB - all lookups will involve documents keyed by the collection ID.
+- This architecture is specifically designed to support workflows where questions are focused on a single collection. Multi-collection queries are not currently supported and will require additional design considerations for future implementation.
 
 ### Sample document extraction results
 
-After receiving the response from Azure AI Content Understanding for a particular document, we will add it to the appropriate document in CosmosDB based on its site ID and the distinct list of analyzers used.
-This document will include the extracted fields (and bounding box locations of those fields in the document for traceability/future display purposes) as defined in the analyzer schema, along with some metadata to note the names and locations of the associated lease files used to construct the audit document.
+After receiving the response from Azure AI Content Understanding for a particular document, we will add it to the appropriate document in CosmosDB based on its collection ID and the distinct list of analyzers used.
+This document will include the extracted fields (and bounding box locations of those fields in the document for traceability/future display purposes) as defined in the analyzer schema, along with some metadata to note the names and locations of the files associated with that collection.
 
 A sample of the expected audit document format is shown below.
 
 ```json
 {
-  "id": "site1-{hash(analyzer-block)}",
+  "id": "collection1-{hash(analyzer-block)}",
   "config-id": "audit-file-v1.0",
   "lease-config-hash": "{hash(analyzer-block)}",
   "information": {
@@ -168,15 +167,15 @@ A sample of the expected audit document format is shown below.
             "pdf2"
         ],
         "markdowns": [
-          "site1/lease1/markdown1.md",
-          "site1/lease1/amendment1.md"
+          "collection1/lease1/markdown1.md",
+          "collection1/lease1/amendment1.md"
         ],
         "fields": {
           "landlord": [
             {
               "document-type": "LeaseAgreement",
               "document": "lease pdf file",
-              "markdown": "site1/lease1/markdown1.md",
+              "markdown": "collection1/lease1/markdown1.md",
               "date-of-document": "2019-11-20",
               "type": "string",
               "valueString": "Microsoft",
