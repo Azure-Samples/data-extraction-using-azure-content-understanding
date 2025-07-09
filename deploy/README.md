@@ -18,7 +18,7 @@ This directory contains Terraform configuration files to deploy the Azure infras
   - **Lease Documents Storage**: For Function App triggers and lease management
     - Container: `lease-documents`
   - **Function App Storage**: Dedicated storage for Azure Function runtime
-- **Function App**: Azure Function with Python 3.11 runtime for document processing
+- **Function App**: Azure Function with Python 3.12 runtime for document processing
 - **Application Insights**: Monitoring and telemetry for the Function App
 - **Key Vault**: Secure storage for connection strings, API keys, and configuration
 
@@ -64,7 +64,7 @@ This directory contains Terraform configuration files to deploy the Azure infras
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | `subscription_id` | Azure subscription ID | - | Yes |
-| `location` | Azure region (West US, Sweden Central, or Australia East) | "westus" | No |
+| `location` | Azure region | "westus" | No |
 | `tags` | Resource tags | See variables.tf | No |
 
 **Note**: The `subscription_id` variable is marked as sensitive and must be provided in your `terraform.tfvars` file.

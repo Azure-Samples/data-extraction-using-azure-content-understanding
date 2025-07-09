@@ -1,18 +1,7 @@
 variable "location" {
-  description = "The Azure region where resources will be created. Content Understanding is only available in: West US (westus), Sweden Central (swedencentral), Australia East (australiaeast)"
+  description = "The Azure region where resources will be created."
   type        = string
   default     = "West US"
-  validation {
-    condition = contains([
-      "West US",
-      "Sweden Central", 
-      "Australia East",
-      "westus",
-      "swedencentral",
-      "australiaeast"
-    ], var.location)
-    error_message = "Content Understanding is only available in: West US (westus), Sweden Central (swedencentral), Australia East (australiaeast)."
-  }
 }
 
 variable "subscription_id" {

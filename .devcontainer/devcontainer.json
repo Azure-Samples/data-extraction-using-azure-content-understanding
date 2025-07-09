@@ -9,7 +9,8 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    "ghcr.io/devcontainers/features/azure-cli:1": {}
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/terraform:1": {}
   },
 
   // Configure tool-specific properties.
@@ -32,6 +33,7 @@
         "hediet.vscode-drawio",
         "ms-azuretools.vscode-azurefunctions",
         "mongodb.mongodb-vscode",
+        "hashicorp.terraform"
       ],
       // Set *default* container specific settings.json values on container create.
       "settings": {

@@ -107,16 +107,6 @@ output "lease_storage_primary_blob_endpoint" {
   value       = azurerm_storage_account.lease_documents.primary_blob_endpoint
 }
 
-output "input_container_name" {
-  description = "The name of the input documents container"
-  value       = azurerm_storage_container.input_documents.name
-}
-
-output "processed_container_name" {
-  description = "The name of the processed documents container"
-  value       = azurerm_storage_container.processed_documents.name
-}
-
 output "lease_container_name" {
   description = "The name of the lease documents container"
   value       = azurerm_storage_container.lease_documents.name
@@ -152,26 +142,24 @@ output "app_config" {
   description = "Configuration values for applications"
   sensitive   = true
   value = {
-    cosmosdb_endpoint               = azurerm_cosmosdb_account.main.endpoint
-    cosmosdb_database              = azurerm_cosmosdb_mongo_database.main.name
-    lease_documents_collection     = azurerm_cosmosdb_mongo_collection.lease_documents.name
-    configurations_collection      = azurerm_cosmosdb_mongo_collection.configurations.name
-    content_understanding_endpoint = azurerm_ai_services.main.endpoint
-    ai_foundry_hub_workspace_id     = azurerm_ai_foundry.main.workspace_id
-    ai_foundry_project_id           = azurerm_ai_foundry_project.main.id
-    ai_foundry_storage_account_name = azurerm_storage_account.ai_foundry.name
-    ai_foundry_blob_endpoint        = azurerm_storage_account.ai_foundry.primary_blob_endpoint
-    lease_storage_account_name      = azurerm_storage_account.lease_documents.name
-    lease_blob_endpoint             = azurerm_storage_account.lease_documents.primary_blob_endpoint
-    input_container                 = azurerm_storage_container.input_documents.name
-    processed_container             = azurerm_storage_container.processed_documents.name
-    lease_container                 = azurerm_storage_container.lease_documents.name
-    key_vault_uri                   = azurerm_key_vault.main.vault_uri
-    function_app_name               = azurerm_linux_function_app.main.name
-    function_app_url                = "https://${azurerm_linux_function_app.main.name}.azurewebsites.net"
-    openai_endpoint                 = azurerm_cognitive_account.openai.endpoint
-    openai_deployment_name          = azurerm_cognitive_deployment.gpt4o.name
-    application_insights_key        = azurerm_application_insights.main.instrumentation_key
+    cosmosdb_endpoint                      = azurerm_cosmosdb_account.main.endpoint
+    cosmosdb_database                      = azurerm_cosmosdb_mongo_database.main.name
+    lease_documents_collection             = azurerm_cosmosdb_mongo_collection.lease_documents.name
+    configurations_collection              = azurerm_cosmosdb_mongo_collection.configurations.name
+    content_understanding_endpoint         = azurerm_ai_services.main.endpoint
+    ai_foundry_hub_workspace_id            = azurerm_ai_foundry.main.workspace_id
+    ai_foundry_project_id                  = azurerm_ai_foundry_project.main.id
+    ai_foundry_storage_account_name        = azurerm_storage_account.ai_foundry.name
+    ai_foundry_blob_endpoint               = azurerm_storage_account.ai_foundry.primary_blob_endpoint
+    lease_storage_account_name             = azurerm_storage_account.lease_documents.name
+    lease_blob_endpoint                    = azurerm_storage_account.lease_documents.primary_blob_endpoint
+    lease_container                        = azurerm_storage_container.lease_documents.name
+    key_vault_uri                          = azurerm_key_vault.main.vault_uri
+    function_app_name                      = azurerm_linux_function_app.main.name
+    function_app_url                       = "https://${azurerm_linux_function_app.main.name}.azurewebsites.net"
+    openai_endpoint                        = azurerm_cognitive_account.openai.endpoint
+    openai_deployment_name                 = azurerm_cognitive_deployment.gpt4o.name
+    application_insights_key               = azurerm_application_insights.main.instrumentation_key
     application_insights_connection_string = azurerm_application_insights.main.connection_string
   }
 }

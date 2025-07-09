@@ -118,7 +118,7 @@ resource "azurerm_storage_account" "ai_foundry" {
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  
+
   blob_properties {
     cors_rule {
       allowed_headers    = ["*"]
@@ -139,7 +139,7 @@ resource "azurerm_storage_account" "lease_documents" {
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  
+
   blob_properties {
     cors_rule {
       allowed_headers    = ["*"]
@@ -197,14 +197,14 @@ resource "azurerm_linux_function_app" "main" {
 
   site_config {
     application_stack {
-      python_version = "3.11"
+      python_version = "3.12"
     }
   }
 
   app_settings = {
-    "FUNCTIONS_WORKER_RUNTIME"       = "python"
-    "AzureWebJobsFeatureFlags"       = "EnableWorkerIndexing"
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.main.instrumentation_key
+    "FUNCTIONS_WORKER_RUNTIME"              = "python"
+    "AzureWebJobsFeatureFlags"              = "EnableWorkerIndexing"
+    "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.main.instrumentation_key
     "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.main.connection_string
   }
 

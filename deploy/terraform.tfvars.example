@@ -14,13 +14,3 @@ tags = {
   Owner       = "your-team"
   CostCenter  = "engineering"
 }
-
-# CosmosDB configuration
-cosmos_consistency_level = "Session"
-
-# AI Foundry service configuration
-ai_foundry_sku = "S0"  # AI Foundry Hub only supports S0
-
-# Storage account configuration
-storage_account_tier = "Standard"
-storage_replication_type = "LRS"
