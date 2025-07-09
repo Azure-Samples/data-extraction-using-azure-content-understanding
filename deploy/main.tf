@@ -279,6 +279,34 @@ resource "azurerm_ai_foundry_project" "main" {
   tags = var.tags
 }
 
+# Azure OpenAI Service for GPT-4o model deployment
+resource "azurerm_cognitive_account" "openai" {
+  name                = "openai-${random_string.suffix.result}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  kind                = "OpenAI"
+  sku_name            = "S0"
+
+  tags = var.tags
+}
+
+# GPT-4o model deployment
+resource "azurerm_cognitive_deployment" "gpt4o" {
+  name                 = "gpt-4o-deployment"
+  cognitive_account_id = azurerm_cognitive_account.openai.id
+
+  model {
+    format  = "OpenAI"
+    name    = "gpt-4o"
+    version = "2024-11-20"
+  }
+
+  sku {
+    name     = "Standard"
+    capacity = 10
+  }
+}
+
 # Storage Container for input documents
 resource "azurerm_storage_container" "input_documents" {
   name                  = "input-documents"
@@ -367,6 +395,19 @@ resource "azurerm_key_vault_secret" "lease_documents_collection_name" {
 resource "azurerm_key_vault_secret" "configurations_collection_name" {
   name         = "configurations-collection-name"
   value        = azurerm_cosmosdb_mongo_collection.configurations.name
+  key_vault_id = azurerm_key_vault.main.id
+}
+
+# Azure OpenAI endpoint and key secrets
+resource "azurerm_key_vault_secret" "openai_endpoint" {
+  name         = "open-ai-endpoint"
+  value        = azurerm_cognitive_account.openai.endpoint
+  key_vault_id = azurerm_key_vault.main.id
+}
+
+resource "azurerm_key_vault_secret" "openai_key" {
+  name         = "open-ai-key"
+  value        = azurerm_cognitive_account.openai.primary_access_key
   key_vault_id = azurerm_key_vault.main.id
 }
 

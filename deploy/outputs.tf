@@ -168,5 +168,24 @@ output "app_config" {
     key_vault_uri                   = azurerm_key_vault.main.vault_uri
     function_app_name               = azurerm_linux_function_app.main.name
     function_app_url                = "https://${azurerm_linux_function_app.main.name}.azurewebsites.net"
+    openai_endpoint                 = azurerm_cognitive_account.openai.endpoint
+    openai_deployment_name          = azurerm_cognitive_deployment.gpt4o.name
   }
+}
+
+# Azure OpenAI outputs
+output "openai_endpoint" {
+  description = "The endpoint for the Azure OpenAI service"
+  value       = azurerm_cognitive_account.openai.endpoint
+}
+
+output "openai_key" {
+  description = "The primary access key for the Azure OpenAI service"
+  value       = azurerm_cognitive_account.openai.primary_access_key
+  sensitive   = true
+}
+
+output "gpt4o_deployment_name" {
+  description = "The name of the GPT-4o deployment"
+  value       = azurerm_cognitive_deployment.gpt4o.name
 }
