@@ -203,6 +203,7 @@ resource "azurerm_linux_function_app" "main" {
 
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"              = "python"
+    "AzureWebJobsStorage"                   = azurerm_storage_account.function_app.primary_connection_string
     "AzureWebJobsFeatureFlags"              = "EnableWorkerIndexing"
     "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.main.instrumentation_key
     "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.main.connection_string
@@ -322,7 +323,7 @@ resource "azurerm_cognitive_deployment" "gpt4o" {
 # Storage Container for lease documents (Function App triggers)
 resource "azurerm_storage_container" "lease_documents" {
   name                  = "lease-documents"
-  storage_account_name  = azurerm_storage_account.lease_documents.name
+  storage_account_id    = azurerm_storage_account.lease_documents.id
   container_access_type = "private"
 }
 
