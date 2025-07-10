@@ -65,7 +65,6 @@ class ChatHistoryConfig(BaseModel):
     chat_history_container_name: ConfigurationValue
     user_message_limit: ConfigurationValue[int]
     domain: ConfigurationValue
-    subdomain: ConfigurationValue
     remove_tool_calls: ConfigurationValue[str] = ConfigurationValue(value="true")
 
 

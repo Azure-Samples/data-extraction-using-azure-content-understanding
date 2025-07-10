@@ -12,5 +12,5 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 app.register_functions(health_check_routes_bp)
 app.register_functions(ingest_config_routes_bp)
-# app.register_functions(inference_config_routes_bp)
+app.register_functions(inference_config_routes_bp)
 # app.register_functions(classifier_routes_bp)

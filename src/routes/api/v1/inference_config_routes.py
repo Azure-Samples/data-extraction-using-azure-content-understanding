@@ -26,7 +26,7 @@ async def query(req: func.HttpRequest) -> func.HttpResponse:
         func.HttpResponse: The response object.
     """
     environment_config = get_app_config_manager().hydrate_config()
-    user_id = req.headers.get(environment_config.auth_management.user_id_header_name.value)
+    user_id = "default"  # req.headers.get(environment_config.auth_management.user_id_header_name.value)
     if not user_id:
         return func.HttpResponse(
             "User ID header is missing.",

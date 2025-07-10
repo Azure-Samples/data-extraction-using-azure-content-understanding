@@ -510,8 +510,7 @@ class IngestionSiteLeaseService(object):
             {"_id": _build_document_id(site_id.upper(), config.lease_config_hash)}
         )
         if not existing_document or existing_document.get("site_id") is None:
-            logging.error(
-                "Error encountered while querying CosmosDB: "
+            logging.warning(
                 f"data for site {site_id} and lease config hash {config.lease_config_hash} does not exist."
             )
             return all_lease_fields_dict

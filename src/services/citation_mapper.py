@@ -26,21 +26,9 @@ class CitationMapper:
         alias_counter = 1
 
         # Process unstructured data
-        for lease in data.get('leases_from_unstructured_data', []):
+        for lease in data.get('unstructured_data', []):
             self._replace_citations(lease.get('fields', {}), mapping, id, [alias_counter])
             alias_counter = alias_counter + len(lease.get('fields', {}))
-
-        # Process structured data
-        for lease in data.get('leases_from_structured_data', []):
-            fields = lease.get('fields', {})
-            for _, field_value in fields.items():
-                if isinstance(field_value, dict):
-                    if 'type' in field_value:
-                        field_value.pop('type', None)
-                if isinstance(field_value, list):
-                    for item in field_value:
-                        if 'type' in item:
-                            item.pop('type', None)
 
         return data, mapping
 

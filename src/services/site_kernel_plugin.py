@@ -72,14 +72,13 @@ class SitePlugin:
             citation_mappings = document_data_cache[cache_key]["citation_mappings"]
         else:
             # Fetch structured and unstructured data leases
-            unstructured_data_leases = self._get_unstructured_data_lease_info_by_site_id(site_id)
+            unstructured_data = self._get_unstructured_data_lease_info_by_site_id(site_id)
 
             # Create the document data object
             document_data = DocumentData(
                 _id=site_id,
                 lease_config_hash=self._config.lease_config_hash,
-                leases_from_structured_data=[],  # This will be populated later
-                leases_from_unstructured_data=unstructured_data_leases,
+                unstructured_data=unstructured_data,
             )
             document_data = document_data.model_dump(
                 by_alias=True,
@@ -158,22 +157,6 @@ class SitePlugin:
         restored_citation = document_data_cache[key]['citation_mappings'][citation]
 
         return [restored_citation['source_document'], restored_citation['source_bounding_boxes']]
-
-    def restore_structured_data(self) -> dict:
-        """Retrieves structured data for the site.
-
-        Returns:
-            dict: A dictionary containing structured data for leases, with site IDs as keys
-                and lists of LeaseAgreement objects as values.
-        """
-        if not self._site_id:
-            raise ValueError("Site ID is not set. Cannot restore structured data.")
-
-        cache_key = self.composite_key(self._site_id, self._config.lease_config_hash)
-        data_str = document_data_cache[cache_key]["document_data_str"]
-        data = json.loads(data_str)
-        structured_data = data["leases_from_structured_data"]
-        return structured_data
 
     def restore_citations(self, citations: list[str]):
         """Restores the original form of a list of citations.

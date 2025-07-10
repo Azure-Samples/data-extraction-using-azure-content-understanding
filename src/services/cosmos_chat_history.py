@@ -40,14 +40,12 @@ class ChatHistoryModel(KernelBaseModel, extra="ignore"):
     user_id: str
     messages: list[ChatMessageWithTypeAndData]
     domain: str
-    subdomain: str
 
 
 class CosmosChatHistory(ChatHistory):
     container: ContainerProxy
     user_message_limit: int
     domain: str
-    subdomain: str
     remove_tool_calls: bool = False
     internal_messages: list[ChatMessageContent] = Field(default_factory=list, kw_only=False)
 
@@ -123,8 +121,7 @@ class CosmosChatHistory(ChatHistory):
             id=session_id,
             user_id=user_id.lower(),
             messages=messages,
-            domain=self.domain,
-            subdomain=self.subdomain,
+            domain=self.domain
         )
         self.container.upsert_item(
             body=chat_history_message.model_dump()
@@ -142,7 +139,7 @@ class CosmosChatHistory(ChatHistory):
         doc: CosmosDict
         try:
             doc = self.container.read_item(
-                item=session_id, partition_key=[user_id.lower(), self.domain, self.subdomain]
+                item=session_id, partition_key=[user_id.lower(), self.domain]
             )
         except CosmosHttpResponseError:
             logging.info("no session found")
@@ -222,7 +219,6 @@ def get_cosmos_chat_history(env_name, environment_config: EnvironmentConfig) -> 
         container=_cosmos_container,
         user_message_limit=environment_config.chat_history.user_message_limit.value,
         domain=environment_config.chat_history.domain.value,
-        subdomain=environment_config.chat_history.subdomain.value,
         remove_tool_calls=True if environment_config.chat_history.remove_tool_calls.value.lower() == "true" else False,
     )
 

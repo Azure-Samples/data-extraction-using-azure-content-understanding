@@ -4,7 +4,7 @@ local:
   user_managed_identity: {}
   cosmosdb:
     db_name:
-      value: "documents"
+      value: "documents"  # data-extraction-db
     endpoint:
       key: "cosmosdb-connection-string"
       type: "secret"
@@ -16,7 +16,7 @@ local:
     model_name:
       value: "gpt-4o"
     endpoint:
-      value: "https://qtmnpegenaiwu3apim0.azure-api.net/gpt-4o-nkc/openai/deployments/gpt-4o-nkc"
+      value: "https://westus.api.cognitive.microsoft.com/openai/deployments/gpt-4o-deployment"
     access_key:
       key: "open-ai-key"
       type: "secret"
@@ -39,17 +39,15 @@ local:
       value: v1.0
   chat_history:
     endpoint:
-      value: "https://qtmnpegenaiwu2cosdb0.documents.azure.com:443/"
+      value: "https://cosmos-data-extraction-mfmezur1-history.documents.azure.com:443/"
     db_name:
       value: "knowledge-base-db"
     chat_history_container_name:
-      value: "chat-history-npe"
+      value: "chat-history"
     user_message_limit:
       value: 20
     domain:
-      value: "Leasing AI"
-    subdomain:
-      value: ""
+      value: "Data Extraction AI"
   blob_storage:
     account_url:
       value: "https://qtmnpegenaiwu2sa0.blob.core.windows.net/"
@@ -109,8 +107,6 @@ dev:
       value: 20
     domain:
       value: "Leasing AI"
-    subdomain:
-      value: ""
   blob_storage:
     account_url:
       value: "https://qtmnpegenaiwu2sa0.blob.core.windows.net/"

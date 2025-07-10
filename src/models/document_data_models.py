@@ -6,7 +6,6 @@ from .extracted_site_documents import ExtractedLeaseFieldValue
 
 
 class DocumentType(str, Enum):
-    UNITY_CATALOG = "UnityCatalog"
     LEASE_AGREEMENT = "LeaseAgreement"
 
 
@@ -24,12 +23,6 @@ class FieldMappingType(str, Enum):
 
 class CollectedDocumentData(BaseModel):
     document_type: DocumentType
-
-
-class UnityCatalogDocumentData(CollectedDocumentData):
-    document_type: Literal[DocumentType.UNITY_CATALOG] = DocumentType.UNITY_CATALOG
-    type: FieldMappingType
-    value: Any
 
 
 class _LeaseAgreementDocumentData(ExtractedLeaseFieldValue):
@@ -62,11 +55,10 @@ class LeaseAgreement(BaseModel):
     lease_id: Optional[str] = None
     original_documents: list[str] = []
     markdown_documents: list[str] = []
-    fields: dict[str, List[UnityCatalogDocumentData]] | dict[str, List[LeaseAgreementDocumentData]]
+    fields: dict[str, List[LeaseAgreementDocumentData]]
 
 
 class DocumentData(BaseModel):
     id: str = Field(..., alias='_id')
     lease_config_hash: str
-    leases_from_structured_data: list[LeaseAgreement]
-    leases_from_unstructured_data: list[LeaseAgreement]
+    unstructured_data: list[LeaseAgreement]
