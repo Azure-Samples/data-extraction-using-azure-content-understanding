@@ -10,8 +10,8 @@ local:
       type: "secret"
     configuration_collection_name:
       value: "Configurations"
-    leases_collection_name:
-      value: "Lease_Documents"
+    document_collection_name:
+      value: "Documents"
   llm:
     model_name:
       value: "gpt-4o"
@@ -24,7 +24,7 @@ local:
       value: "2025-04-01-preview"
   content_understanding:
     endpoint:
-      value: "https://ai-services-mfmezur1.services.ai.azure.com/"
+      value: "https://data-extraction-test.services.ai.azure.com/"
     subscription_key:
       key: "ai-foundry-key"
       type: "secret"
@@ -71,8 +71,8 @@ dev:
       type: "secret"
     configuration_collection_name:
       value: "Configurations"
-    leases_collection_name:
-      value: "Lease_Documents"
+    document_collection_name:
+      value: "Documents"
   llm:
     model_name:
       value: "gpt-4o"

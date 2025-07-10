@@ -128,7 +128,7 @@ class HealthCheckController:
             database_name = self.config.cosmosdb.db_name.value
 
             test_collections = [self.config.cosmosdb.configuration_collection_name.value,
-                                self.config.cosmosdb.leases_collection_name.value]
+                                self.config.cosmosdb.document_collection_name.value]
 
             for collection_name in test_collections:
                 if not client.collection_exists(database_name, collection_name):

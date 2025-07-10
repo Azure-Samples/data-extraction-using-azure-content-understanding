@@ -16,6 +16,5 @@
             ],
             "analyzer_id": "test-analyzer"
         }
-    ],
-    "extraction_config_hash": "<sha256-hash-of-extraction-configs>"
+    ]
 }

@@ -566,7 +566,7 @@ class IngestionSiteLeaseService(object):
         container_client = get_container_client(environment_config)
         site_audit_collection = cosmos_client.get_collection(
             environment_config.cosmosdb.db_name.value,
-            environment_config.cosmosdb.leases_collection_name.value
+            environment_config.cosmosdb.document_collection_name.value
         )
         mongo_lock_manager = MongoLockManager(
             site_audit_collection,

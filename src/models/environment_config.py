@@ -36,7 +36,7 @@ class CosmosDbConfig(BaseModel):
     db_name: ConfigurationValue
     endpoint: ConfigurationValue
     configuration_collection_name: ConfigurationValue
-    leases_collection_name: ConfigurationValue
+    document_collection_name: ConfigurationValue
 
 
 class LLMConfig(BaseModel):

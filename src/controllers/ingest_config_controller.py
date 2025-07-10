@@ -18,6 +18,7 @@ from utils.document_utils import build_config_id
 class AnalyzerConstants:
     ANALYZER_TEMPLATE_ID: str = "document-2024-12-01"
     ANALYZER_SCENARIO: str = "document"
+    BASE_ANALYZER_ID: str = "prebuilt-documentAnalyzer"  # Base analyzer for document scenarios
 
 
 class IngestConfigController(object):
@@ -107,6 +108,7 @@ class IngestConfigController(object):
                 raise HTTPError(f"Unsupported field type: {type(field)}", 400)
 
         return {
+            "baseAnalyzerId": AnalyzerConstants.BASE_ANALYZER_ID,
             "scenario": AnalyzerConstants.ANALYZER_SCENARIO,
             "tags": {
                 "projectId": project_id,
@@ -137,7 +139,6 @@ class IngestConfigController(object):
         """
         config_data: FieldDataCollectionConfig
         try:
-            logging.info(f"Parsing configuration for {name} version {version}... {config}" )
             config_data = FieldDataCollectionConfig(**config)
         except ValueError as ex:
             logging.error(f"Failed to parse configuration: {ex}")
@@ -249,6 +250,7 @@ class IngestConfigController(object):
 
             logging.info(f"Creating analyzer with ID: {analyzer_id}...")
             analyzer_template = self._build_analyzer_template(row, project_id)
+            logging.info(f"Analyzer template for {analyzer_id}: {analyzer_template}")
             resp = self._azure_content_understanding_client.begin_create_analyzer(
                 analyzer_id=analyzer_id,
                 analyzer_template=analyzer_template,
