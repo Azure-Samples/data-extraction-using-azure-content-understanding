@@ -1,0 +1,2 @@
+openai
+azure-ai-evaluation==1.0.0b5

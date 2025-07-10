@@ -1,0 +1,96 @@
+{
+	"_id" : "lesa_config-v0",
+	"name" : "lesa_config",
+	"version" : "v0",
+	"prompt" : "You are a helpful assistant that will use the tools necessary to get the site information given the site id that the user provides.",
+	"collection_rows" : [
+		{
+			"data_type" : "UnityCatalog",
+			"field_schema" : [
+				{
+					"name" : "Termination___Early_Termination_Fees",
+					"type" : "string",
+					"description" : "Termination - Early Termination Fees"
+				},
+				{
+					"name" : "Termination___Economic_Out",
+					"type" : "string",
+					"description" : "Termination - Economic Out"
+				},
+				{
+					"name" : "Termination___Economic_Out_Latest_Notice",
+					"type" : "string",
+					"description" : "Termination - Economic Out Latest Notice"
+				},
+				{
+					"name" : "Termination___LL_At_Will",
+					"type" : "string",
+					"description" : "Termination - LL At Will"
+				},
+				{
+					"name" : "Termination___LL_At_Will_Latest_Notice",
+					"type" : "string",
+					"description" : "Termination - LL At Will Latest Notice"
+				},
+				{
+					"name" : "Termination___Lost_License",
+					"type" : "string",
+					"description" : "Termination - Lost License"
+				},
+				{
+					"name" : "Termination___Lost_License_Latest_Notice",
+					"type" : "string",
+					"description" : "Termination - Lost License Latest Notice"
+				},
+				{
+					"name" : "Termination___Technological_Out",
+					"type" : "string",
+					"description" : "Termination - Technological Out"
+				},
+				{
+					"name" : "Termination___Tech_Out_Latest_Notice",
+					"type" : "string",
+					"description" : "Termination - Tech Out Latest Notice"
+				},
+				{
+					"name" : "Termination___Tenant_Sole_Discretion",
+					"type" : "string",
+					"description" : "Termination - Tenant Sole Discretion"
+				},
+				{
+					"name" : "Termination___Tenant_Sole_Discretion_Latest_Notice",
+					"type" : "string",
+					"description" : "Termination - Tenant Sole Discretion Latest Notice"
+				},
+				{
+					"name" : "Termination___Rent_Lock_In_Date",
+					"type" : "string",
+					"description" : "Termination - Rent Lock-In Date"
+				},
+				{
+					"name" : "Termination___Notes",
+					"type" : "string",
+					"description" : "Termination - Notes"
+				},
+				{
+					"name" : "Termination___Waived",
+					"type" : "string",
+					"description" : "Termination - Waived"
+				},
+				{
+					"name" : "Termination___Waived_Date",
+					"type" : "string",
+					"description" : "Termination - Waived Date"
+				},
+				{
+					"name": "Lease_No",
+					"type": "integer",
+					"description": "Lease number"
+				}
+			],
+            "partition_key": "Lease_No",
+			"catalog" : "enterprisedatamesh",
+			"query" : "SELECT `Termination___Early_Termination_Fees`, `Termination___Economic_Out`, `Termination___Economic_Out_Latest_Notice`, `Termination___LL_At_Will`, `Termination___LL_At_Will_Latest_Notice`, `Termination___Lost_License`, `Termination___Lost_License_Latest_Notice`, `Termination___Technological_Out`, `Termination___Tech_Out_Latest_Notice`, `Termination___Tenant_Sole_Discretion`, `Termination___Tenant_Sole_Discretion_Latest_Notice`, `Termination___Rent_Lock_In_Date`, `Termination___Notes`, `Termination___Waived`, `Termination___Waived_Date`, `Lease_No` FROM leasereportstorage.key_clauses WHERE Site_No = :site_id"
+		}
+	]
+}

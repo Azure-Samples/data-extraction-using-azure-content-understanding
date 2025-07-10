@@ -1,0 +1,88 @@
+@ANALYZER_NAME = "lesa-analyzer-v1"
+@AZURE_AI_SERVICE_ENDPOINT = "https://ai-qtmnpelesahub831172975553.services.ai.azure.com/"
+@AZURE_AI_SERVICE_KEY = ""
+
+@API_VERSION = "2025-05-01-preview"
+
+@CLASSIFIER_ID = "LesaClassifier"
+
+### Create a new analyzer
+# @name createAnalyzer
+curl -i -X PUT "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/analyzers/{{ANALYZER_NAME}}?api-version={{API_VERSION}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}" \
+  -H "Content-Type: application/json" \
+  -d @schema.json
+
+### Get an existing analyzer
+# @name getAnalyzer
+curl -i -X GET "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/analyzers/{{ANALYZER_NAME}}?api-version={{API_VERSION}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}" \
+  -H "Content-Type: application/json"
+
+### Get all analyzers
+# @name getAllAnalyzer
+curl -i -X GET "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/analyzers?api-version={{API_VERSION}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}" \
+  -H "Content-Type: application/json"
+
+### Delete an analyzer
+# @name deleteAnalyzer
+curl -i -X DELETE "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/analyzers/{{ANALYZER_NAME}}?api-version={{API_VERSION}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}" \
+
+### Get Status of Analyzer Creation Request
+# @name getAnalyzerStatus
+curl -i -X GET "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/analyzers/{{ANALYZER_NAME}}/operations/{{request_id}}?api-version={{API_VERSION}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}" \
+
+### Submit analysis request
+# @name postAnalyzer
+curl -i -X POST "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/analyzers/{{ANALYZER_NAME}}:analyze?api-version={{API_VERSION}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}" \
+  -H "Content-Type: application/octet-stream" \
+  -d @1BL8835A_LSE_CELLSITE_20230814.pdf
+
+@operation_location = {{postAnalyzer.response.headers.Operation-Location}}
+
+### Get operation status/result dynamically
+# @name getOperationStatus
+curl -i -X GET "{{operation_location}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}"
+
+### Create a classifier
+# @name createClassifier
+curl -i -X PUT "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/classifiers/{{CLASSIFIER_ID}}?api-version={{API_VERSION}}"
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}"
+  -d @classifier.json
+
+### Get a classifier
+# @name getClassifier
+curl -i -X GET {{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/classifiers/{{CLASSIFIER_ID}}?api-version=2025-05-01-preview
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}"
+
+
+### List all classifier
+# @name getAllClassifier
+curl -i -X GET {{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/classifiers?api-version=2025-05-01-preview
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}"
+
+
+### Delete Classifier
+# @name deleteClassifier
+curl -i -X DELETE "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/classifiers/{{CLASSIFIER_ID}}?api-version=2025-05-01-preview"
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}"
+
+
+### Submit analysis request - @4BG0525A_LSE_CELLSITE_20180920-L700.pdf 1BL8835A_LSE_CELLSITE_20230814.pdf
+# @name postClassifier
+curl -i -X POST "{{AZURE_AI_SERVICE_ENDPOINT}}/contentunderstanding/classifiers/{{CLASSIFIER_ID}}:classify?api-version=2025-05-01-preview"
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}" \
+  -H "Content-Type: application/octet-stream" \
+  -d @DN01656C_LSE_OCELLSITE_20180524.pdf.pdf
+
+@classifier_operation_location = {{postClassifier.response.headers.Operation-Location}}
+
+### Get operation status/result dynamically
+# @name getClassifierOperationStatus
+curl -i -X GET "{{classifier_operation_location}}" \
+  -H "Ocp-Apim-Subscription-Key: {{AZURE_AI_SERVICE_KEY}}"

@@ -1,0 +1,13 @@
+inputs:
+  query:
+    type: string
+  response:
+    type: string
+  ground_truth:
+    type: string
+init:
+  model_config:
+    type: object
+entry: _correctness:QACorrectnessEvaluator
+environment:
+  python_requirements_txt: requirements.txt

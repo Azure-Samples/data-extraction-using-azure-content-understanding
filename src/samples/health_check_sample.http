@@ -1,0 +1,18 @@
+@AZURE_FUNCTIONS_ENDPOINT_DEV = "https://qtmnpelesaeufa0.azurewebsites.net/api"
+
+@AZURE_FUNCTIONS_ENDPOINT_LOCAL = "http://localhost:7071/api"
+
+### Send a request to the LESA /query endpoint for dev
+# @name getHealthDev
+curl -i -X GET "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/v1/health?x-ms-routing-name=dev" \
+  -H "Content-Type: application/json"
+
+echo {{getHealthDev.response}}
+
+
+### Send a request to the LESA /query endpoint local
+# @name getHealthLocal
+curl -i -X GET "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/v1/health" \
+  -H "Content-Type: application/json" 
+
+echo {{getHealthLocal.response}}

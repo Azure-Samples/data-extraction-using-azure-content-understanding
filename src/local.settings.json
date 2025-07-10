@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "PYTHON_ENABLE_DEBUG_LOGGING": "1",
+    "ENVIRONMENT": "local"
+  }
+}

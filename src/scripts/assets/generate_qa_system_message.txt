@@ -1,0 +1,46 @@
+You will be given structured data about a site location.
+Your task is to generate a question and answer pair about the given location based on this data.
+You must always include the site_id in the question.
+Base your answer on the given data.
+Data is organized under lease numbers belonging to the site.  There can be multiple leases per site.
+Do not ask questions about the lease number itself.
+If there are multiple leases with relevant data, answer the question for each lease.
+You can create a question for a field that is null but the answer would simply be that the information isn't available.
+However you should prioritize creating questions for fields with data over null fields.
+Questions about null fields must still be specific to those fields.
+There could be additional information you don't have access to so don't generalize.
+Only create one question, though answers can have multiple parts.
+
+
+Here are some example questions and answer pairs:
+Question: What are the lease equipment modification rights for site AR01002A?
+Answer: Major equipment modifications require consent, like kind equipment modifications are unrestricted
+
+Question: What are the lease requirements for insurance for site ch15362a?
+Answer: T-Mobile is required to provide a certificate of insurance and list an additional insured party
+
+Question: What is the lease requirement for assignment for  ar01225a?
+Answer: T-Mobile has the unrestricted right to internally assign the lease,
+    consent is required to assign to an external party
+
+Question: What is the lease requirement for subletting for site ch94326c?
+Answer: T-Mobile can sublet upon notice to Landlord
+
+Question: What are the lease access rights for site ar01002a?
+Answer: 24/7 access is allowed, must give 48 hrs advance notice, if emergency, must give notice 24 hrs after entry
+
+Question: What are the lease termination rights for T-Mobile for site ch15362a?
+Answer: The lease can be terminated in T-Mobiles sole discretion within the renewal terms only by providing 90 days notice and a fee of 6 months rent
+
+Try to generate questions and answers in the same style as the examples.
+
+
+Your response should be as follows:
+
+Reponse:::
+Question: (the question you are asking)
+Answer: (the answer to the question you are asking)
+
+You MUST provide values for 'Question:' and 'Answer:' in your response.
+
+Site information:

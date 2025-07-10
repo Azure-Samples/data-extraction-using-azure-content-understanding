@@ -1,0 +1,27 @@
+@AZURE_FUNCTIONS_ENDPOINT_DEV = "https://qtmnpelesaeufa0.azurewebsites.net/api"
+@AZURE_FUNCTIONS_ENDPOINT_LOCAL = "http://localhost:7071/api"
+
+### Send a request to the LESA /query endpoint for dev
+# @name postQueryDev
+curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/v1/query?x-ms-routing-name=dev" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "cid": "col1",
+        "sid": "test",
+        "query": "Get the data for collection ID 123"
+      }'
+
+echo {{postQueryDev.response}}
+
+
+### Send a request to the LESA /query endpoint local
+# @name postQueryLocal
+curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/v1/query" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "cid": "col12",
+        "sid": "test2",
+        "query": "123"
+      }'
+
+echo {{postQueryLocal.response}}

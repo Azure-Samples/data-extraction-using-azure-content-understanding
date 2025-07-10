@@ -1,0 +1,21 @@
+@AZURE_FUNCTIONS_ENDPOINT_DEV = "https://qtmnpelesaeufa0.azurewebsites.net/api"
+@AZURE_FUNCTIONS_ENDPOINT_LOCAL = "http://localhost:7071/api"
+
+@CONFIG_NAME = "document-extraction"
+@CONFIG_VERSION = "v1.0"
+### Send a request to the LESA /config endpoint for dev
+# @name putConfigDev
+curl -i -X PUT "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/configs/{{CONFIG_NAME}}/versions/{{CONFIG_VERSION}}?x-ms-routing-name=dev" \
+  -H "Content-Type: application/json" \
+  -d @../../configs/document-extraction-v1.0.json
+
+echo {{putConfigDev.response}}
+
+
+### Send a request to the LESA /config endpoint local
+# @name putConfigLocal
+curl -i -X PUT "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/configs/{{CONFIG_NAME}}/versions/{{CONFIG_VERSION}}" \
+  -H "Content-Type: application/json" \
+  -d @../../configs/document-extraction-v1.0.json
+
+echo {{putConfigLocal.response}}

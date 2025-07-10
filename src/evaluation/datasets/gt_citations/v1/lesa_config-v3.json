@@ -1,0 +1,421 @@
+{
+	"_id" : "lesa_config-v3",
+	"name" : "lesa_config",
+	"version" : "v3",
+	"prompt" : "You are a helpful assistant tasked with using the necessary tools to retrieve site information based on the site ID provided by the user. You MUST include details for each lease and ensure that the Usage Type is included in every response only if there are multiple leases numbers. Even for follow-up questions, always include details for each lease and ensure that the Usage Type is included only if there are multiple leases numbers. The Rent Amount is always annual rate. If the user requests a \"file audit\" return the data gathered for the site. Provide clear, concise answers focused specifically on the user's query about lease information.\n\nMake sure to provide citations if you use information from the **unstructured lease data** provided in the context, and include the citation number inline at the end of the sentence, e.g. [1]. Return the citations in the format [[\"source_document\", \"source_bounding_boxes\"], ...]. You MUST include both the document path and the bounding box information for each citation in this. Include a single entry for each unstructured data field that you reference when answering the user query, in the order in which they are referenced in your response; do not include duplicate citations for the same field. Do not split up or combine any of the source bounding box strings when generating the citations - return each one exactly as it is provided in the context. Always include the inline citation number in the response text, e.g., 'These stipulations come from the lease documentation for CH75442D [1]. Only provide citations if the answer comes from `leases_from_unstructured_data`. Do not provide citations if the answer is coming from `leases_from_structured_data`. And only provide citations if the citation is directly related to the answer.",
+	"lease_config_hash" : "a9097a8b66955d3b7e0b5f28024e5e693e889cb95eef0eb1628857c14203bde8",
+	"collection_rows" : [
+		{
+			"data_type" : "UnityCatalog",
+			"field_schema" : [
+				{
+					"name" : "Lease_No",
+					"type" : "integer",
+					"description" : "Lease number"
+				},
+				{
+					"name" : "Lease",
+					"type" : "integer",
+					"description" : "Lease number"
+				},
+				{
+					"name" : "Usage_Type",
+					"type" : "string",
+					"description" : "Structure/Cell Site/Ground"
+				},
+				{
+					"name" : "Access___24_or_7",
+					"type" : "string",
+					"description" : "24-hours-a-day, 7-days-a-week access details. eg.\"Tenant shall have 24-hours-a-day, 7-days-a-week access to the Premises at all times\", \"\"LL shall provide access to Lessee during the hours of 8am to 8pm, Monday through Friday\""
+				},
+				{
+					"name" : "Access___Conditions",
+					"type" : "string",
+					"description" : "Any conditions related to accessing the premises. Abstract specific times to access Premises as stated in agreement or if notice or consent are required prior to entry."
+				},
+				{
+					"name" : "Access___Notes",
+					"type" : "string",
+					"description" : "Access - Notes"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Fees",
+					"type" : "string",
+					"description" : "Fees details if tenant is required to pay a fee to leaser as part of processing and/or obtaining consent for assignment"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Consent_Fee",
+					"type" : "string",
+					"description" : "Assignment & Subletting - Consent Fee"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Process_Fee",
+					"type" : "string",
+					"description" : "Assignment & Subletting - Process Fee"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Internal_Assignment",
+					"type" : "string",
+					"description" : "Details on notice or consent requirements that are defined in order to transfer the property internally to entities such as subsidiaries, affiliates, parent companies"
+				},
+				{
+					"name" : "Assignment_&_Subletting___External_Assignment_Non_Cell_Co",
+					"type" : "string",
+					"description" : "Details on notice or consent requirement defined in order to transfer the property to external companies not in the cellular business"
+				},
+				{
+					"name" : "Assignment_&_Subletting___External_Assignment_Cell_Co",
+					"type" : "string",
+					"description" : "Details on notice or consent requirements defined in order to transfer the property to external companies in the cellular business"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Sublease_Rights",
+					"type" : "string",
+					"description" : "Details or conditions if the tenant sublets all or part of leased Premises or space on the tower"
+				},
+				{
+					"name" : "Assignment_&_Subletting___LL_Req_Separate_Ground_Lease",
+					"type" : "string",
+					"description" : "Assignment & Subletting - LL Req Separate Ground Lease"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Sublease_Revenue_Sharing",
+					"type" : "string",
+					"description" : "Assignment & Subletting - Sublease Revenue Sharing"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Revenue_Sharing_Percent",
+					"type" : "string",
+					"description" : "Assignment & Subletting - Revenue Sharing %"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Revenue_Sharing_Fixed_Amount",
+					"type" : "string",
+					"description" : "Assignment & Subletting - Revenue Sharing Fixed"
+				},
+				{
+					"name" : "Assignment_&_Subletting___Notes",
+					"type" : "string",
+					"description" : "Assignment & Subletting - Notes"
+				},
+				{
+					"name" : "Equipment_Modifications___Like_Kind_Swap",
+					"type" : "string",
+					"description" : "Details on whether tenant is allowed to swap similar/like kind equipments on the leased site. eg\"TT shall have the right to replace or upgrade the Antenna Facilities at any time during the terms of the lease…\".,Prior to making any changes or modifications to such equipment, TT shall submit plans for approval by LL…\"."
+				},
+				{
+					"name" : "Equipment_Modifications___Like_Kind_Fee_or_Increase",
+					"type" : "string",
+					"description" : "Equipment Modifications - Like-Kind Fee/Increase"
+				},
+				{
+					"name" : "Equipment_Modifications___Major_Change",
+					"type" : "string",
+					"description" : "Complete details regarding tenant rights to make major modifications to the equipments such as antennas etc. eg. \"TT shall have the right to replace or upgrade the Antenna Facilities at any time during the terms of the lease…\"., Prior to making any changes or modifications to such equipment, tenant shall submit plans for approval by landlord…\"."
+				},
+				{
+					"name" : "Equipment_Modifications___Major_Change_Fee_or_Increase",
+					"type" : "string",
+					"description" : "Fees if any modifications need to be made to equipment, antennas in the leased space"
+				},
+				{
+					"name" : "Equipment_Modifications___Notes",
+					"type" : "string",
+					"description" : "Equipment Modifications - Notes"
+				},
+				{
+					"name" : "Insurance___Certificate_of_Insurance",
+					"type" : "string",
+					"description" : "Details on whether tenant is required to submit an insurance certificate or proof of insurance. eg \"Lessee agrees to furnish Lessor with Certificates of Insurance within 30 days …\"."
+				},
+				{
+					"name" : "Insurance___Additional_Insured",
+					"type" : "string",
+					"description" : "Details on whether an additional insured required to be listed on tenant's insurance policy. eg. \"…. will name Lessor as an additional insured...\"."
+				},
+				{
+					"name" : "Insurance___Notes",
+					"type" : "string",
+					"description" : "Insurance - Notes"
+				},
+				{
+					"name" : "Termination___Early_Termination_Fee_Available",
+					"type" : "string",
+					"description" : "Termination - Early Termination Fee Available"
+				},
+				{
+					"name" : "Termination___Early_Termination_Fees",
+					"type" : "string",
+					"description" : "Termination - Early Termination Fees"
+				},
+				{
+					"name" : "Termination___Economic_Out",
+					"type" : "string",
+					"description" : "Text that describes lease termination rights for tenant for economic reasons. eg \"\"If TT determines that the Premises are not appropriate for its operations for economic reasons…\", \"If TT determines in the first 12 months following the commencement date that the Premises are not appropriate for its operations for economic reasons...\"."
+				},
+				{
+					"name" : "Termination___Economic_Out_Latest_Notice",
+					"type" : "string",
+					"description" : "Details regarding how many days/months/years notice is to be given to lease landlord"
+				},
+				{
+					"name" : "Termination___LL_At_Will",
+					"type" : "string",
+					"description" : "Describes whether landlord has right to terminate at their sole discretion. eg\"LL shall have the right to terminate Lease at anytime for its sole convenience upon 180 days written notice…\"."
+				},
+				{
+					"name" : "Termination___LL_At_Will_Latest_Notice",
+					"type" : "string",
+					"description" : "Details on how much notice the landlord needs to provide if they want to terminate the lease"
+				},
+				{
+					"name" : "Termination___Lost_License",
+					"type" : "string",
+					"description" : "Details on tenant rights to terminate agreement if government issued license to operate is lost or revoked. eg \"unable to obtain, maintain… any license, permit or government approval…\"."
+				},
+				{
+					"name" : "Termination___Lost_License_Latest_Notice",
+					"type" : "string",
+					"description" : "if the tenant terminates due to lost license, how much notice does tenant need to provide"
+				},
+				{
+					"name" : "Termination___Technological_Out",
+					"type" : "string",
+					"description" : "Details on tenant right to terminate due to technological reasons. eg. \"unacceptable under TT's design or engineering specs\" or \"technological reasons\". eg \"If TT determines in the first 12 months following the commencement date that the Premises are not appropriate for its operations for technological reasons...\"."
+				},
+				{
+					"name" : "Termination___Tech_Out_Latest_Notice",
+					"type" : "string",
+					"description" : "Notice time required for tenant right to terminate due to technological reasons. eg. \"unacceptable under TT's design or engineering specs\" or \"technological reasons\". eg \"If TT determines in the first 12 months following the commencement date that the Premises are not appropriate for its operations for technological reasons...\"."
+				},
+				{
+					"name" : "Termination___Tenant_Sole_Discretion",
+					"type" : "string",
+					"description" : "Details on tenant right to terminate without requiring any reason/cause. eg \"If TT in its sole discretion determines to discontinue use of the site for any reason whatsoever…\"., If TT in its sole discretion determines to discontinue use of the site for any reason in the first 12 months following the commencement date…\"."
+				},
+				{
+					"name" : "Termination___Tenant_Sole_Discretion_Latest_Notice",
+					"type" : "string",
+					"description" : "Notice time required to terminate without requiring any reason/cause. eg \"If TT in its sole discretion determines to discontinue use of the site for any reason whatsoever…\"., If TT in its sole discretion determines to discontinue use of the site for any reason in the first 12 months following the commencement date…\"."
+				},
+				{
+					"name" : "Termination___Rent_Lock_In_Date",
+					"type" : "string",
+					"description" : "Rent rate owed if tenant remains on site past NNR or termination date. eg. \"If the Licensee Facilities are not removed within 60 days, Licensee shall pay Licensor, holdover fee/rent equal to 150% of the regular License Fee due under the agreement\""
+				},
+				{
+					"name" : "Termination___Notes",
+					"type" : "string",
+					"description" : "Termination - Notes"
+				},
+				{
+					"name" : "Termination___Waived",
+					"type" : "string",
+					"description" : "Termination - Waived"
+				},
+				{
+					"name" : "Termination___Waived_Date",
+					"type" : "string",
+					"description" : "Termination - Waived Date"
+				}
+			],
+			"catalog" : "enterprisedatamesh",
+			"query" : "SELECT `Lease_No`, `Usage_Type`, `Access___24_or_7`, `Access___Conditions`, `Access___Notes`, `Assignment_&_Subletting___Fees`, `Assignment_&_Subletting___Consent_Fee`, `Assignment_&_Subletting___Process_Fee`, `Assignment_&_Subletting___Internal_Assignment`, `Assignment_&_Subletting___External_Assignment_Non_Cell_Co`, `Assignment_&_Subletting___External_Assignment_Cell_Co`, `Assignment_&_Subletting___Sublease_Rights`, `Assignment_&_Subletting___LL_Req_Separate_Ground_Lease`, `Assignment_&_Subletting___Sublease_Revenue_Sharing`, `Assignment_&_Subletting___Revenue_Sharing_Percent`, `Assignment_&_Subletting___Revenue_Sharing_Fixed_Amount`, `Assignment_&_Subletting___Notes`, `Equipment_Modifications___Like_Kind_Swap`, `Equipment_Modifications___Like_Kind_Fee_or_Increase`, `Equipment_Modifications___Major_Change`, `Equipment_Modifications___Major_Change_Fee_or_Increase`, `Equipment_Modifications___Notes`, `Insurance___Certificate_of_Insurance`, `Insurance___Additional_Insured`, `Insurance___Notes`, `Termination___Early_Termination_Fee_Available`, `Termination___Early_Termination_Fees`, `Termination___Economic_Out`, `Termination___Economic_Out_Latest_Notice`, `Termination___LL_At_Will`, `Termination___LL_At_Will_Latest_Notice`, `Termination___Lost_License`, `Termination___Lost_License_Latest_Notice`, `Termination___Technological_Out`, `Termination___Tech_Out_Latest_Notice`, `Termination___Tenant_Sole_Discretion`, `Termination___Tenant_Sole_Discretion_Latest_Notice`, `Termination___Rent_Lock_In_Date`, `Termination___Notes`, `Termination___Waived`, `Termination___Waived_Date` FROM leasereportstorage.key_clauses kc JOIN leasereportstorage.all_active aa ON kc.Site_No = aa.Site AND kc.Lease_No = aa.Lease WHERE UPPER(Site_No) = UPPER(:site_id)",
+			"partition_key" : "Lease_No"
+		},
+		{
+			"data_type" : "UnityCatalog",
+			"field_schema" : [
+				{
+					"name" : "Lease",
+					"type" : "integer",
+					"description" : "Lease number"
+				},
+				{
+					"name" : "Status",
+					"type" : "string",
+					"description" : "Status"
+				},
+				{
+					"name" : "Type",
+					"type" : "string",
+					"description" : "Type"
+				},
+				{
+					"name" : "Holdover_End_Date",
+					"type" : "string",
+					"description" : "Holdover End Date"
+				},
+				{
+					"name" : "Current_Term_Start_Date",
+					"type" : "string",
+					"description" : "Current Term Start Date"
+				},
+				{
+					"name" : "Current_Term_End_Date",
+					"type" : "string",
+					"description" : "Current Term End Date"
+				},
+				{
+					"name" : "Commencement_Date",
+					"type" : "string",
+					"description" : "Commencement Date"
+				},
+				{
+					"name" : "Final_Lease_End_Date",
+					"type" : "string",
+					"description" : "Final Lease End Date"
+				},
+				{
+					"name" : "Starting_Rent_Amount",
+					"type" : "string",
+					"description" : "Starting Rent Amount"
+				},
+				{
+					"name" : "Current_Rent_Amount",
+					"type" : "string",
+					"description" : "Current Rent Amount"
+				},
+				{
+					"name" : "Payee",
+					"type" : "string",
+					"description" : "Payee"
+				},
+				{
+					"name" : "Increase_Percent",
+					"type" : "string",
+					"description" : "Increase Percent"
+				},
+				{
+					"name" : "Increase_Interval",
+					"type" : "string",
+					"description" : "Increase Interval"
+				},
+				{
+					"name" : "Next_Increase_Date",
+					"type" : "string",
+					"description" : "Next Increase Date"
+				},
+				{
+					"name" : "Holdover_Rate",
+					"type" : "string",
+					"description" : "Holdover Rate"
+				},
+				{
+					"name" : "Renewal_Option_Type",
+					"type" : "string",
+					"description" : "Renewal Option Type"
+				},
+				{
+					"name" : "Latest_Date",
+					"type" : "string",
+					"description" : "Latest Date"
+				},
+				{
+					"name" : "Latest_Notice",
+					"type" : "string",
+					"description" : "Latest Notice"
+				},
+				{
+					"name" : "Lease_Vendor",
+					"type" : "string",
+					"description" : "Lease Vendor"
+				},
+				{
+					"name" : "Lease_Vendor_Role",
+					"type" : "string",
+					"description" : "Lease Vendor Role"
+				},
+				{
+					"name" : "Structure_Vendor",
+					"type" : "string",
+					"description" : "Structure Vendor"
+				},
+				{
+					"name" : "Structure_Vendor_Role",
+					"type" : "string",
+					"description" : "Structure Vendor Role"
+				},
+				{
+					"name" : "On-Air_Date",
+					"type" : "string",
+					"description" : "On Air Date"
+				},
+				{
+					"name" : "Site_Name",
+					"type" : "string",
+					"description" : "Site Name"
+				},
+				{
+					"name" : "Site_Type",
+					"type" : "string",
+					"description" : "Site Type"
+				},
+				{
+					"name" : "Site_Class",
+					"type" : "string",
+					"description" : "Site Class"
+				},
+				{
+					"name" : "Site_Address",
+					"type" : "string",
+					"description" : "Site Address"
+				},
+				{
+					"name" : "Site_City",
+					"type" : "string",
+					"description" : "Site City"
+				},
+				{
+					"name" : "Site_State",
+					"type" : "string",
+					"description" : "Site State"
+				},
+				{
+					"name" : "Site_Zip",
+					"type" : "string",
+					"description" : "Site Zip"
+				},
+				{
+					"name" : "Rent_Frequency",
+					"type" : "string",
+					"description" : "Rent Frequency"
+				}
+			],
+			"catalog" : "enterprisedatamesh",
+			"query" : "SELECT `Lease`, `Status`, `Type`, `Holdover_End_Date`, `Current_Term_Start_Date`, `Current_Term_End_Date`, `Commencement_Date`, `Final_Lease_End_Date`, `Starting_Rent_Amount`, `Current_Rent_Amount`, `Payee`, `Increase_Percent`, `Increase_Interval`, `Next_Increase_Date`, `Holdover_Rate`, `Renewal_Option_Type`, `Latest_Date`, `Latest_Notice`, `Lease_Vendor`, `Lease_Vendor_Role`, `Structure_Vendor`, `Structure_Vendor_Role`, `On-Air_Date`, `Site_Name`, `Site_Type`, `Site_Class`, `Site_Address`, `Site_City`, `Site_State`, `Site_Zip`, Frequency as `Rent_Frequency` FROM leasereportstorage.all_active WHERE UPPER(Site) = UPPER(:site_id)",
+			"partition_key" : "Lease"
+		},
+		{
+			"data_type" : "LeaseAgreement",
+			"field_schema" : [
+				{
+					"name" : "access",
+					"type" : "string",
+					"description" : "Text describing what kind of access tenant has on the premise."
+				},
+				{
+					"name" : "assignment_subletting",
+					"type" : "string",
+					"description" : "Extract all text or paragraphs related to assignment, subletting, or subleasing. This information is typically found under the 'Assignment' title or similar headings. Include any piece of text that discusses the conditions, permissions, fees, or any other relevant details about assignment, subletting, or subleasing."
+				},
+				{
+					"name" : "equipment_modification_rights",
+					"type" : "string",
+					"description" : "Text related to tenant equipment modification rights. For example, if like-kind swaps or major modifications are allowed and any associated fees. It can often be found in a section related to Permitted Uses."
+				},
+				{
+					"name" : "insurance",
+					"type" : "string",
+					"description" : "Text related to tenant insurance requirements. Specifically whether proof or certificate of insurance must be provided to the landlord, and whether the landlord must be named as an additional insured"
+				},
+				{
+					"name" : "termination",
+					"type" : "string",
+					"description" : "Text related to termination rights of the tenant, such as early termination fees, reasons allowed for termination, and notice requirements."
+				}
+			],
+			"analyzer_id" : "lesa-analyzer-dev"
+		}
+	]
+}

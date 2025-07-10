@@ -1,0 +1,15 @@
+local:
+  api:
+    base_url: "http://localhost:7071"
+    query_params: {}
+  
+dev:
+  api:
+    base_url: "https://qtmnpelesaeufa0.azurewebsites.net"
+    query_params:
+      x-ms-routing-name: "dev"
+
+uat:
+  api:
+    base_url: "https://qtmnpelesaeufa0.azurewebsites.net"
+    query_params: {}

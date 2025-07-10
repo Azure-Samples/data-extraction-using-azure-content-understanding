@@ -1,0 +1,128 @@
+local:
+  key_vault_uri: "https://kv-data-extract-mfmezur1.vault.azure.net/"
+  tenant_id: "16b3c013-d300-468d-ac64-7eda0820b6d3"
+  user_managed_identity: {}
+  cosmosdb:
+    db_name:
+      value: "documents"
+    endpoint:
+      key: "cosmosdb-connection-string"
+      type: "secret"
+    configuration_collection_name:
+      value: "Configurations"
+    leases_collection_name:
+      value: "Lease_Documents"
+  llm:
+    model_name:
+      value: "gpt-4o"
+    endpoint:
+      value: "https://qtmnpegenaiwu3apim0.azure-api.net/gpt-4o-nkc/openai/deployments/gpt-4o-nkc"
+    access_key:
+      key: "open-ai-key"
+      type: "secret"
+    api_version:
+      value: "2025-04-01-preview"
+  content_understanding:
+    endpoint:
+      value: "https://ai-services-mfmezur1.services.ai.azure.com/"
+    subscription_key:
+      key: "ai-foundry-key"
+      type: "secret"
+    request_timeout:
+      value: 30
+    project_id:
+      value: "e82d2a22-e16e-4ae3-9a8c-c750d672c3f7"
+  default_ingest_config:
+    name:
+      value: document-extraction
+    version:
+      value: v1.0
+  chat_history:
+    endpoint:
+      value: "https://qtmnpegenaiwu2cosdb0.documents.azure.com:443/"
+    db_name:
+      value: "knowledge-base-db"
+    chat_history_container_name:
+      value: "chat-history-npe"
+    user_message_limit:
+      value: 20
+    domain:
+      value: "Leasing AI"
+    subdomain:
+      value: ""
+  blob_storage:
+    account_url:
+      value: "https://qtmnpegenaiwu2sa0.blob.core.windows.net/"
+    container_name:
+      value: "leasing"
+
+
+dev:
+  key_vault_uri: "https://qtmnpelesaeukv0.vault.azure.net/"
+  tenant_id: "be0f980b-dd99-4b19-bd7b-bc71a09b026c"
+  user_managed_identity:
+    client_id:
+      value: "d4fd5faf-ba63-4981-93f4-43b9314c6bd1"
+  cosmosdb:
+    db_name:
+      value: "QTMGENAI"
+    endpoint:
+      key: "svc-tmo-usa-qtm-lesa-mongodb-connection-str"
+      type: "secret"
+    configuration_collection_name:
+      value: "Configurations"
+    leases_collection_name:
+      value: "Lease_Documents"
+  llm:
+    model_name:
+      value: "gpt-4o"
+    endpoint:
+      value: "https://qtmnpegenaiwu3apim0.azure-api.net/gpt-4o-nkc/openai/deployments/gpt-4o-nkc"
+    access_key:
+      key: "svc-tmo-usa-qtm-lesa-openai-gpt4o-nkc-apim-access-key"
+      type: "secret"
+    api_version:
+      value: "2025-04-01-preview"
+  content_understanding:
+    endpoint:
+      value: "https://ai-qtmnpelesahub831172975553.services.ai.azure.com/"
+    subscription_key:
+      key: "svc-tmo-usa-qtm-lesa-content-understanding-key"
+      type: "secret"
+    request_timeout:
+      value: 30
+    project_id:
+      value: "7ab85710-f781-408e-beaa-a45524b32122"
+  default_ingest_config:
+    name:
+      value: document-extraction
+    version:
+      value: v1.0
+  chat_history:
+    endpoint:
+      value: "https://qtmnpegenaiwu2cosdb0.documents.azure.com:443/"
+    db_name:
+      value: "knowledge-base-db"
+    chat_history_container_name:
+      value: "chat-history-npe"
+    user_message_limit:
+      value: 20
+    domain:
+      value: "Leasing AI"
+    subdomain:
+      value: ""
+  blob_storage:
+    account_url:
+      value: "https://qtmnpegenaiwu2sa0.blob.core.windows.net/"
+    container_name:
+      value: "leasing"
+
+
+# TODO: Update later
+# uat:
+#   user_managed_identity_client_id: ""
+#   ...
+#
+# prod:
+#   user_managed_identity_client_id: ""
+#   ...

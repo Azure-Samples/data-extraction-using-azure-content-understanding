@@ -1,0 +1,36 @@
+{
+	"_id" : "lesa_config-v0",
+	"name" : "lesa_config",
+	"version" : "v0",
+	"prompt" : "You are a helpful assistant that will use the tools necessary to get the site information given the site id that the user provides.",
+	"collection_rows" : [
+		{
+			"data_type" : "UnityCatalog",
+			"field_schema" : [
+				{
+					"name" : "Insurance___Certificate_of_Insurance",
+					"type" : "string",
+					"description" : "Insurance - Certificate of Insurance"
+				},
+				{
+					"name" : "Insurance___Additional_Insured",
+					"type" : "string",
+					"description" : "Insurance - Additional Insured"
+				},
+				{
+					"name" : "Insurance___Notes",
+					"type" : "string",
+					"description" : "Insurance - Notes"
+				},
+				{
+					"name": "Lease_No",
+					"type": "integer",
+					"description": "Lease number"
+				}
+			],
+            "partition_key": "Lease_No",
+			"catalog" : "enterprisedatamesh",
+			"query" : "SELECT `Insurance___Certificate_of_Insurance`, `Insurance___Additional_Insured`, `Insurance___Notes`, `Lease_No` FROM leasereportstorage.key_clauses WHERE Site_No = :site_id"
+		}
+	]
+}

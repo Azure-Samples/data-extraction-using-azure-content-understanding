@@ -1,0 +1,26 @@
+{
+  "description": "test-classifier",
+  "tags": {
+    "createdBy": "test.user1@t-mobile.com"
+  },
+  "splitMode": "auto",
+  "categories": {
+    "abstract" : {
+      "description": "Abstracts or cover sheet of legal documents"
+    },
+    "site_or_tower_lease_agreement": {
+      "description": "A legal contract governing the leasing or subleasing of tower or antenna sites or main site",
+      "analyzerId": "mahdi-analyzer-v3"
+    },
+    "prime_or_ground_lease_agreement": {
+      "description": "A legal contract governing the leasing or subleasing of ground or land or prime"
+    },
+    "prime_or_ground_lease_exhibit": {
+      "description": "Any exhibit for any prime or ground lease agreement"
+    },
+    "site_or_tower_lease_agreement_exhibit": {
+      "description": "any exhibit for lease or sublease of a site or tower",
+      "analyzerId": "mahdi-analyzer-v3"
+    }
+  }
+}

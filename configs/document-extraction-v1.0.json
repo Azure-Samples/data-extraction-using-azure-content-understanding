@@ -1,0 +1,21 @@
+{
+    "id": "document-extraction-v1.0",
+    "name": "document-extraction",
+    "version": "v1.0",
+    "prompt": "You are a helpful assistant tasked with using the necessary tools to retrieve document information based on the collection ID provided by the user.",
+    "collection_rows": [
+        {
+            "data_type": "LeaseAgreement",
+            "field_schema": [
+                {
+                    "name": "monthly_rent",
+                    "type": "integer",
+                    "description": "Monthly rent",
+                    "method": "extract"
+                }
+            ],
+            "analyzer_id": "test-analyzer"
+        }
+    ],
+    "extraction_config_hash": "<sha256-hash-of-extraction-configs>"
+}
