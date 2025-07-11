@@ -130,7 +130,7 @@ sequenceDiagram
     Azure Content Understanding -->> Doc Ingest Azure Function (Blob): Extracted fields (+ bounding boxes) and markdown format document
 
     Doc Ingest Azure Function (Blob) ->> Doc Ingest Azure Function (Blob): Result unification
-å
+
     Doc Ingest Azure Function (Blob) ->> CosmosDB: Store key-value results and bounding box locations in site audit document
 
     deactivate Doc Ingest Azure Function (Blob)
