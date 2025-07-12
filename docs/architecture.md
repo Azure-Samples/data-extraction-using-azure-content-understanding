@@ -87,7 +87,7 @@ A sample of the expected configuration format is shown below.
           "field_schema": [
               {
                   "name": "monthly_rent",
-                  "type": "number",
+                  "type": "integer",
                   "description": "Monthly rent",
                   "method": "extract"
               }
@@ -131,7 +131,7 @@ sequenceDiagram
 
     Doc Ingest Azure Function (Blob) ->> Doc Ingest Azure Function (Blob): Result unification
 
-    Doc Ingest Azure Function (Blob) ->> CosmosDB: Store key-value results and bounding box locations in site audit document
+    Doc Ingest Azure Function (Blob) ->> CosmosDB: Store key-value results and bounding box locations in document
 
     deactivate Doc Ingest Azure Function (Blob)
     %% end
