@@ -1,3 +1,4 @@
+import os
 import asyncio
 import json
 import logging
@@ -152,7 +153,9 @@ class HealthCheckController:
         try:
             # Cosmos container
             credentials = None
-            if self.config.user_managed_identity.client_id:
+            if os.environ.get("ENVIRONMENT") == "local" and self.config.user_managed_identity.client_id:
+                credentials = DefaultAzureCredential()
+            elif self.config.user_managed_identity.client_id:
                 credentials = ManagedIdentityCredential(
                     client_id=self.config.user_managed_identity.client_id.value
                 )

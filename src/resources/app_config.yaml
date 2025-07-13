@@ -1,10 +1,12 @@
 local:
-  key_vault_uri: "https://kv-data-extract-mfmezur1.vault.azure.net/"
+  key_vault_uri: "https://devdatext8wukv0.vault.azure.net/"
   tenant_id: "16b3c013-d300-468d-ac64-7eda0820b6d3"
-  user_managed_identity: {}
+  user_managed_identity:
+    client_id:
+      value: "149bef02-1ac5-4d8f-b496-7dead98a3d28"
   cosmosdb:
     db_name:
-      value: "documents"  # data-extraction-db
+      value: "data-extraction-db"
     endpoint:
       key: "cosmosdb-connection-string"
       type: "secret"
@@ -16,7 +18,7 @@ local:
     model_name:
       value: "gpt-4o"
     endpoint:
-      value: "https://westus.api.cognitive.microsoft.com/openai/deployments/gpt-4o-deployment"
+      value: "https://azure-cognitive-o4twr.openai.azure.com/openai/deployments/gpt-4o"
     access_key:
       key: "open-ai-key"
       type: "secret"
@@ -24,14 +26,14 @@ local:
       value: "2025-04-01-preview"
   content_understanding:
     endpoint:
-      value: "https://data-extraction-test.services.ai.azure.com/"
+      value: "https://devdatext8wuais0-cog-s36e.cognitiveservices.azure.com/"
     subscription_key:
       key: "ai-foundry-key"
       type: "secret"
     request_timeout:
       value: 30
     project_id:
-      value: "e82d2a22-e16e-4ae3-9a8c-c750d672c3f7"
+      value: "devdatext8Wu-rag-project-p029lx"
   default_ingest_config:
     name:
       value: document-extraction
@@ -39,7 +41,7 @@ local:
       value: v1.0
   chat_history:
     endpoint:
-      value: "https://cosmos-data-extraction-mfmezur1-history.documents.azure.com:443/"
+      value: "https://devdatext8wucosmoskb0.documents.azure.com:443/"
     db_name:
       value: "knowledge-base-db"
     chat_history_container_name:
@@ -50,7 +52,7 @@ local:
       value: "Data Extraction AI"
   blob_storage:
     account_url:
-      value: "https://qtmnpegenaiwu2sa0.blob.core.windows.net/"
+      value: "https://devdatext8wusa0.blob.core.windows.net/"
     container_name:
       value: "leasing"
 
@@ -60,7 +62,7 @@ dev:
   tenant_id: "be0f980b-dd99-4b19-bd7b-bc71a09b026c"
   user_managed_identity:
     client_id:
-      value: "d4fd5faf-ba63-4981-93f4-43b9314c6bd1"
+      value: "149bef02-1ac5-4d8f-b496-7dead98a3d28"
   cosmosdb:
     db_name:
       value: "QTMGENAI"
