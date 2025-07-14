@@ -6,6 +6,7 @@ from typing import List, Literal, Optional, Union
 
 class DataType(str, Enum):
     """Datatype of the source."""
+    UNITY_CATALOG = "UnityCatalog"
     LEASE_AGREEMENT = "LeaseAgreement"
 
 
