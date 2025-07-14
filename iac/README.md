@@ -81,7 +81,7 @@ terraform init
 Create your `terraform.tfvars` file:
 ```hcl
 # Required variables
-resource_group_location      = "eastus"
+resource_group_location      = "westus"
 resource_group_location_abbr = "Wu"  # West US abbreviation
 environment_name            = "dev"
 usecase_name               = "datext"
