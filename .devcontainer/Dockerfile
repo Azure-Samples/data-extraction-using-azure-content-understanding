@@ -1,4 +1,4 @@
-FROM --platform=amd64 mcr.microsoft.com/devcontainers/python:3.11-bookworm
+FROM --platform=amd64 mcr.microsoft.com/devcontainers/python:3.12-bookworm
 
 # Set Debian version for Azure Functions Core Tools installation
 ENV DEBIAN_VERSION=12

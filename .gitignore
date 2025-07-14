@@ -534,6 +534,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< HEAD
 
 # Terraform files and directories
 # Terraform state files
@@ -569,3 +570,5 @@ terraform.rc
 
 # .tfstate files are managed by Terraform and should not be committed
 .terraform.lock.hcl
+=======
+>>>>>>> main

@@ -16,4 +16,3 @@ semantic-kernel==1.22.0
 semantic-kernel[azure]==1.22.0
 pymongo==3.12.3
 pyyaml==6.0.2
-databricks-sdk==0.44.1
