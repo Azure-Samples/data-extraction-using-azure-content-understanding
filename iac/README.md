@@ -28,7 +28,7 @@ The infrastructure deploys a modern, scalable solution for document processing a
 | Resource Type | Example Name | Purpose |
 |---------------|--------------|---------|
 | **AI Foundry Hub** | `devdatextwu` | Central hub for AI services |
-| **AI Foundry Project** | `devdatextWu-rag-project` | Project workspace for RAG capabilities |
+| **AI Foundry Project** | `devdatextWu-rag-project` | Hub-based project workspace for RAG capabilities |
 | **Azure AI Services** | `devdatextWuais0` | Cognitive services for Content Understanding |
 | **Azure OpenAI Service** | `devdatextWuaoai0` | OpenAI service with GPT-4o model |
 | **Azure ML Workspace** | `devdatextWuaml0` | Machine learning workspace |
