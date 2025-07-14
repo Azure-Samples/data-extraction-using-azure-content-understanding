@@ -20,7 +20,7 @@ from constants import ENVIRONMENT
 
 
 _APP_INSIGHTS_CONNECTION_STRING_ENV_VAR_NAME = "APPLICATIONINSIGHTS_CONNECTION_STRING"
-_RESOURCE_NAME = f"qtmnpelesaeufa0-{ENVIRONMENT}"
+_RESOURCE_NAME = f"devdatextwufunc0-{ENVIRONMENT}"
 
 
 # See this doc as reference for Semantic Kernel telemetry instrumentation

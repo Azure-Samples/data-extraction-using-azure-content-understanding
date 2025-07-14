@@ -13,7 +13,7 @@ from semantic_kernel.connectors.ai.open_ai.prompt_execution_settings.azure_chat_
     AzureChatPromptExecutionSettings,
 )
 from semantic_kernel.contents import ChatHistory
-from services.site_kernel_plugin import SitePlugin
+from services.collection_kernel_plugin import CollectionPlugin
 from configs.llm_config import LlmConfig, get_llm_config
 from models.api.v1 import QueryResponse, GeneratedResponse, QueryMetrics
 import re
@@ -52,7 +52,7 @@ class LlmRequestManager:
 
     def _parse_response_content(self,
                                 raw_content: str,
-                                site_plugin: SitePlugin) -> QueryResponse:
+                                collection_plugin: CollectionPlugin) -> QueryResponse:
         """Parses the raw content to extract the first valid JSON object or handle plain strings."""
         try:
             # Use a regex to extract all valid JSON objects from the response
@@ -76,8 +76,8 @@ class LlmRequestManager:
             response = raw_content.strip()  # Fallback to raw content
             citations = []
 
-        # structured_data = site_plugin.restore_structured_data()
-        citations = site_plugin.restore_citations(citations)
+        # structured_data = collection_plugin.restore_structured_data()
+        citations = collection_plugin.restore_citations(citations)
         query_response = QueryResponse(
             response=response,
             citations=citations,
@@ -88,26 +88,26 @@ class LlmRequestManager:
         )
         return query_response
 
-    async def answer_site_question(
+    async def answer_collection_question(
         self,
         system_message: str,
         user_message: str,
-        site_plugin: SitePlugin,
+        collection_plugin: CollectionPlugin,
         history: ChatHistory
     ) -> str:
         kernel = Kernel()
 
-        site_plugin_name = "Site"
+        collection_plugin_name = "Collection"
         kernel.add_service(self._chat_completions)
         kernel.add_plugin(
-            site_plugin,
-            plugin_name=site_plugin_name,
+            collection_plugin,
+            plugin_name=collection_plugin_name,
         )
 
         execution_settings = AzureChatPromptExecutionSettings()
         execution_settings.function_choice_behavior = FunctionChoiceBehavior.Required(
             included_functions=[
-                f"{site_plugin_name}-{SitePlugin.get_site_data.__kernel_function_name__}"
+                f"{collection_plugin_name}-{CollectionPlugin.get_collection_data.__kernel_function_name__}"
             ]
         )
         execution_settings.response_format = GeneratedResponse
@@ -145,7 +145,7 @@ class LlmRequestManager:
                                      total_latency_sec=latency)
 
         # Parse the raw content and handle invalid json content, then add to chat history
-        query_response = self._parse_response_content(result.content, site_plugin)
+        query_response = self._parse_response_content(result.content, collection_plugin)
         history.add_assistant_message(query_response.model_dump_json())
 
         # Add metrics to the response after it's been recorded in the chat history

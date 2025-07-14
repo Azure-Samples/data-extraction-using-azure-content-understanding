@@ -1,25 +1,25 @@
-@AZURE_FUNCTIONS_ENDPOINT_DEV = "https://qtmnpelesaeufa0.azurewebsites.net/api"
+@AZURE_FUNCTIONS_ENDPOINT_DEV = "https://devdatextwufunc0.azurewebsites.net/api"
 @AZURE_FUNCTIONS_ENDPOINT_LOCAL = "http://localhost:7071/api"
 
-@CLASSIFIER_ID = "test-LesaClassifier"
-### Send a request to the LESA /classifiers endpoint for dev to create a classifier
+@CLASSIFIER_ID = "test-classifier"
+### Send a request to the data extraction /classifiers endpoint for dev to create a classifier
 # @name putClassifierDev
 curl -i -X PUT "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/classifiers/{{CLASSIFIER_ID}}?x-ms-routing-name=dev" \
   -H "Content-Type: application/json" \
-  -d @./content-understanding-rest-api/classifier.json
+  -d @../../configs/test-classifier.json
 
 echo {{putClassifierDev.response}}
 
 
-### Send a request to the LESA /classifiers endpoint local to create a classifier
+### Send a request to the data extraction /classifiers endpoint local to create a classifier
 # @name putClassifierLocal
 curl -i -X PUT "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/classifiers/{{CLASSIFIER_ID}}" \
   -H "Content-Type: application/json" \
-  -d @./content-understanding-rest-api/classifier.json
+  -d @../../configs/test-classifier.json
 
 echo {{putClassifierLocal.response}}
 
-### Send a request to the LESA /classifiers endpoint for dev to get a classifier
+### Send a request to the data extraction /classifiers endpoint for dev to get a classifier
 # @name getClassifierDev
 curl -i -X GET "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/classifiers/{{CLASSIFIER_ID}}?x-ms-routing-name=dev" \
   -H "Content-Type: application/json"
@@ -27,7 +27,7 @@ curl -i -X GET "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/classifiers/{{CLASSIFIER_ID}}?x
 echo {{getClassifierDev.response}}
 
 
-### Send a request to the LESA /classifiers endpoint local to get a classifier
+### Send a request to the data extraction /classifiers endpoint local to get a classifier
 # @name getClassifierLocal
 curl -i -X GET "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/classifiers/{{CLASSIFIER_ID}}" \
   -H "Content-Type: application/json"

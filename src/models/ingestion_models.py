@@ -6,7 +6,6 @@ from typing import Optional
 
 
 class IngestDocumentType(str, Enum):
-    MLA = "MLA"
     SITE = "Site"
 
 
@@ -20,13 +19,7 @@ class BaseIngestDocumentRequest(BaseModel):
     lease_id: Optional[str] = None
 
 
-class MLAIngestDocumentRequest(BaseIngestDocumentRequest):
-    type: Literal[IngestDocumentType.MLA] = IngestDocumentType.MLA
-    market: Literal[None] = None
-    lease_id: Literal[None] = None
-
-
-class SiteIngestDocumentRequest(BaseIngestDocumentRequest):
+class IngestCollectionDocumentRequest(BaseIngestDocumentRequest):
     type: Literal[IngestDocumentType.SITE] = IngestDocumentType.SITE
     market: str
     lease_id: str

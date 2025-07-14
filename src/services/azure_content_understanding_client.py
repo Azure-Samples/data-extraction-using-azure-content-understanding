@@ -17,7 +17,7 @@ class AzureContentUnderstandingClient:
         api_version: str = _DEFAULT_API_VERSION,
         subscription_key: str = None,
         token_provider: callable = lambda: None,
-        x_ms_useragent: str = "lesa-code",
+        x_ms_useragent: str = "data-extraction-code",
         timeout: int = _DEFAULT_TIMEOUT_SECONDS,
     ):
         """Costructor client for interacting with the Azure Content Understanding service.

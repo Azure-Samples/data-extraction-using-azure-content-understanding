@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to Python Functions",
+            "type": "debugpy",
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+        },
+        {
+            "name": "Debug Function Apps",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 9091
+            },
+            "preLaunchTask": "func: host start"
+        }
+    ]
+}

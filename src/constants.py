@@ -13,5 +13,4 @@ class MongoLockContants(object):
 
 class PathConstants(object):
     """Constants for path."""
-    MLA_PREFIX = "MLA"
     SITE_PREFIX = "Sites"

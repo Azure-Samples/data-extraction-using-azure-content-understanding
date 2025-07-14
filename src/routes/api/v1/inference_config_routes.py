@@ -4,7 +4,7 @@ from controllers import InferenceController
 from decorators import error_handler
 from models.api.v1 import QueryRequest
 from services.ingest_config_management_service import IngestConfigManagementService
-from services.ingest_lease_documents_service import IngestionSiteLeaseService
+from services.ingest_lease_documents_service import IngestionCollectionDocumentService
 from services.llm_request_manager import get_llm_request_manager
 from services.cosmos_chat_history import get_cosmos_chat_history
 from configs import get_app_config_manager
@@ -53,12 +53,12 @@ async def query(req: func.HttpRequest) -> func.HttpResponse:
         .from_environment_config(environment_config)
     llm_request_manager = get_llm_request_manager()
     chat_history = get_cosmos_chat_history(env_name, environment_config)
-    lease_documents_services = IngestionSiteLeaseService.from_environment_config(environment_config)
+    ingestion_collection_document_service = IngestionCollectionDocumentService.from_environment_config(environment_config)
     controller = InferenceController(
         llm_request_manager,
         ingest_config_management_service,
         chat_history,
-        lease_documents_services
+        ingestion_collection_document_service
     )
 
     tracer = trace.get_tracer(__name__)

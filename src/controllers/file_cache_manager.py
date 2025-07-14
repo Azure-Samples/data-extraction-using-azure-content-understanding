@@ -17,11 +17,11 @@ class FileCacheManager:
         if self.is_local and not os.path.exists(self.cache_dir):
             os.makedirs(self.cache_dir)
 
-    def get_cache_key(self, site_id, file_name, lease_hash):
-        """Generates a cache key based on site ID and lease hash.
+    def get_cache_key(self, collection_id, file_name, lease_hash):
+        """Generates a cache key based on collection ID and lease hash.
 
         Args:
-            site_id (str): The site identifier.
+            collection_id (str): The collection identifier.
             file_name (str): The file name.
             lease_hash (str): The lease hash.
 
@@ -30,7 +30,7 @@ class FileCacheManager:
         """
         # Normalize file name to make sure it can be a valid file name
         sanitized_file_name = file_name.replace('/', '_').replace('\\', '_')
-        return f"{site_id}-{sanitized_file_name}-{lease_hash}.json"
+        return f"{collection_id}-{sanitized_file_name}-{lease_hash}.json"
 
     def read(self, cache_key):
         """Reads cached data from a file if running in local mode.

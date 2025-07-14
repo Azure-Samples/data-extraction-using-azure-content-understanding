@@ -2,7 +2,7 @@ from typing import Any, Literal, Optional, List, Dict
 from enum import Enum
 from datetime import date
 from pydantic import BaseModel, Field
-from .extracted_site_documents import ExtractedLeaseFieldValue
+from .extracted_collection_documents import ExtractedLeaseFieldValue
 
 
 class DocumentType(str, Enum):

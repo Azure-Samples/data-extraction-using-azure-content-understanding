@@ -54,20 +54,20 @@ local:
     account_url:
       value: "https://devdatext8wusa0.blob.core.windows.net/"
     container_name:
-      value: "leasing"
+      value: "raw_documents"
 
 
 dev:
-  key_vault_uri: "https://qtmnpelesaeukv0.vault.azure.net/"
-  tenant_id: "be0f980b-dd99-4b19-bd7b-bc71a09b026c"
+  key_vault_uri: "https://devdatext8wukv0.vault.azure.net/"
+  tenant_id: "16b3c013-d300-468d-ac64-7eda0820b6d3"
   user_managed_identity:
     client_id:
       value: "149bef02-1ac5-4d8f-b496-7dead98a3d28"
   cosmosdb:
     db_name:
-      value: "QTMGENAI"
+      value: "data-extraction-db"
     endpoint:
-      key: "svc-tmo-usa-qtm-lesa-mongodb-connection-str"
+      key: "cosmosdb-connection-string"
       type: "secret"
     configuration_collection_name:
       value: "Configurations"
@@ -77,22 +77,22 @@ dev:
     model_name:
       value: "gpt-4o"
     endpoint:
-      value: "https://qtmnpegenaiwu3apim0.azure-api.net/gpt-4o-nkc/openai/deployments/gpt-4o-nkc"
+      value: "https://azure-cognitive-o4twr.openai.azure.com/openai/deployments/gpt-4o"
     access_key:
-      key: "svc-tmo-usa-qtm-lesa-openai-gpt4o-nkc-apim-access-key"
+      key: "open-ai-key"
       type: "secret"
     api_version:
       value: "2025-04-01-preview"
   content_understanding:
     endpoint:
-      value: "https://ai-qtmnpelesahub831172975553.services.ai.azure.com/"
+      value: "https://devdatext8wuais0-cog-s36e.cognitiveservices.azure.com/"
     subscription_key:
-      key: "svc-tmo-usa-qtm-lesa-content-understanding-key"
+      key: "ai-foundry-key"
       type: "secret"
     request_timeout:
       value: 30
     project_id:
-      value: "7ab85710-f781-408e-beaa-a45524b32122"
+      value: "devdatext8Wu-rag-project-p029lx"
   default_ingest_config:
     name:
       value: document-extraction
@@ -100,20 +100,20 @@ dev:
       value: v1.0
   chat_history:
     endpoint:
-      value: "https://qtmnpegenaiwu2cosdb0.documents.azure.com:443/"
+      value: "https://devdatext8wucosmoskb0.documents.azure.com:443/"
     db_name:
       value: "knowledge-base-db"
     chat_history_container_name:
-      value: "chat-history-npe"
+      value: "chat-history"
     user_message_limit:
       value: 20
     domain:
-      value: "Leasing AI"
+      value: "Data Extraction AI"
   blob_storage:
     account_url:
-      value: "https://qtmnpegenaiwu2sa0.blob.core.windows.net/"
+      value: "https://devdatext8wusa0.blob.core.windows.net/"
     container_name:
-      value: "leasing"
+      value: "raw_documents"
 
 
 # TODO: Update later

@@ -5,10 +5,10 @@ from typing import Optional
 
 from .container_client import ContainerClient, get_container_client
 from .mongo_lock_manager import MongoLockManager
-from models.extracted_site_documents import ExtractedLeaseCollection, \
+from models.extracted_collection_documents import ExtractedLeaseCollection, \
     ExtractedLeaseField, \
-    ExtractedSiteCollection, \
-    ExtractedSiteInformationCollection
+    ExtractedCollectionDocuments, \
+    ExtractedCollectionInformationCollection
 from models.data_collection_config import DataType, FieldDataCollectionConfig
 from models.document_data_models import LeaseAgreementDocumentData
 from models.ingestion_models import IngestDocumentType
@@ -17,46 +17,46 @@ from models.environment_config import EnvironmentConfig
 from utils.path_utils import build_adls_markdown_file_path, build_adls_pdf_file_path
 
 
-def _build_document_id(site_id: str, config_hash: str) -> str:
-    """Builds the document ID for the site document.
+def _build_document_id(collection_id: str, config_hash: str) -> str:
+    """Builds the document ID for the collection document.
 
     Args:
-        site_id (str): The site ID.
+        collection_id (str): The collection ID.
         config_hash (str): The configuration hash.
 
     Returns:
         str: The document ID.
     """
-    return f"{site_id}-{config_hash}"
+    return f"{collection_id}-{config_hash}"
 
 
-class IngestionSiteLeaseService(object):
-    _site_audit_collection: Collection
+class IngestionCollectionDocumentService(object):
+    _collection_documents_collection: Collection
     _container_client: ContainerClient
     _mongo_lock_manager: MongoLockManager
 
     def __init__(
         self,
-        site_audit_collection: Collection,
+        collection_documents_collection: Collection,
         container_client: ContainerClient,
         mongo_lock_manager: MongoLockManager,
     ):
         """Initializes the IngestionConfigurationService with the given CosmosClient.
 
         Args:
-            site_audit_collection (Collection): The MongoDB collection to use for site audits.
+            collection_documents_collection (Collection): The MongoDB collection to use for extracted documents.
             container_client (ContainerClient): The Azure ContainerClient instance.
             mongo_lock_manager (MongoLockManager): The MongoLockManager instance for managing locks.
         """
         self._container_client = container_client
         self._mongo_lock_manager = mongo_lock_manager
-        self._site_audit_collection = site_audit_collection
+        self._collection_documents_collection = collection_documents_collection
 
     def ingest_analyzer_output(
         self,
         doc_type: IngestDocumentType,
         market: Optional[str],
-        site_id: str,
+        collection_id: str,
         lease_id: Optional[str],
         filename: str,
         date_of_document: date,
@@ -68,7 +68,7 @@ class IngestionSiteLeaseService(object):
         Args:
             doc_type (IngestDocumentType): The type of the document being ingested.
             market (str): The market name.
-            site_id (str): The site ID.
+            collection_id (str): The collection ID.
             lease_id (str): The lease ID.
             filename (str): The filename.
             date_of_document (date): The date of the document.
@@ -78,24 +78,24 @@ class IngestionSiteLeaseService(object):
         field_list = self._extract_field_list(config)
         pdf_file_path = build_adls_pdf_file_path(
             doc_type,
-            site_id,
+            collection_id,
             filename,
             market,
             lease_id
         )
         markdown_file_path = build_adls_markdown_file_path(
             doc_type,
-            site_id,
+            collection_id,
             filename,
             market,
             lease_id
         )
 
-        document_id = _build_document_id(site_id, config.lease_config_hash)
+        document_id = _build_document_id(collection_id, config.lease_config_hash)
 
         try:
             self._mongo_lock_manager.wait(document_id)
-            existing_document = self._get_or_create_document(document_id, site_id, config)
+            existing_document = self._get_or_create_document(document_id, collection_id, config)
             try:
                 lease = self._get_or_create_lease(existing_document, lease_id, pdf_file_path, markdown_file_path)
             except ValueError as e:
@@ -113,7 +113,7 @@ class IngestionSiteLeaseService(object):
             self._upsert_document(existing_document)
 
             logging.info(
-                f"Data ingested from analyzer output successfully for site_id={site_id}, lease_id={lease_id}, "
+                f"Data ingested from analyzer output successfully for collection_id={collection_id}, lease_id={lease_id}, "
                 f"lease_config_hash={config.lease_config_hash}"
             )
         except Exception as e:
@@ -126,7 +126,7 @@ class IngestionSiteLeaseService(object):
         self,
         doc_type: IngestDocumentType,
         market: Optional[str],
-        site_id: str,
+        collection_id: str,
         lease_id: Optional[str],
         filename: str,
         date_of_document: date,
@@ -138,7 +138,7 @@ class IngestionSiteLeaseService(object):
         Args:
             doc_type (IngestDocumentType): The type of the document being ingested.
             market (str): The market name.
-            site_id (str): The site ID.
+            collection_id (str): The collection ID.
             lease_id (str): The lease ID.
             filename (str): The filename.
             date_of_document (date): The date of the document.
@@ -148,24 +148,24 @@ class IngestionSiteLeaseService(object):
         field_list = self._extract_field_list(config)
         pdf_file_path = build_adls_pdf_file_path(
             doc_type,
-            site_id,
+            collection_id,
             filename,
             market,
             lease_id
         )
         markdown_file_path = build_adls_markdown_file_path(
             doc_type,
-            site_id,
+            collection_id,
             filename,
             market,
             lease_id
         )
 
-        document_id = _build_document_id(site_id, config.lease_config_hash)
+        document_id = _build_document_id(collection_id, config.lease_config_hash)
 
         try:
             self._mongo_lock_manager.wait(document_id)
-            existing_document = self._get_or_create_document(document_id, site_id, config)
+            existing_document = self._get_or_create_document(document_id, collection_id, config)
             try:
                 lease = self._get_or_create_lease(existing_document, lease_id, pdf_file_path, markdown_file_path)
             except ValueError as e:
@@ -184,7 +184,7 @@ class IngestionSiteLeaseService(object):
             self._upsert_document(existing_document)
 
             logging.info(
-                f"Data ingested from classifier output successfully for site_id={site_id}, lease_id={lease_id}, "
+                f"Data ingested from classifier output successfully for collection_id={collection_id}, lease_id={lease_id}, "
                 f"lease_config_hash={config.lease_config_hash}"
             )
         except Exception as e:
@@ -195,11 +195,11 @@ class IngestionSiteLeaseService(object):
 
     def clean_empty_document(
             self,
-            site_id: str,
+            collection_id: str,
             config: FieldDataCollectionConfig) -> bool:
-        """Cleans up an empty document from the site audit collection."""
-        document_id = _build_document_id(site_id, config.lease_config_hash)
-        existing_document = self._site_audit_collection.find_one(
+        """Cleans up an empty document from the collection audit collection."""
+        document_id = _build_document_id(collection_id, config.lease_config_hash)
+        existing_document = self._collection_documents_collection.find_one(
             {"_id": document_id}
         )
 
@@ -208,15 +208,15 @@ class IngestionSiteLeaseService(object):
 
         try:
             # Check if the document only contains the BaseMongoLockable fields
-            ExtractedSiteCollection(**existing_document)
+            ExtractedCollectionDocuments(**existing_document)
         except Exception:
             logging.info(f"Error parsing document. Deleting empty document with ID {document_id}")
-            self._site_audit_collection.delete_one({"_id": document_id})
+            self._collection_documents_collection.delete_one({"_id": document_id})
 
     def is_lease_document_ingested(
             self,
             doc_type: IngestDocumentType,
-            site_id: str,
+            collection_id: str,
             filename: str,
             config: FieldDataCollectionConfig,
             market: Optional[str],
@@ -225,7 +225,7 @@ class IngestionSiteLeaseService(object):
 
         Args:
             market (str): The market name.
-            site_id (str): The site ID.
+            collection_id (str): The collection ID.
             lease_id (str): The lease ID.
             filename (str): The filename.
             config (FieldDataCollectionConfig): The configuration object containing lease configuration hash.
@@ -233,15 +233,15 @@ class IngestionSiteLeaseService(object):
         Returns:
             bool: True if the lease document exists, False otherwise.
         """
-        document_id = _build_document_id(site_id, config.lease_config_hash)
-        existing_document = self._site_audit_collection.find_one(
+        document_id = _build_document_id(collection_id, config.lease_config_hash)
+        existing_document = self._collection_documents_collection.find_one(
             {"_id": document_id}
         )
 
         if not existing_document:
             return False
 
-        existing_document = ExtractedSiteCollection(**existing_document)
+        existing_document = ExtractedCollectionDocuments(**existing_document)
         lease = next((lease for lease in existing_document.information.leases if lease.lease_id == lease_id), None)
 
         if not lease:
@@ -249,7 +249,7 @@ class IngestionSiteLeaseService(object):
 
         original_document_path = build_adls_pdf_file_path(
             doc_type,
-            site_id,
+            collection_id,
             filename,
             market,
             lease_id,
@@ -274,23 +274,23 @@ class IngestionSiteLeaseService(object):
     def _get_or_create_document(
         self,
         document_id: str,
-        site_id: str,
+        collection_id: str,
         config: FieldDataCollectionConfig,
     ):
-        existing_document = self._site_audit_collection.find_one(
+        existing_document = self._collection_documents_collection.find_one(
             {"_id": document_id}
         )
 
-        if not existing_document or existing_document.get("site_id") is None:
-            document = ExtractedSiteCollection(
-                site_id=site_id,
+        if not existing_document or existing_document.get("collection_id") is None:
+            document = ExtractedCollectionDocuments(
+                collection_id=collection_id,
                 config_id=config.id,
                 lease_config_hash=config.lease_config_hash,
-                information=ExtractedSiteInformationCollection(leases=[]),
+                information=ExtractedCollectionInformationCollection(leases=[]),
                 **(existing_document or {})  # Include MongoLock data
             )
         else:
-            document = ExtractedSiteCollection(**existing_document)
+            document = ExtractedCollectionDocuments(**existing_document)
             document.config_id = config.id
 
         document.id = document_id
@@ -299,7 +299,7 @@ class IngestionSiteLeaseService(object):
 
     def _get_or_create_lease(
         self,
-        existing_document: ExtractedSiteCollection,
+        existing_document: ExtractedCollectionDocuments,
         lease_id: str,
         pdf_path: str,
         markdown_path: str
@@ -320,7 +320,7 @@ class IngestionSiteLeaseService(object):
             lease.original_documents.append(pdf_path)
         else:
             logging.warning(
-                f"PDF file already ingested for lease_id={lease_id} and site_id={existing_document.site_id} "
+                f"PDF file already ingested for lease_id={lease_id} and collection_id={existing_document.collection_id} "
                 f"with hash={existing_document.lease_config_hash}."
             )
 
@@ -328,7 +328,7 @@ class IngestionSiteLeaseService(object):
             lease.markdowns.append(markdown_path)
         else:
             logging.warning(
-                f"Markdown file already ingested for lease_id={lease_id} and site_id={existing_document.site_id} "
+                f"Markdown file already ingested for lease_id={lease_id} and collection_id={existing_document.collection_id} "
                 f"with hash={existing_document.lease_config_hash}."
             )
 
@@ -482,41 +482,41 @@ class IngestionSiteLeaseService(object):
 
     def _upsert_document(
         self,
-        existing_document: ExtractedSiteCollection
+        existing_document: ExtractedCollectionDocuments
     ):
-        self._site_audit_collection.update_one(
+        self._collection_documents_collection.update_one(
             {"_id": existing_document.id},
             {"$set": existing_document.model_dump(by_alias=True, mode='json', exclude_defaults=True)},
             upsert=True
         )
 
-    def _get_all_extracted_fields_from_site_doc(self, site_id: str, config: FieldDataCollectionConfig) -> dict:
-        """Gets all extracted fields from an existing site document.
+    def _get_all_extracted_fields_from_collection_doc(self, collection_id: str, config: FieldDataCollectionConfig) -> dict:
+        """Gets all extracted fields from an existing collection document.
 
         Args:
-            site_id (str): The ID of the site being queried.
+            collection_id (str): The ID of the collection being queried.
             config (FieldDataCollectionConfig): The configuration object containing lease configuration hash.
 
         Returns:
             dict: A dictionary keyed by lease ID. Each entry in the top-level dictionary is another
                   dictionary of the extracted key-value pairs from each lease document, keyed by field name.
         """
-        # Dict to store all fields from leases in this site
+        # Dict to store all fields from leases in this collection
         all_lease_fields_dict = {}
 
-        # Query Cosmos for site document
-        logging.info(f"Querying CosmosDB for site ID {site_id} and Lease Config Hash {config.lease_config_hash}")
-        existing_document = self._site_audit_collection.find_one(
-            {"_id": _build_document_id(site_id.upper(), config.lease_config_hash)}
+        # Query Cosmos for collection document
+        logging.info(f"Querying CosmosDB for collection ID {collection_id} and Lease Config Hash {config.lease_config_hash}")
+        existing_document = self._collection_documents_collection.find_one(
+            {"_id": _build_document_id(collection_id.upper(), config.lease_config_hash)}
         )
-        if not existing_document or existing_document.get("site_id") is None:
+        if not existing_document or existing_document.get("collection_id") is None:
             logging.warning(
-                f"data for site {site_id} and lease config hash {config.lease_config_hash} does not exist."
+                f"data for collection {collection_id} and lease config hash {config.lease_config_hash} does not exist."
             )
             return all_lease_fields_dict
-        existing_document = ExtractedSiteCollection(**existing_document)
+        existing_document = ExtractedCollectionDocuments(**existing_document)
 
-        # Iterate over all leases in the site document
+        # Iterate over all leases in the collection document
         for lease in existing_document.information.leases:
             lease_key = lease.lease_id
             if lease_key in all_lease_fields_dict:
@@ -563,15 +563,15 @@ class IngestionSiteLeaseService(object):
         """
         cosmos_client = CosmosClient(environment_config.cosmosdb.endpoint.value)
         container_client = get_container_client(environment_config)
-        site_audit_collection = cosmos_client.get_collection(
+        collection_documents_collection = cosmos_client.get_collection(
             environment_config.cosmosdb.db_name.value,
             environment_config.cosmosdb.document_collection_name.value
         )
         mongo_lock_manager = MongoLockManager(
-            site_audit_collection,
+            collection_documents_collection,
         )
         return cls(
-            site_audit_collection=site_audit_collection,
+            collection_documents_collection=collection_documents_collection,
             container_client=container_client,
             mongo_lock_manager=mongo_lock_manager
         )

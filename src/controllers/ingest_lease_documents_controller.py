@@ -3,35 +3,35 @@ from typing import Union
 import os
 from services.ingest_config_management_service import IngestConfigManagementService
 from services.azure_content_understanding_client import AzureContentUnderstandingClient
-from services.ingest_lease_documents_service import IngestionSiteLeaseService
+from services.ingest_lease_documents_service import IngestionCollectionDocumentService
 from utils.document_utils import build_config_id
 from models.http_error import HTTPError
 from models.data_collection_config import DataType, LeaseAgreementCollectionRow
-from models.ingestion_models import SiteIngestDocumentRequest, MLAIngestDocumentRequest
+from models.ingestion_models import IngestCollectionDocumentRequest, MLAIngestDocumentRequest
 from .file_cache_manager import FileCacheManager
 
 
 class IngestLeaseDocumentsController(object):
     _content_understanding_client: AzureContentUnderstandingClient
-    _ingestion_site_audit_lease_service: IngestionSiteLeaseService
+    _ingestion_collection_document_service: IngestionCollectionDocumentService
     _ingestion_configuration_management_service: IngestConfigManagementService
 
     def __init__(
         self,
         content_understanding_client: AzureContentUnderstandingClient,
-        ingestion_site_audit_lease_service: IngestionSiteLeaseService,
+        ingestion_collection_document_service: IngestionCollectionDocumentService,
         ingestion_configuration_management_service: IngestConfigManagementService
     ):
         """Initializes the IngestLeaseDocumentsController.
 
         Args:
             content_understanding_client (AzureContentUnderstandingClient): The content understanding client.
-            ingestion_site_audit_lease_service (IngestionSiteLeaseService): The ingestion site audit lease service.
+            ingestion_collection_document_service (IngestionCollectionDocumentService): The ingestion collection document service.
             ingestion_configuration_management_service (IngestConfigManagementService): The ingestion configuration
                 management service.
         """
         self._content_understanding_client = content_understanding_client
-        self._ingestion_site_audit_lease_service = ingestion_site_audit_lease_service
+        self._ingestion_collection_document_service = ingestion_collection_document_service
         self._ingestion_configuration_management_service = ingestion_configuration_management_service
         self._file_cache_manager = FileCacheManager("analyzer_cache", self._is_local_dev_mode())
 
@@ -41,7 +41,7 @@ class IngestLeaseDocumentsController(object):
     def ingest_documents(self,
                          config_name: str,
                          config_version: str,
-                         documents: list[Union[SiteIngestDocumentRequest, MLAIngestDocumentRequest]]):
+                         documents: list[IngestCollectionDocumentRequest]):
         """Processes the documents by ingesting the content understanding output.
 
         Depending on the JSON configuration, runs the CU analyzer or classifier to get the corresponding
@@ -50,7 +50,7 @@ class IngestLeaseDocumentsController(object):
         Args:
             config_name (str): The name of the configuration.
             config_version (str): The version of the configuration.
-            documents (list[Union[SiteIngestDocumentRequest, MLAIngestDocumentRequest]]): The documents to analyze.
+            documents (list[IngestCollectionDocumentRequest]): The documents to analyze.
 
         Returns:
             HttpResponse: The response object.
@@ -62,11 +62,11 @@ class IngestLeaseDocumentsController(object):
 
         for document in documents:
             for collection_row in lease_collection_rows:
-                self._ingestion_site_audit_lease_service.clean_empty_document(
+                self._ingestion_collection_document_service.clean_empty_document(
                     document.id,
                     config
                 )
-                if self._ingestion_site_audit_lease_service.is_lease_document_ingested(
+                if self._ingestion_collection_document_service.is_lease_document_ingested(
                     document.type,
                     document.id,
                     document.filename,
@@ -119,7 +119,7 @@ class IngestLeaseDocumentsController(object):
 
                 # Ingest the content understanding output into CosmosDB using the appropriate service method
                 if is_classifier_enabled:
-                    self._ingestion_site_audit_lease_service.ingest_classifier_output(
+                    self._ingestion_collection_document_service.ingest_classifier_output(
                         document.type,
                         document.market,
                         document.id,
@@ -130,7 +130,7 @@ class IngestLeaseDocumentsController(object):
                         config
                     )
                 else:
-                    self._ingestion_site_audit_lease_service.ingest_analyzer_output(
+                    self._ingestion_collection_document_service.ingest_analyzer_output(
                         document.type,
                         document.market,
                         document.id,

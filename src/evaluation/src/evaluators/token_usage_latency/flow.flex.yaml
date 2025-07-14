@@ -1,6 +1,0 @@
-inputs:
-  metrics:
-    type: string
-entry: _token_usage_latency:TokenUsageLatencyEvaluator
-environment:
-  python_requirements_txt: requirements.txt

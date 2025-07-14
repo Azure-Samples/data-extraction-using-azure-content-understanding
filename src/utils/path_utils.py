@@ -25,15 +25,12 @@ def build_adls_markdown_file_path(
     if not file_name.endswith(".md"):
         file_name = file_name.split(".")[0] + ".md"
 
-    if doc_type == IngestDocumentType.MLA:
-        return f"{PathConstants.MLA_PREFIX}/{id}/{file_name}"
-    elif doc_type == IngestDocumentType.SITE:
-        if market is None:
-            raise ValueError("Market must be provided for SITE document type.")
-        if lease_id is None:
-            raise ValueError("Lease ID must be provided for SITE document type.")
+    if market is None:
+        raise ValueError("Market must be provided for SITE document type.")
+    if lease_id is None:
+        raise ValueError("Lease ID must be provided for SITE document type.")
 
-        return f"{PathConstants.SITE_PREFIX}/{market}/{id}/{lease_id}/{file_name}"
+    return f"{PathConstants.SITE_PREFIX}/{market}/{id}/{lease_id}/{file_name}"
 
 
 def build_adls_pdf_file_path(
@@ -58,12 +55,9 @@ def build_adls_pdf_file_path(
     if not file_name.endswith(".pdf"):
         file_name = file_name.split(".")[0] + ".pdf"
 
-    if doc_type == IngestDocumentType.MLA:
-        return f"{PathConstants.MLA_PREFIX}/{id}/{file_name}"
-    elif doc_type == IngestDocumentType.SITE:
-        if market is None:
-            raise ValueError("Market must be provided for SITE document type.")
-        if lease_id is None:
-            raise ValueError("Lease ID must be provided for SITE document type.")
+    if market is None:
+        raise ValueError("Market must be provided for SITE document type.")
+    if lease_id is None:
+        raise ValueError("Lease ID must be provided for SITE document type.")
 
-        return f"{PathConstants.SITE_PREFIX}/{market}/{id}/{lease_id}/{file_name}"
+    return f"{PathConstants.SITE_PREFIX}/{market}/{id}/{lease_id}/{file_name}"

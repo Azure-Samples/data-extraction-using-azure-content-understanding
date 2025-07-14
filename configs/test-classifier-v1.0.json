@@ -1,0 +1,16 @@
+{
+  "description": "test-classifier",
+  "tags": {
+    "createdBy": "test.user1@microsoft.com"
+  },
+  "splitMode": "auto",
+  "categories": {
+    "abstract" : {
+      "description": "Abstracts or cover sheet of legal documents"
+    },
+    "lease_agreement": {
+      "description": "Any agreement for any lease agreement",
+      "analyzerId": "test-analyzer-v1.0"
+    }
+  }
+}
