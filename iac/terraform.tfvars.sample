@@ -8,10 +8,10 @@
 subscription_id = "your-subscription-id-here"
 
 # Azure region for resource deployment
-resource_group_location = "westus2"
+resource_group_location = "westus"
 
 # Region abbreviation used in resource naming (keep it short, 2-3 chars)
-resource_group_location_abbr = "wu2"
+resource_group_location_abbr = "wu"
 
 # Environment name (dev, test, prod, etc.)
 environment_name = "dev"
