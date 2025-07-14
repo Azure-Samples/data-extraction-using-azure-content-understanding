@@ -7,7 +7,7 @@ from services.ingest_lease_documents_service import IngestionCollectionDocumentS
 from utils.document_utils import build_config_id
 from models.http_error import HTTPError
 from models.data_collection_config import DataType, LeaseAgreementCollectionRow
-from models.ingestion_models import IngestCollectionDocumentRequest, MLAIngestDocumentRequest
+from models.ingestion_models import IngestCollectionDocumentRequest
 from .file_cache_manager import FileCacheManager
 
 
