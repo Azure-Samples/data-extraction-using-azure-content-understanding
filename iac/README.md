@@ -106,7 +106,7 @@ Type `yes` when prompted to confirm the deployment.
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `resource_group_location` | Azure region for deployment | `"eastus"` |
+| `resource_group_location` | Azure region for deployment | `"westus"` |
 | `resource_group_location_abbr` | Region abbreviation for naming | `"Wu"` |
 | `environment_name` | Environment name | `"dev"` |
 | `usecase_name` | Use case identifier | `"datext"` |
