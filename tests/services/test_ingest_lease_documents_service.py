@@ -172,7 +172,7 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
             self.service.ingest_analyzer_output(
                 doc_type=IngestDocumentType.COLLECTION,
                 market="market 1",
-                collection_id="bad_site",
+                collection_id="bad_collection",
                 lease_id="lease",
                 filename="file.pdf",
                 date_of_document=date(2023, 1, 1),
@@ -624,7 +624,7 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
             self.service.ingest_classifier_output(
                 doc_type=IngestDocumentType.COLLECTION,
                 market="market 1",
-                collection_id="bad_site",
+                collection_id="bad_collection",
                 lease_id="lease",
                 filename="file.pdf",
                 date_of_document=date(2023, 1, 1),

@@ -78,7 +78,7 @@ class TestInferenceController(unittest.TestCase):
         # Mock the tool_call_output for citation validation
         tool_call_output = ('"...test_field": {"document_type": "LeaseAgreement", "value": "test","'
                             '"source_document": "test_doc", "source_bounding_boxes": "test_bounding_boxes"}')
-        self.controller._get_latest_site_plugin_output = MagicMock(return_value=tool_call_output)
+        self.controller._get_latest_collection_plugin_output = MagicMock(return_value=tool_call_output)
 
         response = asyncio.run(self.controller.query(request, config_name, config_version, user_id))
 
