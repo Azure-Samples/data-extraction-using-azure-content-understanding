@@ -4,7 +4,7 @@
 [![Open in Dev Container](https://img.shields.io/static/v1?style=for-the-badge&label=Dev+Container&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/data-extraction-using-azure-content-understanding)
 [![Deploy to Azure](https://img.shields.io/static/v1?style=for-the-badge&label=Deploy+to+Azure&message=Deploy&color=0078d4&logo=microsoft-azure)](https://shell.azure.com/)
 
-This sample demonstrates how to build an intelligent document processing solution using Azure Content Understanding (formerly Azure Form Recognizer) to extract structured data from documents and provide conversational querying capabilities.
+This sample demonstrates how to build an intelligent document processing solution using Azure Content Understanding to extract structured data from documents and provide conversational querying capabilities.
 
 ## 🚀 Features
 
