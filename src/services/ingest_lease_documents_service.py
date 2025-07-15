@@ -528,20 +528,9 @@ class IngestionCollectionDocumentService(object):
 
             for field_name, field_values in lease.fields.items():
                 lease_agreement_data: list[dict] = []
-                max_field_value: Optional[ExtractedLeaseField] = None
                 for field_value in field_values:
-                    if field_value.is_lease:
-                        lease_agreement_data.append(
-                            LeaseAgreementDocumentData(**field_value.model_dump())
-                        )
-                        continue
-
-                    if max_field_value is None or field_value.date_of_document > max_field_value.date_of_document:
-                        max_field_value = field_value
-
-                if max_field_value:
                     lease_agreement_data.append(
-                        LeaseAgreementDocumentData(**max_field_value.model_dump())
+                        LeaseAgreementDocumentData(**field_value.model_dump())
                     )
 
                 lease_field_dict[field_name] = lease_agreement_data

@@ -7,9 +7,6 @@ from pydantic import BaseModel, Field
 from .base_mongo_lockable import BaseMongoLockable
 
 
-_LEASE_ABBREVIATIONS = ["LSE", "SLA"]
-
-
 class ExtractedLeaseFieldType(str, Enum):
     """Type of the extracted field."""
     STRING = "string"
@@ -49,28 +46,6 @@ class ExtractedLeaseField(ExtractedLeaseFieldValue):
     category: Optional[str] = None
     subdocument_start_page: Optional[int] = None
     subdocument_end_page: Optional[int] = None
-
-    @property
-    def is_lease(self) -> bool:
-        """Determines if the document is a lease document based on the filename.
-
-        Returns:
-            bool: True if the document is a lease or amendment, False otherwise.
-        """
-        if not self.document:
-            return False
-
-        file_name = self.document.split("/")[-1]
-        # Split filename by underscore and get the document type (typically second part)
-        parts = file_name.split("_")
-
-        # If filename has at least 2 parts
-        if len(parts) >= 2:
-            doc_type = parts[1].upper()  # Case insensitive comparison
-            return doc_type in _LEASE_ABBREVIATIONS
-
-        # If not enough parts to determine or doesn't match known lease types
-        return False
 
 
 ExtractedLeaseField.model_rebuild()
