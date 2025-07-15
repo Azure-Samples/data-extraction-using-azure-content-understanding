@@ -55,7 +55,7 @@ class CollectionPlugin:
 
     @kernel_function(
         name="get_collection_data",
-        description="Gets the data for a specified collection by the collection id or mla id.",
+        description="Gets the data for a specified collection by the collection id.",
     )
     def get_collection_data(
         self,
