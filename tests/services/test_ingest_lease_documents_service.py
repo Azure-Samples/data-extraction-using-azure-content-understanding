@@ -87,7 +87,6 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
 
         self.service.ingest_analyzer_output(
             doc_type=IngestDocumentType.COLLECTION,
-            market="market 1",
             collection_id="test_collection",
             lease_id="test_lease",
             filename="test_file.pdf",
@@ -107,7 +106,7 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
         )
         self.mock_container_client.upload_document.assert_called_once_with(
             "some_markdown",
-            "Collections/market 1/test_collection/test_lease/test_file.md"
+            "Collections/test_collection/test_lease/test_file.md"
         )
         mock_logging.info.assert_called_with(
             "Data ingested from analyzer output successfully for collection_id=test_collection, "
@@ -127,10 +126,10 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
                             {
                                 "lease_id": "test_lease",
                                 "original_documents": [
-                                    "Collections/market 1/test_collection/test_lease/test_file.pdf"
+                                    "Collections/test_collection/test_lease/test_file.pdf"
                                 ],
                                 "markdowns": [
-                                    "Collections/market 1/test_collection/test_lease/test_file.md"
+                                    "Collections/test_collection/test_lease/test_file.md"
                                 ],
                                 "fields": {
                                     "field1": [
@@ -139,8 +138,8 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
                                             "valueString": "test_value",
                                             "confidence": 0.95,
                                             "date_of_document": "2023-01-01",
-                                            "markdown": "Collections/market 1/test_collection/test_lease/test_file.md",
-                                            "document": "Collections/market 1/test_collection/test_lease/test_file.pdf"
+                                            "markdown": "Collections/test_collection/test_lease/test_file.md",
+                                            "document": "Collections/test_collection/test_lease/test_file.pdf"
                                         }
                                     ],
                                     "field2": [
@@ -149,8 +148,8 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
                                             "valueNumber": 123.0,
                                             "confidence": 0.9,
                                             "date_of_document": "2023-01-01",
-                                            "markdown": "Collections/market 1/test_collection/test_lease/test_file.md",
-                                            "document": "Collections/market 1/test_collection/test_lease/test_file.pdf"
+                                            "markdown": "Collections/test_collection/test_lease/test_file.md",
+                                            "document": "Collections/test_collection/test_lease/test_file.pdf"
                                         }
                                     ]
                                 }
@@ -171,7 +170,6 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
         with self.assertRaises(Exception) as ex:
             self.service.ingest_analyzer_output(
                 doc_type=IngestDocumentType.COLLECTION,
-                market="market 1",
                 collection_id="bad_collection",
                 lease_id="lease",
                 filename="file.pdf",
@@ -206,7 +204,6 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
 
         self.service.ingest_analyzer_output(
             doc_type=IngestDocumentType.COLLECTION,
-            market="market 1",
             collection_id="test_collection",
             lease_id="abc_lease",
             filename="abc.pdf",
@@ -239,7 +236,6 @@ class TestIngestionCollectionDocumentServiceIngestAnalyzerOutput(unittest.TestCa
 
         self.service.ingest_analyzer_output(
             doc_type=IngestDocumentType.COLLECTION,
-            market="market 1",
             collection_id="test_collection",
             lease_id="test_lease",
             filename="test_file.pdf",
@@ -328,8 +324,8 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
                 leases=[
                     {
                         "lease_id": "test_lease",
-                        "original_documents": ["Collections/market/test_collection/test_lease/test_file.pdf"],
-                        "markdowns": ["Collections/market/test_collection/test_lease/test_file.md"],
+                        "original_documents": ["Collections/test_collection/test_lease/test_file.pdf"],
+                        "markdowns": ["Collections/test_collection/test_lease/test_file.md"],
                         "fields": {
                             "field1": [
                                 {
@@ -353,7 +349,6 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
             collection_id="test_collection",
             filename="test_file.pdf",
             config=self.config,
-            market="market",
             lease_id="test_lease"
         )
 
@@ -368,7 +363,6 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
             collection_id="test_collection",
             filename="test_file.pdf",
             config=self.config,
-            market="market",
             lease_id="test_lease"
         )
 
@@ -389,7 +383,6 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
             collection_id="test_collection",
             filename="test_file.pdf",
             config=self.config,
-            market="market",
             lease_id="test_lease"
         )
 
@@ -404,8 +397,8 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
                 leases=[
                     {
                         "lease_id": "test_lease",
-                        "original_documents": ["Collections/market/test_collection/test_lease/other_file.pdf"],
-                        "markdowns": ["Collections/market/test_collection/test_lease/other_file.md"],
+                        "original_documents": ["Collections/test_collection/test_lease/other_file.pdf"],
+                        "markdowns": ["Collections/test_collection/test_lease/other_file.md"],
                         "fields": {
                             "field1": [
                                 {
@@ -429,7 +422,6 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
             collection_id="test_collection",
             filename="test_file.pdf",
             config=self.config,
-            market="market",
             lease_id="test_lease"
         )
 
@@ -522,7 +514,6 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
 
         self.service.ingest_classifier_output(
             doc_type=IngestDocumentType.COLLECTION,
-            market="market 1",
             collection_id="test_collection",
             lease_id="test_lease",
             filename="test_file.pdf",
@@ -542,7 +533,7 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
         )
         self.mock_container_client.upload_document.assert_called_once_with(
             "some_markdown_content more_markdown_content ",
-            "Collections/market 1/test_collection/test_lease/test_file.md"
+            "Collections/test_collection/test_lease/test_file.md"
         )
         mock_logging.info.assert_called_with(
             "Data ingested from classifier output successfully for collection_id=test_collection, "
@@ -562,10 +553,10 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
                             {
                                 "lease_id": "test_lease",
                                 "original_documents": [
-                                    "Collections/market 1/test_collection/test_lease/test_file.pdf"
+                                    "Collections/test_collection/test_lease/test_file.pdf"
                                 ],
                                 "markdowns": [
-                                    "Collections/market 1/test_collection/test_lease/test_file.md"
+                                    "Collections/test_collection/test_lease/test_file.md"
                                 ],
                                 "fields": {
                                     "field1": [
@@ -574,8 +565,8 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
                                             "valueString": "test_value",
                                             "confidence": 0.95,
                                             "date_of_document": "2023-01-01",
-                                            "markdown": "Collections/market 1/test_collection/test_lease/test_file.md",
-                                            "document": "Collections/market 1/test_collection/test_lease/test_file.pdf",
+                                            "markdown": "Collections/test_collection/test_lease/test_file.md",
+                                            "document": "Collections/test_collection/test_lease/test_file.pdf",
                                             "category": "lease_agreement",
                                             "subdocument_start_page": 1,
                                             "subdocument_end_page": 5
@@ -585,8 +576,8 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
                                             "valueString": "another_value",
                                             "confidence": 0.88,
                                             "date_of_document": "2023-01-01",
-                                            "markdown": "Collections/market 1/test_collection/test_lease/test_file.md",
-                                            "document": "Collections/market 1/test_collection/test_lease/test_file.pdf",
+                                            "markdown": "Collections/test_collection/test_lease/test_file.md",
+                                            "document": "Collections/test_collection/test_lease/test_file.pdf",
                                             "category": "amendment",
                                             "subdocument_start_page": 6,
                                             "subdocument_end_page": 10
@@ -598,8 +589,8 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
                                             "valueNumber": 123.0,
                                             "confidence": 0.9,
                                             "date_of_document": "2023-01-01",
-                                            "markdown": "Collections/market 1/test_collection/test_lease/test_file.md",
-                                            "document": "Collections/market 1/test_collection/test_lease/test_file.pdf",
+                                            "markdown": "Collections/test_collection/test_lease/test_file.md",
+                                            "document": "Collections/test_collection/test_lease/test_file.pdf",
                                             "category": "lease_agreement",
                                             "subdocument_start_page": 1,
                                             "subdocument_end_page": 5
@@ -623,7 +614,6 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
         with self.assertRaises(Exception) as ex:
             self.service.ingest_classifier_output(
                 doc_type=IngestDocumentType.COLLECTION,
-                market="market 1",
                 collection_id="bad_collection",
                 lease_id="lease",
                 filename="file.pdf",
@@ -662,7 +652,6 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
 
         self.service.ingest_classifier_output(
             doc_type=IngestDocumentType.COLLECTION,
-            market="market 1",
             collection_id="test_collection",
             lease_id="abc_lease",
             filename="abc.pdf",
@@ -699,7 +688,6 @@ class TestIngestionCollectionDocumentServiceIngestClassifierOutput(unittest.Test
 
         self.service.ingest_classifier_output(
             doc_type=IngestDocumentType.COLLECTION,
-            market="market 1",
             collection_id="test_collection",
             lease_id="test_lease",
             filename="test_file.pdf",

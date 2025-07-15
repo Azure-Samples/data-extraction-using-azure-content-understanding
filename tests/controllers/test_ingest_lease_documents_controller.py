@@ -36,7 +36,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         config_version = "1.0"
         documents = [
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_1",
                 lease_id="lease_id_1",
                 filename="filename_1",
@@ -44,7 +43,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
                 date_of_document=date(2023, 10, 1),
             ),
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_2",
                 lease_id="lease_id_2",
                 filename="filename_2",
@@ -98,7 +96,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
             )
             self.mock_ingestion_collection_document_service.ingest_analyzer_output.assert_any_call(
                 IngestDocumentType.COLLECTION,
-                document.market,
                 document.id,
                 document.lease_id,
                 document.filename,
@@ -118,7 +115,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         config_version = "1.0"
         documents = [
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_1",
                 lease_id="lease_id_1",
                 filename="filename_1",
@@ -126,7 +122,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
                 date_of_document=date(2023, 10, 1),
             ),
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_2",
                 lease_id="lease_id_2",
                 filename="filename_2",
@@ -186,7 +181,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         config_version = "1.0"
         documents = [
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_1",
                 lease_id="lease_id_1",
                 filename="filename_1",
@@ -215,7 +209,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         config_version = "1.0"
         documents = [
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_1",
                 lease_id="lease_id_1",
                 filename="filename_1",
@@ -223,7 +216,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
                 date_of_document=date(2023, 10, 1),
             ),
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_2",
                 lease_id="lease_id_2",
                 filename="filename_2",
@@ -286,7 +278,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
             )
             self.mock_ingestion_collection_document_service.ingest_classifier_output.assert_any_call(
                 IngestDocumentType.COLLECTION,
-                document.market,
                 document.id,
                 document.lease_id,
                 document.filename,
@@ -306,7 +297,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         config_version = "1.0"
         documents = [
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_1",
                 lease_id="lease_id_1",
                 filename="filename_1",
@@ -314,7 +304,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
                 date_of_document=date(2023, 10, 1),
             ),
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_2",
                 lease_id="lease_id_2",
                 filename="filename_2",
@@ -381,7 +370,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         config_version = "1.0"
         documents = [
             IngestCollectionDocumentRequest(
-                market="Market",
                 id="collection_id_1",
                 lease_id="lease_id_1",
                 filename="filename_1",
@@ -436,7 +424,6 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         )
         self.mock_ingestion_collection_document_service.ingest_analyzer_output.assert_called_once_with(
             IngestDocumentType.COLLECTION,
-            documents[0].market,
             documents[0].id,
             documents[0].lease_id,
             documents[0].filename,
