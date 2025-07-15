@@ -2,6 +2,7 @@
 
 [![Open in GitHub Codespaces](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub+Codespaces&message=Open&color=brightgreen&logo=github)](https://codespaces.new/Azure-Samples/data-extraction-using-azure-content-understanding)
 [![Open in Dev Container](https://img.shields.io/static/v1?style=for-the-badge&label=Dev+Container&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/data-extraction-using-azure-content-understanding)
+[![Deploy to Azure](https://img.shields.io/static/v1?style=for-the-badge&label=Deploy+to+Azure&message=Deploy&color=0078d4&logo=microsoft-azure)](https://shell.azure.com/)
 
 This sample demonstrates how to build an intelligent document processing solution using Azure Content Understanding (formerly Azure Form Recognizer) to extract structured data from documents and provide conversational querying capabilities.
 
@@ -42,20 +43,51 @@ For detailed architecture information, see [Architecture Documentation](./docs/a
 
 ## 🚀 Quick Start
 
-### Option 1: GitHub Codespaces (Recommended)
+### Option 1: Deploy to Azure (Recommended)
+
+**One-Click Deployment:**
+1. Click the "Deploy to Azure" button above to open Azure Cloud Shell
+2. Run the following command for automated deployment:
+
+```bash
+curl -s https://raw.githubusercontent.com/Azure-Samples/data-extraction-using-azure-content-understanding/main/deploy.sh | bash
+```
+
+**Manual Deployment:**
+1. Click the "Deploy to Azure" button above to open Azure Cloud Shell
+2. Run the following commands in the Cloud Shell:
+
+```bash
+# Clone the repository
+git clone https://github.com/Azure-Samples/data-extraction-using-azure-content-understanding.git
+cd data-extraction-using-azure-content-understanding/iac
+
+# Copy and configure the terraform variables
+cp terraform.tfvars.sample terraform.tfvars
+
+# Edit the terraform.tfvars file with your desired values
+# You can use the Cloud Shell editor: code terraform.tfvars
+
+# Initialize and deploy the infrastructure
+terraform init
+terraform plan
+terraform apply -auto-approve
+```
+
+### Option 2: GitHub Codespaces
 
 1. Click the "Open in GitHub Codespaces" button above
 2. Wait for the codespace to be created and configured
 3. Follow the setup instructions in the terminal
 
-### Option 2: Dev Container
+### Option 3: Dev Container
 
 1. Clone this repository
 2. Open in VS Code
 3. When prompted, reopen in Dev Container
 4. The container will automatically install all dependencies
 
-### Option 3: Local Development
+### Option 4: Local Development
 
 1. Clone the repository:
    ```bash
