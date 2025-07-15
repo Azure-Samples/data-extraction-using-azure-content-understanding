@@ -1,0 +1,20 @@
+# =============================================================================
+# TERRAFORM VARIABLES SAMPLE FILE
+# =============================================================================
+# Copy this file to terraform.tfvars and update the values according to your needs
+# cp terraform.tfvars.sample terraform.tfvars
+
+# Azure subscription ID where resources will be deployed
+subscription_id = "your-subscription-id-here"
+
+# Azure region for resource deployment
+resource_group_location = "westus"
+
+# Region abbreviation used in resource naming (keep it short, 2-3 chars)
+resource_group_location_abbr = "wu"
+
+# Environment name (dev, test, prod, etc.)
+environment_name = "dev"
+
+# Use case name for resource naming
+usecase_name = "dataext"
