@@ -13,4 +13,4 @@ class MongoLockContants(object):
 
 class PathConstants(object):
     """Constants for path."""
-    SITE_PREFIX = "Sites"
+    COLLECTION_PREFIX = "Collections"

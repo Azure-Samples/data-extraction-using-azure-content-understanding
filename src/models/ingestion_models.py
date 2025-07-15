@@ -6,7 +6,7 @@ from typing import Optional
 
 
 class IngestDocumentType(str, Enum):
-    SITE = "Site"
+    COLLECTION = "Collection"
 
 
 class BaseIngestDocumentRequest(BaseModel):
@@ -20,6 +20,6 @@ class BaseIngestDocumentRequest(BaseModel):
 
 
 class IngestCollectionDocumentRequest(BaseIngestDocumentRequest):
-    type: Literal[IngestDocumentType.SITE] = IngestDocumentType.SITE
+    type: Literal[IngestDocumentType.COLLECTION] = IngestDocumentType.COLLECTION
     market: str
     lease_id: str

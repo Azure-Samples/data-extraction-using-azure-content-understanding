@@ -1,0 +1,286 @@
+{
+    "_id": "123-43214191c32dd3d676f029efab72a1d45ab853551c058e587abe1085ced51d3d",
+    "is_locked": false,
+    "unlock_unix_timestamp": 0,
+    "collection_id": "123",
+    "config_id": "data-extraction-v1.0",
+    "lease_config_hash": "43214191c32dd3d676f029efab72a1d45ab853551c058e587abe1085ced51d3d",
+    "information": {
+      "leases": [
+        {
+          "lease_id": "20230814",
+          "original_documents": [
+            "Market/123/20230814/456_document.pdf"
+          ],
+          "markdowns": [
+            "Market/123/20230814/456_document.md"
+          ],
+          "fields": {
+            "list_of_equipments": [
+              {
+                "type": "array",
+                "valueArray": [
+                  {
+                    "type": "object",
+                    "valueObject": {
+                      "MCL": {
+                        "type": "string",
+                        "valueString": "150'-0\"",
+                        "spans": [
+                          {
+                            "offset": 35784,
+                            "length": 7
+                          }
+                        ],
+                        "confidence": 0.002,
+                        "source": "D(12,6.3723,4.2275,6.4506,4.2275,6.4506,4.4921,6.3723,4.4921)"
+                      },
+                      "ACL": {
+                        "type": "string",
+                        "valueString": "150'-0\"",
+                        "spans": [
+                          {
+                            "offset": 35784,
+                            "length": 7
+                          }
+                        ],
+                        "confidence": 0.005,
+                        "source": "D(12,6.3723,4.2275,6.4506,4.2275,6.4506,4.4921,6.3723,4.4921)"
+                      },
+                      "Total": {
+                        "type": "string",
+                        "confidence": 0.093
+                      },
+                      "Proposed": {
+                        "type": "string",
+                        "valueString": "3",
+                        "spans": [
+                          {
+                            "offset": 36571,
+                            "length": 1
+                          }
+                        ],
+                        "confidence": 0,
+                        "source": "D(12,1.1034,7.4402,1.1506,7.4402,1.1506,7.501,1.1034,7.501)"
+                      },
+                      "Manufacturer_or_model_name": {
+                        "type": "string",
+                        "valueString": "RFS",
+                        "spans": [
+                          {
+                            "offset": 36582,
+                            "length": 3
+                          }
+                        ],
+                        "confidence": 0.09,
+                        "source": "D(12,1.5274,7.4382,1.6602,7.4382,1.6602,7.501,1.5274,7.501)"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "valueObject": {
+                      "MCL": {
+                        "type": "string",
+                        "valueString": "150'-0\"",
+                        "spans": [
+                          {
+                            "offset": 35784,
+                            "length": 7
+                          }
+                        ],
+                        "confidence": 0.007,
+                        "source": "D(12,6.3723,4.2275,6.4506,4.2275,6.4506,4.4921,6.3723,4.4921)"
+                      },
+                      "ACL": {
+                        "type": "string",
+                        "valueString": "150'-0\"",
+                        "spans": [
+                          {
+                            "offset": 35784,
+                            "length": 7
+                          }
+                        ],
+                        "confidence": 0.001,
+                        "source": "D(12,6.3723,4.2275,6.4506,4.2275,6.4506,4.4921,6.3723,4.4921)"
+                      },
+                      "Total": {
+                        "type": "string",
+                        "confidence": 0.093
+                      },
+                      "Proposed": {
+                        "type": "string",
+                        "valueString": "3",
+                        "spans": [
+                          {
+                            "offset": 36571,
+                            "length": 1
+                          }
+                        ],
+                        "confidence": 0,
+                        "source": "D(12,1.1034,7.4402,1.1506,7.4402,1.1506,7.501,1.1034,7.501)"
+                      },
+                      "Manufacturer_or_model_name": {
+                        "type": "string",
+                        "valueString": "ERICSSON",
+                        "spans": [
+                          {
+                            "offset": 36724,
+                            "length": 8
+                          }
+                        ],
+                        "confidence": 0.154,
+                        "source": "D(12,1.4366,7.5226,1.7542,7.5226,1.7542,7.5912,1.4366,7.5912)"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "valueObject": {
+                      "MCL": {
+                        "type": "string",
+                        "valueString": "150'-0\"",
+                        "spans": [
+                          {
+                            "offset": 35784,
+                            "length": 7
+                          }
+                        ],
+                        "confidence": 0.007,
+                        "source": "D(12,6.3723,4.2275,6.4506,4.2275,6.4506,4.4921,6.3723,4.4921)"
+                      },
+                      "ACL": {
+                        "type": "string",
+                        "valueString": "150'-0\"",
+                        "spans": [
+                          {
+                            "offset": 35784,
+                            "length": 7
+                          }
+                        ],
+                        "confidence": 0.001,
+                        "source": "D(12,6.3723,4.2275,6.4506,4.2275,6.4506,4.4921,6.3723,4.4921)"
+                      },
+                      "Total": {
+                        "type": "string",
+                        "confidence": 0.093
+                      },
+                      "Proposed": {
+                        "type": "string",
+                        "valueString": "3",
+                        "spans": [
+                          {
+                            "offset": 36571,
+                            "length": 1
+                          }
+                        ],
+                        "confidence": 0.043,
+                        "source": "D(12,1.1034,7.4402,1.1506,7.4402,1.1506,7.501,1.1034,7.501)"
+                      },
+                      "Manufacturer_or_model_name": {
+                        "type": "string",
+                        "valueString": "RFS",
+                        "spans": [
+                          {
+                            "offset": 36582,
+                            "length": 3
+                          }
+                        ],
+                        "confidence": 0.098,
+                        "source": "D(12,1.5274,7.4382,1.6602,7.4382,1.6602,7.501,1.5274,7.501)"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "valueObject": {
+                      "MCL": {
+                        "type": "string",
+                        "confidence": 0.113
+                      },
+                      "ACL": {
+                        "type": "string",
+                        "confidence": 0.118
+                      },
+                      "Total": {
+                        "type": "string",
+                        "confidence": 0.093
+                      },
+                      "Proposed": {
+                        "type": "string",
+                        "valueString": "3",
+                        "spans": [
+                          {
+                            "offset": 36713,
+                            "length": 1
+                          }
+                        ],
+                        "confidence": 0,
+                        "source": "D(12,1.1034,7.5284,1.1455,7.5284,1.1455,7.5895,1.1034,7.5895)"
+                      },
+                      "Manufacturer_or_model_name": {
+                        "type": "string",
+                        "valueString": "ERICSSON",
+                        "spans": [
+                          {
+                            "offset": 36724,
+                            "length": 8
+                          }
+                        ],
+                        "confidence": 0.167,
+                        "source": "D(12,1.4366,7.5226,1.7542,7.5226,1.7542,7.5912,1.4366,7.5912)"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "valueObject": {
+                      "MCL": {
+                        "type": "string",
+                        "confidence": 0.113
+                      },
+                      "ACL": {
+                        "type": "string",
+                        "confidence": 0.118
+                      },
+                      "Total": {
+                        "type": "string",
+                        "confidence": 0.093
+                      },
+                      "Proposed": {
+                        "type": "string",
+                        "valueString": "3",
+                        "spans": [
+                          {
+                            "offset": 36713,
+                            "length": 1
+                          }
+                        ],
+                        "confidence": 0.09,
+                        "source": "D(12,1.1034,7.5284,1.1455,7.5284,1.1455,7.5895,1.1034,7.5895)"
+                      },
+                      "Manufacturer_or_model_name": {
+                        "type": "string",
+                        "valueString": "ERICSSON",
+                        "spans": [
+                          {
+                            "offset": 36724,
+                            "length": 8
+                          }
+                        ],
+                        "confidence": 0.287,
+                        "source": "D(12,1.4366,7.5226,1.7542,7.5226,1.7542,7.5912,1.4366,7.5912)"
+                      }
+                    }
+                  }
+                ],
+                "date_of_document": "2023-10-01",
+                "markdown": "Market/123/20230814/456_document.md",
+                "document": "Market/123/20230814/456_document.pdf"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }

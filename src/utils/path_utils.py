@@ -26,11 +26,11 @@ def build_adls_markdown_file_path(
         file_name = file_name.split(".")[0] + ".md"
 
     if market is None:
-        raise ValueError("Market must be provided for SITE document type.")
+        raise ValueError("Market must be provided for COLLECTION document type.")
     if lease_id is None:
-        raise ValueError("Lease ID must be provided for SITE document type.")
+        raise ValueError("Lease ID must be provided for COLLECTION document type.")
 
-    return f"{PathConstants.SITE_PREFIX}/{market}/{id}/{lease_id}/{file_name}"
+    return f"{PathConstants.COLLECTION_PREFIX}/{market}/{id}/{lease_id}/{file_name}"
 
 
 def build_adls_pdf_file_path(
@@ -56,8 +56,8 @@ def build_adls_pdf_file_path(
         file_name = file_name.split(".")[0] + ".pdf"
 
     if market is None:
-        raise ValueError("Market must be provided for SITE document type.")
+        raise ValueError("Market must be provided for COLLECTION document type.")
     if lease_id is None:
-        raise ValueError("Lease ID must be provided for SITE document type.")
+        raise ValueError("Lease ID must be provided for COLLECTION document type.")
 
-    return f"{PathConstants.SITE_PREFIX}/{market}/{id}/{lease_id}/{file_name}"
+    return f"{PathConstants.COLLECTION_PREFIX}/{market}/{id}/{lease_id}/{file_name}"
