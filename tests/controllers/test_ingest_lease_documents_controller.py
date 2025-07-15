@@ -76,7 +76,7 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         })
         mock_analyzer_output = {"analyzer": "output"}
 
-        self.mock_ingestion_collection_document_service.is_lease_document_ingested.return_value = False
+        self.mock_ingestion_collection_document_service.is_document_ingested.return_value = False
         self.mock_ingestion_configuration_management_service.load_config.return_value = mock_config
         self.mock_content_understanding_client.begin_analyze_data.return_value = Mock()
         self.mock_content_understanding_client.poll_result.return_value = mock_analyzer_output
@@ -158,7 +158,7 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         })
         mock_analyzer_output = {"analyzer": "output"}
 
-        self.mock_ingestion_collection_document_service.is_lease_document_ingested.return_value = True
+        self.mock_ingestion_collection_document_service.is_document_ingested.return_value = True
         self.mock_ingestion_configuration_management_service.load_config.return_value = mock_config
         self.mock_content_understanding_client.begin_analyze_data.return_value = Mock()
         self.mock_content_understanding_client.poll_result.return_value = mock_analyzer_output
@@ -259,7 +259,7 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         })
         mock_classifier_output = {"classifier": "output"}
 
-        self.mock_ingestion_collection_document_service.is_lease_document_ingested.return_value = False
+        self.mock_ingestion_collection_document_service.is_document_ingested.return_value = False
         self.mock_ingestion_configuration_management_service.load_config.return_value = mock_config
         self.mock_content_understanding_client.begin_classify_data.return_value = Mock()
         self.mock_content_understanding_client.poll_result.return_value = mock_classifier_output
@@ -350,7 +350,7 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         })
         mock_classifier_output = {"classifier": "output"}
 
-        self.mock_ingestion_collection_document_service.is_lease_document_ingested.return_value = True
+        self.mock_ingestion_collection_document_service.is_document_ingested.return_value = True
         self.mock_ingestion_configuration_management_service.load_config.return_value = mock_config
         self.mock_content_understanding_client.begin_classify_data.return_value = Mock()
         self.mock_content_understanding_client.poll_result.return_value = mock_classifier_output
@@ -417,7 +417,7 @@ class TestIngestDocuments(TestIngestLeaseDocumentsControllerBase):
         })
         mock_analyzer_output = {"analyzer": "output"}
 
-        self.mock_ingestion_collection_document_service.is_lease_document_ingested.return_value = False
+        self.mock_ingestion_collection_document_service.is_document_ingested.return_value = False
         self.mock_ingestion_configuration_management_service.load_config.return_value = mock_config
         self.mock_content_understanding_client.begin_analyze_data.return_value = Mock()
         self.mock_content_understanding_client.poll_result.return_value = mock_analyzer_output

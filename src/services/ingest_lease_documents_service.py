@@ -213,7 +213,7 @@ class IngestionCollectionDocumentService(object):
             logging.info(f"Error parsing document. Deleting empty document with ID {document_id}")
             self._collection_documents_collection.delete_one({"_id": document_id})
 
-    def is_lease_document_ingested(
+    def is_document_ingested(
             self,
             doc_type: IngestDocumentType,
             collection_id: str,

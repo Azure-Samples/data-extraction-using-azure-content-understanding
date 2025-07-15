@@ -66,7 +66,7 @@ class IngestLeaseDocumentsController(object):
                     document.id,
                     config
                 )
-                if self._ingestion_collection_document_service.is_lease_document_ingested(
+                if self._ingestion_collection_document_service.is_document_ingested(
                     document.type,
                     document.id,
                     document.filename,

@@ -318,7 +318,7 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
         )
         self.config.id = "config-id"
 
-    def test_is_lease_document_ingested_returns_true(self):
+    def test_is_document_ingested_returns_true(self):
         document_id = "test_collection-fake_hash"
         existing_document = ExtractedCollectionDocuments(
             collection_id="test_collection",
@@ -348,7 +348,7 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
         )
         self.mock_collection_documents_collection.find_one.return_value = existing_document.model_dump()
 
-        result = self.service.is_lease_document_ingested(
+        result = self.service.is_document_ingested(
             doc_type=IngestDocumentType.COLLECTION,
             collection_id="test_collection",
             filename="test_file.pdf",
@@ -360,10 +360,10 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
         self.assertTrue(result)
         self.mock_collection_documents_collection.find_one.assert_called_once_with({"_id": document_id})
 
-    def test_is_lease_document_ingested_returns_false_for_missing_site_document(self):
+    def test_is_document_ingested_returns_false_for_missing_site_document(self):
         self.mock_collection_documents_collection.find_one.return_value = None
 
-        result = self.service.is_lease_document_ingested(
+        result = self.service.is_document_ingested(
             doc_type=IngestDocumentType.COLLECTION,
             collection_id="test_collection",
             filename="test_file.pdf",
@@ -375,7 +375,7 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
         self.assertFalse(result)
         self.mock_collection_documents_collection.find_one.assert_called_once_with({"_id": "test_collection-fake_hash"})
 
-    def test_is_lease_document_ingested_returns_false_for_missing_lease(self):
+    def test_is_document_ingested_returns_false_for_missing_lease(self):
         existing_document = ExtractedCollectionDocuments(
             collection_id="test_collection",
             config_id="config-id",
@@ -384,7 +384,7 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
         )
         self.mock_collection_documents_collection.find_one.return_value = existing_document.model_dump()
 
-        result = self.service.is_lease_document_ingested(
+        result = self.service.is_document_ingested(
             doc_type=IngestDocumentType.COLLECTION,
             collection_id="test_collection",
             filename="test_file.pdf",
@@ -395,7 +395,7 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
 
         self.assertFalse(result)
 
-    def test_is_lease_document_ingested_returns_false_for_missing_file_path(self):
+    def test_is_document_ingested_returns_false_for_missing_file_path(self):
         existing_document = ExtractedCollectionDocuments(
             collection_id="test_collection",
             config_id="config-id",
@@ -424,7 +424,7 @@ class TestIngestionCollectionDocumentServiceIsLeaseDocumentIngested(unittest.Tes
         )
         self.mock_collection_documents_collection.find_one.return_value = existing_document.model_dump()
 
-        result = self.service.is_lease_document_ingested(
+        result = self.service.is_document_ingested(
             doc_type=IngestDocumentType.COLLECTION,
             collection_id="test_collection",
             filename="test_file.pdf",
