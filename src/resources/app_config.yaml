@@ -54,7 +54,7 @@ local:
     account_url:
       value: "https://devdatext8wusa0.blob.core.windows.net/"
     container_name:
-      value: "raw_documents"
+      value: "rawdocuments"
 
 
 dev:

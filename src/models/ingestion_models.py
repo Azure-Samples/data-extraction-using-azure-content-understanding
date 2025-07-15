@@ -15,11 +15,9 @@ class BaseIngestDocumentRequest(BaseModel):
     filename: str
     file_bytes: bytes
     date_of_document: date
-    market: Optional[str] = None
     lease_id: Optional[str] = None
 
 
 class IngestCollectionDocumentRequest(BaseIngestDocumentRequest):
     type: Literal[IngestDocumentType.COLLECTION] = IngestDocumentType.COLLECTION
-    market: str
     lease_id: str

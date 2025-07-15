@@ -71,7 +71,6 @@ class IngestLeaseDocumentsController(object):
                     document.id,
                     document.filename,
                     config,
-                    document.market,
                     document.lease_id
                 ):
                     logging.warning(
@@ -121,7 +120,6 @@ class IngestLeaseDocumentsController(object):
                 if is_classifier_enabled:
                     self._ingestion_collection_document_service.ingest_classifier_output(
                         document.type,
-                        document.market,
                         document.id,
                         document.lease_id,
                         document.filename,
@@ -132,7 +130,6 @@ class IngestLeaseDocumentsController(object):
                 else:
                     self._ingestion_collection_document_service.ingest_analyzer_output(
                         document.type,
-                        document.market,
                         document.id,
                         document.lease_id,
                         document.filename,

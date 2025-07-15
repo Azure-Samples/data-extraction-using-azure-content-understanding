@@ -1,0 +1,21 @@
+@AZURE_FUNCTIONS_ENDPOINT_DEV = "https://devdatextwufunc0.azurewebsites.net/api"
+@AZURE_FUNCTIONS_ENDPOINT_LOCAL = "http://localhost:7071/api"
+
+@CONFIG_NAME = "document-extraction"
+@CONFIG_VERSION = "v1.0"
+### Send a request to the data extraction /ingest-documents endpoint for dev
+# @name postDocumentDev
+curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/ingest-documents/test" \
+  -H "Content-Type: application/json" \
+  -d @../raw_documents_dataset/SingleKey-Sample-Rent-Guarantee.pdf
+
+echo {{postDocumentDev.response}}
+
+
+### Send a request to the data extraction /ingest-documents endpoint local
+# @name postDocumentLocal
+curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/ingest-documents/test" \
+  -H "Content-Type: application/octet-stream" \
+  -d @../raw_documents_dataset/SingleKey-Sample-Rent-Guarantee.pdf
+
+echo {{postDocumentLocal.response}}
