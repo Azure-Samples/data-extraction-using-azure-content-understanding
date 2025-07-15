@@ -5,9 +5,9 @@
 @CONFIG_VERSION = "v1.0"
 ### Send a request to the data extraction /ingest-documents endpoint for dev
 # @name postDocumentDev
-curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/ingest-documents/test" \
+curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/ingest-documents/Collection-1/Lease-1/TestDocument" \
   -H "Content-Type: application/json" \
-  -d @../raw_documents_dataset/SingleKey-Sample-Rent-Guarantee.pdf
+  -d @../raw_documents_dataset/Sample-Rent-Guarantee.pdf
 
 echo {{postDocumentDev.response}}
 
@@ -16,6 +16,6 @@ echo {{postDocumentDev.response}}
 # @name postDocumentLocal
 curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/ingest-documents/Collection-1/Lease-1/TestDocument" \
   -H "Content-Type: application/octet-stream" \
-  --data-binary @../raw_documents_dataset/SingleKey-Sample-Rent-Guarantee.pdf
+  -d @../raw_documents_dataset/Sample-Rent-Guarantee.pdf
 
 echo {{postDocumentLocal.response}}
