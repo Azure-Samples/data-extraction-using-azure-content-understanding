@@ -3,6 +3,8 @@
   "Values": {
     "FUNCTIONS_WORKER_RUNTIME": "python",
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "ENVIRONMENT": "local"
+    "AzureWebJobsSecretStorageType": "files",
+    "ENVIRONMENT": "local",
+    "STORAGE_ACCOUNT_CONNECTION_STRING": ""
   }
 }
