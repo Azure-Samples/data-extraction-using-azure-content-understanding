@@ -4,6 +4,8 @@
     "FUNCTIONS_WORKER_RUNTIME": "python",
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "PYTHON_ENABLE_DEBUG_LOGGING": "1",
-    "ENVIRONMENT": "local"
+    "ENVIRONMENT": "local",
+    "FUNCTIONS_EXTENSION_VERSION": "~4",
+    "WEBSITE_NODE_DEFAULT_VERSION": "~18"
   }
 }
