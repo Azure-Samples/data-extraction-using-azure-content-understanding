@@ -6,6 +6,8 @@
 
 This sample demonstrates how to build an intelligent document processing solution using Azure Content Understanding to extract structured data from documents and provide conversational querying capabilities.
 
+> **Note**: This sample is for demonstration purposes and should be adapted for production use with appropriate security, monitoring, and error handling considerations.
+
 ## 🚀 Features
 
 - **Document Ingestion**: Automatically process documents using Azure Content Understanding to extract structured data
@@ -102,7 +104,7 @@ terraform apply -auto-approve
 
 3. Configure environment variables:
    ```bash
-   cp src/sample.local.settings.json src/local.settings.json
+   cp src/local.settings.sample.json src/local.settings.json
    # Edit local.settings.json with your Azure service configurations
    ```
 
@@ -199,9 +201,12 @@ pytest
 ├── iac/                       # Terraform infrastructure as code
 │   └── modules/              # Reusable Terraform modules
 ├── src/                       # Source code
+│   ├── configs/              # Application configuration management
 │   ├── controllers/          # API controllers
+│   ├── decorators/           # Custom decorators
 │   ├── models/               # Data models
 │   ├── routes/               # API routes
+│   ├── samples/              # Sample HTTP requests
 │   ├── services/             # Business logic services
 │   └── utils/                # Utility functions
 └── tests/                     # Unit and integration tests
@@ -269,7 +274,3 @@ For support and questions:
 - [Azure OpenAI Service Documentation](https://docs.microsoft.com/azure/cognitive-services/openai/)
 - [Azure Functions Python Developer Guide](https://docs.microsoft.com/azure/azure-functions/functions-reference-python)
 - [Azure Cosmos DB Documentation](https://docs.microsoft.com/azure/cosmos-db/)
-
----
-
-**Note**: This sample is for demonstration purposes and should be adapted for production use with appropriate security, monitoring, and error handling considerations.
