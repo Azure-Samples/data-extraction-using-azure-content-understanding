@@ -5,7 +5,6 @@ from .http_error import HTTPError
 
 __all__ = [
     "CollectedDocumentData",
-
     "FieldDataCollectionConfig",
     "HTTPError",
 ]

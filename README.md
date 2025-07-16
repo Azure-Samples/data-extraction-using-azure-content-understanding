@@ -6,6 +6,8 @@
 
 This sample demonstrates how to build an intelligent document processing solution using Azure Content Understanding to extract structured data from documents and provide conversational querying capabilities.
 
+> **Note**: This sample is for demonstration purposes and should be adapted for production use with appropriate security, monitoring, and error handling considerations.
+
 ## 🚀 Features
 
 - **Document Ingestion**: Automatically process documents using Azure Content Understanding to extract structured data
@@ -90,25 +92,58 @@ terraform apply -auto-approve
 ### Option 4: Local Development
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/Azure-Samples/data-extraction-using-azure-content-understanding.git
-   cd data-extraction-using-azure-content-understanding
-   ```
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+git clone https://github.com/Azure-Samples/data-extraction-using-azure-content-understanding.git
+cd data-extraction-using-azure-content-understanding
+```
 
-3. Configure environment variables:
-   ```bash
-   cp src/sample.local.settings.json src/local.settings.json
-   # Edit local.settings.json with your Azure service configurations
-   ```
+1. Create a virtual environment:
+
+```bash
+python -m venv .venv
+source ./venv/Scripts/activate  # or ./venv/bin/activate if on Mac/Linux
+```
+
+1. Configure VS Code settings:
+
+Add the following property in `.vscode/settings.json`:
+
+```json
+"azureFunctions.pythonVenv": ".venv"
+```
+
+1. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+1. Configure environment variables:
+
+```bash
+cp src/local.settings.sample.json src/local.settings.json
+# Edit local.settings.json with your Azure service configurations
+```
 
 ## 🛠️ Setup and Configuration
 
 ### 1. Deploy Infrastructure
+
+First, authenticate with Azure and ensure you're using the correct subscription:
+
+```bash
+az login
+
+# List available subscriptions
+az account list --output table
+
+# Set the correct subscription
+az account set --subscription "your-subscription-id"
+
+# Verify the selected subscription
+az account show --output table
+```
 
 Navigate to the `iac` folder and deploy the required Azure resources:
 
@@ -131,16 +166,35 @@ Update the `src/local.settings.json` file with your Azure service endpoints and 
   "Values": {
     "AzureWebJobsStorage": "<your-storage-connection-string>",
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "AZURE_CONTENT_UNDERSTANDING_ENDPOINT": "<your-document-intelligence-endpoint>",
-    "AZURE_CONTENT_UNDERSTANDING_KEY": "<your-document-intelligence-key>",
-    "AZURE_OPENAI_ENDPOINT": "<your-openai-endpoint>",
-    "AZURE_OPENAI_API_KEY": "<your-openai-key>",
-    "COSMOS_DB_CONNECTION_STRING": "<your-cosmosdb-connection-string>"
+    "ENVIRONMENT": "local"
   }
 }
 ```
 
-### 3. Upload Configuration
+### 3. Update Application Configuration
+
+Update the `src/resources/app_config.yaml` file with your Azure service endpoints and keys/secrets from Key Vault for the respective environment (specified in your `ENVIRONMENT` environment variable):
+
+```yaml
+# Example configuration - update with your actual values
+azure_content_understanding:
+  endpoint: "<your-content-understanding-endpoint>"
+  subscription_key: "<your-content-understanding-key>"
+  
+azure_openai:
+  endpoint: "<your-openai-endpoint>"
+  api_key: "<your-openai-api-key>"
+  
+cosmos_db:
+  connection_string: "<your-cosmosdb-connection-string>"
+  
+key_vault:
+  url: "<your-key-vault-url>"
+```
+
+Note that the `app_config.yaml` file should NOT directly contain any secrets, only the names of the secrets as stored in Key Vault, as this file is tracked under version control.
+
+### 4. Upload Configuration
 
 Create and upload document extraction configurations:
 
@@ -199,9 +253,12 @@ pytest
 ├── iac/                       # Terraform infrastructure as code
 │   └── modules/              # Reusable Terraform modules
 ├── src/                       # Source code
+│   ├── configs/              # Application configuration management
 │   ├── controllers/          # API controllers
+│   ├── decorators/           # Custom decorators
 │   ├── models/               # Data models
 │   ├── routes/               # API routes
+│   ├── samples/              # Sample HTTP requests
 │   ├── services/             # Business logic services
 │   └── utils/                # Utility functions
 └── tests/                     # Unit and integration tests
@@ -269,7 +326,3 @@ For support and questions:
 - [Azure OpenAI Service Documentation](https://docs.microsoft.com/azure/cognitive-services/openai/)
 - [Azure Functions Python Developer Guide](https://docs.microsoft.com/azure/azure-functions/functions-reference-python)
 - [Azure Cosmos DB Documentation](https://docs.microsoft.com/azure/cosmos-db/)
-
----
-
-**Note**: This sample is for demonstration purposes and should be adapted for production use with appropriate security, monitoring, and error handling considerations.
