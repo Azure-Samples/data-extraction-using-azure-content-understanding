@@ -4,7 +4,6 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "azureFunctions.pythonVenv": ".venv",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.projectLanguage": "Python",
     "azureFunctions.projectRuntime": "~4",
