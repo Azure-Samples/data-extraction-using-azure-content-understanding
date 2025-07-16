@@ -92,21 +92,31 @@ terraform apply -auto-approve
 ### Option 4: Local Development
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/Azure-Samples/data-extraction-using-azure-content-understanding.git
-   cd data-extraction-using-azure-content-understanding
-   ```
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+git clone https://github.com/Azure-Samples/data-extraction-using-azure-content-understanding.git
+cd data-extraction-using-azure-content-understanding
+```
 
-3. Configure environment variables:
-   ```bash
-   cp src/local.settings.sample.json src/local.settings.json
-   # Edit local.settings.json with your Azure service configurations
-   ```
+1. Create a virtual environment:
+
+```bash
+python -m venv .venv
+source ./venv/Scripts/activate  # or ./venv/bin/activate if on Mac/Linux
+```
+
+1. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+1. Configure environment variables:
+
+```bash
+cp src/local.settings.sample.json src/local.settings.json
+# Edit local.settings.json with your Azure service configurations
+```
 
 ## 🛠️ Setup and Configuration
 
@@ -173,6 +183,8 @@ cosmos_db:
 key_vault:
   url: "<your-key-vault-url>"
 ```
+
+Note that the `app_config.yaml` file should NOT directly contain any secrets, only the names of the secrets as stored in Key Vault, as this file is tracked under version control.
 
 ### 4. Upload Configuration
 

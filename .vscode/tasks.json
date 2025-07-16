@@ -2,23 +2,13 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "type": "shell",
+        "type": "func",
         "label": "func: host start",
-        "command": "func",
-        "args": [
-          "host", 
-          "start",
-          "--script-root", 
-          "${workspaceFolder}/src"
-        ],
+        "command": "host start --script-root \\src\\",
         "problemMatcher": "$func-watch",
         "isBackground": true,
         "options": {
             "cwd": "${workspaceFolder}"
-        },
-        "group": {
-          "kind": "build",
-          "isDefault": true
         }
       }
     ]
