@@ -112,6 +112,21 @@ terraform apply -auto-approve
 
 ### 1. Deploy Infrastructure
 
+First, authenticate with Azure and ensure you're using the correct subscription:
+
+```bash
+az login
+
+# List available subscriptions
+az account list --output table
+
+# Set the correct subscription
+az account set --subscription "your-subscription-id"
+
+# Verify the selected subscription
+az account show --output table
+```
+
 Navigate to the `iac` folder and deploy the required Azure resources:
 
 ```bash
