@@ -148,16 +148,33 @@ Update the `src/local.settings.json` file with your Azure service endpoints and 
   "Values": {
     "AzureWebJobsStorage": "<your-storage-connection-string>",
     "FUNCTIONS_WORKER_RUNTIME": "python",
-    "AZURE_CONTENT_UNDERSTANDING_ENDPOINT": "<your-document-intelligence-endpoint>",
-    "AZURE_CONTENT_UNDERSTANDING_KEY": "<your-document-intelligence-key>",
-    "AZURE_OPENAI_ENDPOINT": "<your-openai-endpoint>",
-    "AZURE_OPENAI_API_KEY": "<your-openai-key>",
-    "COSMOS_DB_CONNECTION_STRING": "<your-cosmosdb-connection-string>"
+    "ENVIRONMENT": "local"
   }
 }
 ```
 
-### 3. Upload Configuration
+### 3. Update Application Configuration
+
+Update the `src/resources/app_config.yaml` file with your Azure service endpoints and keys/secrets from Key Vault for the respective environment (specified in your `ENVIRONMENT` environment variable):
+
+```yaml
+# Example configuration - update with your actual values
+azure_content_understanding:
+  endpoint: "<your-content-understanding-endpoint>"
+  subscription_key: "<your-content-understanding-key>"
+  
+azure_openai:
+  endpoint: "<your-openai-endpoint>"
+  api_key: "<your-openai-api-key>"
+  
+cosmos_db:
+  connection_string: "<your-cosmosdb-connection-string>"
+  
+key_vault:
+  url: "<your-key-vault-url>"
+```
+
+### 4. Upload Configuration
 
 Create and upload document extraction configurations:
 
