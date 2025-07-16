@@ -105,6 +105,14 @@ python -m venv .venv
 source ./venv/Scripts/activate  # or ./venv/bin/activate if on Mac/Linux
 ```
 
+1. Configure VS Code settings:
+
+Add the following property in `.vscode/settings.json`:
+
+```json
+"azureFunctions.pythonVenv": ".venv"
+```
+
 1. Install dependencies:
 
 ```bash
