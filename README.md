@@ -219,6 +219,37 @@ curl -X POST http://localhost:7071/api/v1/ingest/config \
    curl http://localhost:7071/api/v1/health
    ```
 
+   **Expected Healthy Response**:
+   
+   When all resources and their connectivity are healthy, the health check will return:
+   ```json
+   {
+     "status": "healthy",
+     "checks": {
+       "mongo_db": {
+         "status": "healthy",
+         "details": "mongo_db is running as expected."
+       },
+       "cosmos_db": {
+         "status": "healthy",
+         "details": "cosmos_db is running as expected."
+       },
+       "key_vault": {
+         "status": "healthy",
+         "details": "key_vault is running as expected."
+       },
+       "content_understanding": {
+         "status": "healthy",
+         "details": "content_understanding is running as expected."
+       },
+       "azure_openai": {
+         "status": "healthy",
+         "details": "azure_openai is running as expected."
+       }
+     }
+   }
+   ```
+
 ### Document Processing
 
 1. **Upload Documents**: Place documents in the configured Azure Storage container
