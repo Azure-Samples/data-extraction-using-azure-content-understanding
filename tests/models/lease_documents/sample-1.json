@@ -10,10 +10,10 @@
         {
           "lease_id": "20230814",
           "original_documents": [
-            "Market/123/20230814/456_document.pdf"
+            "123/20230814/456_document.pdf"
           ],
           "markdowns": [
-            "Market/123/20230814/456_document.md"
+            "123/20230814/456_document.md"
           ],
           "fields": {
             "list_of_equipments": [
@@ -275,8 +275,8 @@
                   }
                 ],
                 "date_of_document": "2023-10-01",
-                "markdown": "Market/123/20230814/456_document.md",
-                "document": "Market/123/20230814/456_document.pdf"
+                "markdown": "123/20230814/456_document.md",
+                "document": "123/20230814/456_document.pdf"
               }
             ]
           }
