@@ -52,13 +52,13 @@ def ingest_docs(req: func.HttpRequest) -> func.HttpResponse:
         document_name = req.route_params.get('document_name')
     except Exception:
         return func.HttpResponse(
-            "Invalid or missing JSON body. 'collection_id', 'lease_id', and 'document_name' are required.",
+            "Missing required path parameters: 'collection_id', 'lease_id', or 'document_name'.",
             status_code=400
         )
 
     if not collection_id or not lease_id or not document_name:
         return func.HttpResponse(
-            "'collection_id', 'lease_id', and 'document_name' must be provided in the request body.",
+            "Missing required path parameters: 'collection_id', 'lease_id', or 'document_name'.",
             status_code=400
         )
 

@@ -115,7 +115,7 @@ class TestIngestDocumentsRoutes(unittest.TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 400)
-        self.assertIn("'collection_id', 'lease_id', and 'document_name' must be provided", 
+        self.assertIn("Missing required path parameters: 'collection_id', 'lease_id', or 'document_name'.", 
                       response.get_body().decode())
 
     @patch("routes.api.v1.ingest_documents_routes.IngestLeaseDocumentsController")
@@ -153,7 +153,7 @@ class TestIngestDocumentsRoutes(unittest.TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 400)
-        self.assertIn("'collection_id', 'lease_id', and 'document_name' must be provided", 
+        self.assertIn("Missing required path parameters: 'collection_id', 'lease_id', or 'document_name'.", 
                       response.get_body().decode())
 
     @patch("routes.api.v1.ingest_documents_routes.IngestLeaseDocumentsController")
@@ -191,7 +191,7 @@ class TestIngestDocumentsRoutes(unittest.TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 400)
-        self.assertIn("'collection_id', 'lease_id', and 'document_name' must be provided", 
+        self.assertIn("Missing required path parameters: 'collection_id', 'lease_id', or 'document_name'.", 
                       response.get_body().decode())
 
     @patch("routes.api.v1.ingest_documents_routes.IngestLeaseDocumentsController")
