@@ -102,7 +102,7 @@ cd data-extraction-using-azure-content-understanding
 
 ```bash
 python -m venv .venv
-source ./venv/Scripts/activate  # or ./venv/bin/activate if on Mac/Linux
+source ./.venv/Scripts/activate  # or ./.venv/bin/activate if on Mac/Linux
 ```
 
 1. Configure VS Code settings:
@@ -156,9 +156,35 @@ terraform plan
 terraform apply
 ```
 
+Note that the provided Terraform scripts will by default create the appropriate roles for access for the user principal running the script;
+you will need to grant permissions to other users for accessing the Key Vault and CosmosDB instances:
+
+Get their user principal ID - they will have to run:
+
+```bash
+az cli login
+az ad signed-in-user show --query id -o tsv
+```
+
+Then, you can run:
+
+```sh
+az role assignment create \
+--assignee "<their-user-principal-id>" \
+--role "DocumentDB Account Contributor" \
+--scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.DocumentDB/databaseAccounts/<cosmosdb-name>"
+ 
+az cosmosdb sql role assignment create \
+  --account-name "devdatext8wucosmoskb0" \
+  --resource-group "devdatext8WuRg0" \
+  --role-definition-id "00000000-0000-0000-0000-000000000001" \
+  --principal-id "<their-user-principal-id>" \
+  --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.DocumentDB/databaseAccounts/<cosmosdb-name>"
+```
+
 ### 2. Configure Application Settings
 
-Update the `src/local.settings.json` file with your Azure service endpoints and keys:
+Update the `src/local.settings.json` file:
 
 ```json
 {
@@ -170,6 +196,22 @@ Update the `src/local.settings.json` file with your Azure service endpoints and 
   }
 }
 ```
+
+If you want to test the out-of-the-box monitoring integration with Application Insights and enable tracing of the Semantic Kernel workflow in the query endpoint, add the following:
+
+```json
+{
+  ...
+  "Values": {
+    ...
+    "SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS": true,
+    "APPLICATIONINSIGHTS_CONNECTION_STRING": "<CONNECTION_STRING>"
+  }
+}
+```
+
+You can add `"SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS"` to the Function App  app settings to capture Semantic Kernel telemetry in the deployed environment;
+if you would like to capture prompts/completions as part of that telemetry, include `"SEMANTICKERNEL_EXPERIMENTAL_GENAI_ENABLE_OTEL_DIAGNOSTICS_SENSITIVE": true` instead of the other SK environment variable.
 
 ### 3. Update Application Configuration
 
