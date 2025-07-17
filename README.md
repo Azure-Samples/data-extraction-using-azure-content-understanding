@@ -156,6 +156,32 @@ terraform plan
 terraform apply
 ```
 
+Note that the provided Terraform scripts will by default create the appropriate roles for access for the user principal running the script;
+you will need to grant permissions to other users for accessing the Key Vault and CosmosDB instances:
+
+Get their user principal ID - they will have to run:
+
+```bash
+az cli login
+az ad signed-in-user show --query id -o tsv
+```
+
+Then, you can run:
+
+```sh
+az role assignment create \
+--assignee "<their-user-principal-id>" \
+--role "DocumentDB Account Contributor" \
+--scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.DocumentDB/databaseAccounts/<cosmosdb-name>"
+ 
+az cosmosdb sql role assignment create \
+  --account-name "devdatext8wucosmoskb0" \
+  --resource-group "devdatext8WuRg0" \
+  --role-definition-id "00000000-0000-0000-0000-000000000001" \
+  --principal-id "<their-user-principal-id>" \
+  --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.DocumentDB/databaseAccounts/<cosmosdb-name>"
+```
+
 ### 2. Configure Application Settings
 
 Update the `src/local.settings.json` file:
