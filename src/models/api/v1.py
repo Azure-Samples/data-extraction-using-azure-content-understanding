@@ -17,7 +17,7 @@ class GeneratedResponse(KernelBaseModel):
     Attributes:
             response (str): The main response text. Always include the inline citation number in the response text,
                 e.g., 'The termination rights for collection document 123 has been waived any unilateral termination rights[1]'."
-            citations (list): A list of citations. For example, ["CITECH75442D-2, "CITECH75442D-3]
+            citations (list): A list of citations. For example, ["CITE123-2", "CITE123-3"]
     """
     response: str
     citations: list[str]
@@ -35,7 +35,7 @@ class QueryResponse(BaseModel):
 
     Attributes:
             response (str): The main response text. Always include the inline citation number in the response text,
-                e.g., 'The termination rights for site CH75442D has been waived any unilateral termination rights[1]'."
+                e.g., 'The termination rights for collection document 123 has been waived any unilateral termination rights[1]'."
             citations (list): A list of citations in the format ["source_document", "source_bounding_boxes"].
     """
     response: str
