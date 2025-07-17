@@ -38,7 +38,7 @@
                     "method": "extract"
                 }
             ],
-            "analyzer_id": "test-analyzer2"
+            "analyzer_id": "test-analyzer"
         }
     ]
 }
