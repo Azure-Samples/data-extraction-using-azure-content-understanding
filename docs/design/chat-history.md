@@ -38,7 +38,6 @@ The chat history is stored in Azure Cosmos DB with the following structure:
     "sid": "<session-id>",
     "user_id": "<user-id>",
     "domain": "<domain>",
-    "subdomain": "",
     "messages": [
         // messages...
     ]
