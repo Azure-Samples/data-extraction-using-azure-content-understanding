@@ -86,6 +86,10 @@ class TestSetConfig(unittest.TestCase):
             analyzer_template={
                 "baseAnalyzerId": "prebuilt-documentAnalyzer",
                 "scenario": AnalyzerConstants.ANALYZER_SCENARIO,
+                "config": {
+                    "returnDetails": True,
+                    "estimateFieldSourceAndConfidence": True
+                },
                 "tags": {
                     "projectId": project_id,
                     "templateId": AnalyzerConstants.ANALYZER_TEMPLATE_ID
