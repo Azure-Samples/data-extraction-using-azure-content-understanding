@@ -34,8 +34,10 @@ while true; do
     echo ""
     echo "🔑 Please enter your Azure Subscription ID:"
     echo "   (Format: 12345678-1234-1234-1234-123456789012)"
-    echo -n "Subscription ID: "
-    read SUBSCRIPTION_ID
+    printf "Subscription ID: "
+    
+    # Use a more compatible read method
+    IFS= read -r SUBSCRIPTION_ID < /dev/tty
     
     # Remove any whitespace
     SUBSCRIPTION_ID=$(echo "$SUBSCRIPTION_ID" | tr -d '[:space:]')
@@ -63,8 +65,8 @@ echo "⚠️  Note: Azure Content Understanding is in preview and only available
 echo ""
 while true; do
     echo ""
-    echo -n "🌍 Select resource group location (1-3): "
-    read LOCATION_CHOICE
+    printf "🌍 Select resource group location (1-3): "
+    IFS= read -r LOCATION_CHOICE < /dev/tty
     
     # Remove any whitespace
     LOCATION_CHOICE=$(echo "$LOCATION_CHOICE" | tr -d '[:space:]')
@@ -97,8 +99,8 @@ done
 # Get environment name
 echo ""
 while true; do
-    echo -n "🏷️  Enter environment name [default: dev]: "
-    read ENVIRONMENT_NAME
+    printf "🏷️  Enter environment name [default: dev]: "
+    IFS= read -r ENVIRONMENT_NAME < /dev/tty
     
     # Use default if empty
     if [[ -z "$ENVIRONMENT_NAME" ]]; then
@@ -120,8 +122,8 @@ done
 # Get use case name
 echo ""
 while true; do
-    echo -n "📋 Enter use case name [default: dataext]: "
-    read USECASE_NAME
+    printf "📋 Enter use case name [default: dataext]: "
+    IFS= read -r USECASE_NAME < /dev/tty
     
     # Use default if empty
     if [[ -z "$USECASE_NAME" ]]; then
@@ -165,8 +167,8 @@ terraform plan \
 # Ask for confirmation before applying
 echo ""
 echo "🤔 Do you want to proceed with the deployment? (y/N)"
-echo -n "Enter your choice: "
-read REPLY
+printf "Enter your choice: "
+IFS= read -r REPLY < /dev/tty
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "🚀 Deploying infrastructure..."
