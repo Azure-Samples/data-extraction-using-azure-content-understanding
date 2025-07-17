@@ -55,7 +55,8 @@ The chat history is updated after each successful assistant response, ensuring t
 
 ## Retrieving Chat History
 
-When initiating or continuing a conversation, the system retrieves existing chat history from Azure Cosmos DB using the provided session ID (`sid`), user ID (extracted from the `x-user` header), domain, and subdomain. This retrieval provides context for the assistant, enabling more natural and coherent interactions.
+When initiating or continuing a conversation, the system retrieves existing chat history from Azure Cosmos DB using the provided session ID (`sid`), user ID (extracted from the `x-user` header), and domain. This retrieval provides context for the assistant, enabling more natural and coherent interactions.
+
 
 The retrieval process involves:
 
