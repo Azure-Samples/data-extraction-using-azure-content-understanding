@@ -9,7 +9,7 @@ curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_DEV}}/v1/query?x-ms-routing-name=dev
   -d '{
         "cid": "col1",
         "sid": "test",
-        "query": "Get the data for Collection-1"
+        "query": "Get the data for Collection1"
       }'
 
 echo {{postQueryDev.response}}
@@ -23,7 +23,7 @@ curl -i -X POST "{{AZURE_FUNCTIONS_ENDPOINT_LOCAL}}/v1/query" \
   -d '{
         "cid": "col12",
         "sid": "test2",
-        "query": "What are my termination conditions on Collection-1"
+        "query": "What are my termination conditions on Collection1"
       }'
 
 echo {{postQueryLocal.response}}

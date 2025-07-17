@@ -110,6 +110,10 @@ class IngestConfigController(object):
         return {
             "baseAnalyzerId": AnalyzerConstants.BASE_ANALYZER_ID,
             "scenario": AnalyzerConstants.ANALYZER_SCENARIO,
+            "config": {
+                "returnDetails": True,
+                "estimateFieldSourceAndConfidence": True
+            },
             "tags": {
                 "projectId": project_id,
                 "templateId": AnalyzerConstants.ANALYZER_TEMPLATE_ID
