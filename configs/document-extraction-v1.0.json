@@ -3,6 +3,7 @@
     "name": "document-extraction",
     "version": "v1.0",
     "prompt": "You are a helpful assistant tasked with using the necessary tools to retrieve document information based on the collection ID provided by the user.",
+    "extraction_config_hash": "<hash>",
     "collection_rows": [
         {
             "data_type": "LeaseAgreement",
