@@ -47,7 +47,6 @@ The chat history is stored in Azure Cosmos DB with the following structure:
 - **`sid`**: Unique identifier for the conversation session.
 - **`user_id`**: Identifier of the user who initiated the query.
 - **`domain`**: The domain context.
-- **`subdomain`**: The sub-domain context (currently empty by default).
 - **`messages`**: Chronological list of interactions between the user and the assistant.
 
 The chat history is updated after each successful assistant response, ensuring the conversation context remains current.
