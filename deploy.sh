@@ -53,15 +53,46 @@ if ! az account show &>/dev/null; then
     fi
 fi
 
-# Display current Azure context
-CURRENT_SUBSCRIPTION=$(az account show --query "id" -o tsv)
-CURRENT_TENANT=$(az account show --query "tenantId" -o tsv)
-CURRENT_USER=$(az account show --query "user.name" -o tsv)
+# Display current Azure context and available subscriptions
+echo "🔍 Discovering available subscriptions across all tenants..."
 
+# Get all available subscriptions across tenants
+AVAILABLE_SUBSCRIPTIONS=$(az account list --all --query "[].{id:id, name:name, tenantId:tenantId, state:state}" -o json 2>/dev/null || echo "[]")
+
+if [[ "$AVAILABLE_SUBSCRIPTIONS" == "[]" ]] || [[ -z "$AVAILABLE_SUBSCRIPTIONS" ]]; then
+    echo "⚠️  No subscriptions found. Attempting to refresh account access..."
+    az account clear
+    az login --allow-no-subscriptions
+    AVAILABLE_SUBSCRIPTIONS=$(az account list --all --query "[].{id:id, name:name, tenantId:tenantId, state:state}" -o json 2>/dev/null || echo "[]")
+fi
+
+# Get current subscription details
+CURRENT_SUBSCRIPTION=$(az account show --query "id" -o tsv 2>/dev/null || echo "")
+CURRENT_SUBSCRIPTION_NAME=$(az account show --query "name" -o tsv 2>/dev/null || echo "")
+CURRENT_TENANT=$(az account show --query "tenantId" -o tsv 2>/dev/null || echo "")
+CURRENT_USER=$(az account show --query "user.name" -o tsv 2>/dev/null || echo "")
+
+echo ""
 echo "✅ Authenticated with Azure CLI"
-echo "   Current subscription: $CURRENT_SUBSCRIPTION"
-echo "   Current tenant: $CURRENT_TENANT" 
-echo "   Current user: $CURRENT_USER"
+if [[ -n "$CURRENT_SUBSCRIPTION" ]]; then
+    echo "   Current subscription: $CURRENT_SUBSCRIPTION_NAME ($CURRENT_SUBSCRIPTION)"
+    echo "   Current tenant: $CURRENT_TENANT" 
+    echo "   Current user: $CURRENT_USER"
+else
+    echo "   No active subscription set"
+fi
+
+# Display available subscriptions
+echo ""
+echo "📋 Available subscriptions across all tenants:"
+if [[ "$AVAILABLE_SUBSCRIPTIONS" != "[]" ]] && [[ -n "$AVAILABLE_SUBSCRIPTIONS" ]]; then
+    echo "$AVAILABLE_SUBSCRIPTIONS" | jq -r '.[] | "   • \(.name) (\(.id)) - Tenant: \(.tenantId) - State: \(.state)"' 2>/dev/null || {
+        # Fallback if jq is not available
+        az account list --all --query "[].{id:id, name:name, tenantId:tenantId, state:state}" -o table
+    }
+else
+    echo "   No subscriptions found. You may need additional permissions."
+fi
 echo ""
 
 # Prompt user for required parameters
@@ -72,15 +103,20 @@ echo ""
 while true; do
     echo ""
     echo "🔑 Please enter your Azure Subscription ID:"
-    echo "   Current authenticated subscription: $CURRENT_SUBSCRIPTION"
-    echo "   (Format: 12345678-1234-1234-1234-123456789012)"
-    printf "Subscription ID [default: current]: "
+    if [[ -n "$CURRENT_SUBSCRIPTION" ]]; then
+        echo "   Current authenticated subscription: $CURRENT_SUBSCRIPTION_NAME ($CURRENT_SUBSCRIPTION)"
+        echo "   (Format: 12345678-1234-1234-1234-123456789012)"
+        printf "Subscription ID [default: current]: "
+    else
+        echo "   (Format: 12345678-1234-1234-1234-123456789012)"
+        printf "Subscription ID: "
+    fi
     
     # Use a more compatible read method
     IFS= read -r SUBSCRIPTION_ID < /dev/tty
     
-    # Use current subscription if empty
-    if [[ -z "$SUBSCRIPTION_ID" ]]; then
+    # Use current subscription if empty and available
+    if [[ -z "$SUBSCRIPTION_ID" ]] && [[ -n "$CURRENT_SUBSCRIPTION" ]]; then
         SUBSCRIPTION_ID="$CURRENT_SUBSCRIPTION"
     fi
     
@@ -96,15 +132,19 @@ while true; do
     else
         echo "✅ Subscription ID accepted: $SUBSCRIPTION_ID"
         
-        # Set the subscription if it's different from current
-        if [[ "$SUBSCRIPTION_ID" != "$CURRENT_SUBSCRIPTION" ]]; then
+        # Set the subscription if it's different from current or if no current subscription
+        if [[ "$SUBSCRIPTION_ID" != "$CURRENT_SUBSCRIPTION" ]] || [[ -z "$CURRENT_SUBSCRIPTION" ]]; then
             echo "🔄 Switching to subscription: $SUBSCRIPTION_ID"
             az account set --subscription "$SUBSCRIPTION_ID"
             if [[ $? -ne 0 ]]; then
-                echo "❌ Failed to switch to subscription $SUBSCRIPTION_ID. Please check the subscription ID."
+                echo "❌ Failed to switch to subscription $SUBSCRIPTION_ID. Please check the subscription ID and ensure you have access."
                 continue
             fi
             echo "✅ Successfully switched to subscription: $SUBSCRIPTION_ID"
+            
+            # Update current subscription info after switch
+            CURRENT_SUBSCRIPTION="$SUBSCRIPTION_ID"
+            CURRENT_SUBSCRIPTION_NAME=$(az account show --query "name" -o tsv 2>/dev/null || echo "Unknown")
         fi
         break
     fi
