@@ -31,13 +31,21 @@ echo ""
 
 # Get subscription ID with validation
 while true; do
-    read -p "🔑 Enter your Azure Subscription ID: " SUBSCRIPTION_ID
+    echo -n "🔑 Enter your Azure Subscription ID: "
+    read SUBSCRIPTION_ID
     if [[ -z "$SUBSCRIPTION_ID" ]]; then
         echo "❌ Subscription ID cannot be empty. Please try again."
-    elif [[ ! "$SUBSCRIPTION_ID" =~ ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$ ]]; then
-        echo "❌ Invalid subscription ID format. Please enter a valid GUID."
+    elif [[ ${#SUBSCRIPTION_ID} -ne 36 ]]; then
+        echo "❌ Subscription ID must be 36 characters long (GUID format). Please try again."
+    elif [[ ! "$SUBSCRIPTION_ID" == *-*-*-*-* ]]; then
+        echo "❌ Invalid subscription ID format. Please enter a valid GUID (e.g., 12345678-1234-1234-1234-123456789012)."
     else
-        break
+        # Additional validation - check if it's a valid GUID pattern
+        if [[ "$SUBSCRIPTION_ID" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$ ]]; then
+            break
+        else
+            echo "❌ Invalid subscription ID format. Please enter a valid GUID with hexadecimal characters only."
+        fi
     fi
 done
 
@@ -51,7 +59,8 @@ echo ""
 echo "⚠️  Note: Azure Content Understanding is in preview and only available in these 3 regions."
 echo ""
 while true; do
-    read -p "🌍 Select resource group location (1-3): " LOCATION_CHOICE
+    echo -n "🌍 Select resource group location (1-3): "
+    read LOCATION_CHOICE
     case $LOCATION_CHOICE in
         1)
             RESOURCE_GROUP_LOCATION="westus"
@@ -78,7 +87,8 @@ done
 # Get environment name
 echo ""
 while true; do
-    read -p "🏷️  Enter environment name (dev, test, prod, etc.) [default: dev]: " ENVIRONMENT_NAME
+    echo -n "🏷️  Enter environment name (dev, test, prod, etc.) [default: dev]: "
+    read ENVIRONMENT_NAME
     ENVIRONMENT_NAME=${ENVIRONMENT_NAME:-dev}
     if [[ "$ENVIRONMENT_NAME" =~ ^[a-zA-Z0-9]+$ ]]; then
         break
@@ -90,7 +100,8 @@ done
 # Get use case name
 echo ""
 while true; do
-    read -p "📋 Enter use case name [default: dataext]: " USECASE_NAME
+    echo -n "📋 Enter use case name [default: dataext]: "
+    read USECASE_NAME
     USECASE_NAME=${USECASE_NAME:-dataext}
     if [[ "$USECASE_NAME" =~ ^[a-zA-Z0-9-]+$ ]]; then
         break
@@ -123,7 +134,8 @@ terraform plan \
 
 # Ask for confirmation before applying
 echo ""
-read -p "🤔 Do you want to proceed with the deployment? (y/N): " -n 1 -r
+echo -n "🤔 Do you want to proceed with the deployment? (y/N): "
+read -n 1 -r REPLY
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "🚀 Deploying infrastructure..."
