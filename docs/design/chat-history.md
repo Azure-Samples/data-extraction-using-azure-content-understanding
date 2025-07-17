@@ -19,11 +19,13 @@ The request payload structure is as follows:
 
 ```json
 {
+    "cid": "<correlation-id-from-frontend",
     "sid": "<session-id>",
     "query": "User's query text"
 }
 ```
 
+- **`cid`**: A unique identifier representing the request, as propagated by the frontend.
 - **`sid`**: A unique identifier representing the user's conversation session.
 - **`query`**: The user's input or question.
 
