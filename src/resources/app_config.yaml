@@ -1,9 +1,17 @@
 local:
+<<<<<<< HEAD
   key_vault_uri: "https://devdatext8wukv0.vault.azure.net/"
   tenant_id: "16b3c013-d300-468d-ac64-7eda0820b6d3"
   user_managed_identity:
     client_id:
       value: "149bef02-1ac5-4d8f-b496-7dead98a3d28"
+=======
+  key_vault_uri: "https://your-keyvault-name.vault.azure.net/"
+  tenant_id: "your-tenant-id"
+  user_managed_identity:
+    client_id:
+      value: "your-user-managed-identity-client-id"
+>>>>>>> main
   cosmosdb:
     db_name:
       value: "data-extraction-db"
@@ -18,7 +26,7 @@ local:
     model_name:
       value: "gpt-4o"
     endpoint:
-      value: "https://azure-cognitive-o4twr.openai.azure.com/openai/deployments/gpt-4o"
+      value: "https://your-openai-resource.openai.azure.com/openai/deployments/gpt-4o"
     access_key:
       key: "open-ai-key"
       type: "secret"
@@ -26,14 +34,14 @@ local:
       value: "2025-04-01-preview"
   content_understanding:
     endpoint:
-      value: "https://devdatext8wuais0-cog-s36e.cognitiveservices.azure.com/"
+      value: "https://your-content-understanding-resource.cognitiveservices.azure.com/"
     subscription_key:
       key: "ai-foundry-key"
       type: "secret"
     request_timeout:
       value: 30
     project_id:
-      value: "devdatext8Wu-rag-project-p029lx"
+      value: "your-ai-project-id"
   default_ingest_config:
     name:
       value: document-extraction
@@ -41,7 +49,7 @@ local:
       value: v1.0
   chat_history:
     endpoint:
-      value: "https://devdatext8wucosmoskb0.documents.azure.com:443/"
+      value: "https://your-cosmos-kb-resource.documents.azure.com:443/"
     db_name:
       value: "knowledge-base-db"
     chat_history_container_name:
@@ -52,17 +60,17 @@ local:
       value: "Data Extraction AI"
   blob_storage:
     account_url:
-      value: "https://devdatext8wusa0.blob.core.windows.net/"
+      value: "https://your-storage-account.blob.core.windows.net/"
     container_name:
-      value: "rawdocuments"
+      value: "processed"
 
 
 dev:
-  key_vault_uri: "https://devdatext8wukv0.vault.azure.net/"
-  tenant_id: "16b3c013-d300-468d-ac64-7eda0820b6d3"
+  key_vault_uri: "https://your-keyvault-name.vault.azure.net/"
+  tenant_id: "your-tenant-id"
   user_managed_identity:
     client_id:
-      value: "149bef02-1ac5-4d8f-b496-7dead98a3d28"
+      value: "your-user-managed-identity-client-id"
   cosmosdb:
     db_name:
       value: "data-extraction-db"
@@ -77,7 +85,7 @@ dev:
     model_name:
       value: "gpt-4o"
     endpoint:
-      value: "https://azure-cognitive-o4twr.openai.azure.com/openai/deployments/gpt-4o"
+      value: "https://your-openai-resource.openai.azure.com/openai/deployments/gpt-4o"
     access_key:
       key: "open-ai-key"
       type: "secret"
@@ -85,14 +93,14 @@ dev:
       value: "2025-04-01-preview"
   content_understanding:
     endpoint:
-      value: "https://devdatext8wuais0-cog-s36e.cognitiveservices.azure.com/"
+      value: "https://your-content-understanding-resource.cognitiveservices.azure.com/"
     subscription_key:
       key: "ai-foundry-key"
       type: "secret"
     request_timeout:
       value: 30
     project_id:
-      value: "devdatext8Wu-rag-project-p029lx"
+      value: "your-ai-project-id"
   default_ingest_config:
     name:
       value: document-extraction
@@ -100,7 +108,7 @@ dev:
       value: v1.0
   chat_history:
     endpoint:
-      value: "https://devdatext8wucosmoskb0.documents.azure.com:443/"
+      value: "https://your-cosmos-kb-resource.documents.azure.com:443/"
     db_name:
       value: "knowledge-base-db"
     chat_history_container_name:
@@ -111,9 +119,9 @@ dev:
       value: "Data Extraction AI"
   blob_storage:
     account_url:
-      value: "https://devdatext8wusa0.blob.core.windows.net/"
+      value: "https://your-storage-account.blob.core.windows.net/"
     container_name:
-      value: "raw_documents"
+      value: "processed"
 
 
 # TODO: Update later

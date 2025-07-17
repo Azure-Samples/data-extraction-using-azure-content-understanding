@@ -1,0 +1,15 @@
+[flake8]
+max-line-length = 120
+ignore = E203, W503, D100, D101, D102
+exclude = .git
+    ,__pycache__
+    ,build
+    ,dist
+    ,.venv
+    ,documentation
+    ,.gitignore
+    ,.gitlab-ci.ymal
+    ,archive
+max-complexity = 10
+docstring-convention = google
+select = E,F,W,C90,D
