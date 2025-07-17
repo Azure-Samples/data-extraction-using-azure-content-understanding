@@ -24,8 +24,47 @@ fi
 
 cd data-extraction-using-azure-content-understanding/iac
 
-# Prompt user for required parameters
+# Check Azure CLI authentication
+echo "🔐 Checking Azure CLI authentication..."
+if ! az account show &>/dev/null; then
+    echo "❌ Not authenticated with Azure CLI."
+    
+    # Check if we're in Azure Cloud Shell
+    if [[ -n "$AZURE_HTTP_USER_AGENT" ]] || [[ -n "$CLOUDSHELL" ]] || [[ "$0" == *"cloudshell"* ]]; then
+        echo "🌥️  Detected Azure Cloud Shell environment."
+        echo "⚠️  Authentication should be automatic. There might be a session issue."
+        echo "🔄 Attempting to refresh authentication..."
+        
+        # Try to get account info again after a brief pause
+        sleep 2
+        if ! az account show &>/dev/null; then
+            echo "❌ Authentication refresh failed. Please close and reopen Cloud Shell, then try again."
+            exit 1
+        fi
+    else
+        echo "🔑 Running 'az login' - please follow the authentication prompts..."
+        az login
+        
+        # Verify authentication worked
+        if ! az account show &>/dev/null; then
+            echo "❌ Authentication failed. Please try again."
+            exit 1
+        fi
+    fi
+fi
+
+# Display current Azure context
+CURRENT_SUBSCRIPTION=$(az account show --query "id" -o tsv)
+CURRENT_TENANT=$(az account show --query "tenantId" -o tsv)
+CURRENT_USER=$(az account show --query "user.name" -o tsv)
+
+echo "✅ Authenticated with Azure CLI"
+echo "   Current subscription: $CURRENT_SUBSCRIPTION"
+echo "   Current tenant: $CURRENT_TENANT" 
+echo "   Current user: $CURRENT_USER"
 echo ""
+
+# Prompt user for required parameters
 echo "📝 Please provide the required deployment parameters:"
 echo ""
 
@@ -33,11 +72,17 @@ echo ""
 while true; do
     echo ""
     echo "🔑 Please enter your Azure Subscription ID:"
+    echo "   Current authenticated subscription: $CURRENT_SUBSCRIPTION"
     echo "   (Format: 12345678-1234-1234-1234-123456789012)"
-    printf "Subscription ID: "
+    printf "Subscription ID [default: current]: "
     
     # Use a more compatible read method
     IFS= read -r SUBSCRIPTION_ID < /dev/tty
+    
+    # Use current subscription if empty
+    if [[ -z "$SUBSCRIPTION_ID" ]]; then
+        SUBSCRIPTION_ID="$CURRENT_SUBSCRIPTION"
+    fi
     
     # Remove any whitespace
     SUBSCRIPTION_ID=$(echo "$SUBSCRIPTION_ID" | tr -d '[:space:]')
@@ -50,6 +95,17 @@ while true; do
         echo "❌ Subscription ID must contain dashes. Please enter a valid GUID format."
     else
         echo "✅ Subscription ID accepted: $SUBSCRIPTION_ID"
+        
+        # Set the subscription if it's different from current
+        if [[ "$SUBSCRIPTION_ID" != "$CURRENT_SUBSCRIPTION" ]]; then
+            echo "🔄 Switching to subscription: $SUBSCRIPTION_ID"
+            az account set --subscription "$SUBSCRIPTION_ID"
+            if [[ $? -ne 0 ]]; then
+                echo "❌ Failed to switch to subscription $SUBSCRIPTION_ID. Please check the subscription ID."
+                continue
+            fi
+            echo "✅ Successfully switched to subscription: $SUBSCRIPTION_ID"
+        fi
         break
     fi
 done
