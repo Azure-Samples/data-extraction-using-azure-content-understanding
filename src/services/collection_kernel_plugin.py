@@ -151,6 +151,11 @@ class CollectionPlugin:
 
         key = self.composite_key(collection_id, self._config.lease_config_hash)
 
+        # Check if the key exists in the cache
+        if key not in document_data_cache:
+            return None
+
+        # Check if the citation exists in the citation mappings
         if citation not in document_data_cache[key]['citation_mappings']:
             return None
 

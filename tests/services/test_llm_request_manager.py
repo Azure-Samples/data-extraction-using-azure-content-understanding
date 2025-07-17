@@ -51,10 +51,7 @@ class TestParseResponseContent(unittest.TestCase):
         result = self.llm_request_manager._parse_response_content(raw_content, self.collection_plugin)
         expected = QueryResponse(
             response="Test response",
-            citations=[["source_document1", "source_bounding_boxes1"]],
-            metadata={
-                "unstructured_data": [],
-            }
+            citations=[["source_document1", "source_bounding_boxes1"]]
         )
         self.assertEqual(result.model_dump_json(), expected.model_dump_json())
 
@@ -81,10 +78,7 @@ class TestParseResponseContent(unittest.TestCase):
 
         expected = QueryResponse(
             response="Test response 1",
-            citations=[["source_document1", "source_bounding_boxes1"]],
-            metadata={
-                "unstructured_data": [],
-            }
+            citations=[["source_document1", "source_bounding_boxes1"]]
         )
         self.assertEqual(result.model_dump_json(), expected.model_dump_json())
 
@@ -108,10 +102,7 @@ class TestParseResponseContent(unittest.TestCase):
         result = self.llm_request_manager._parse_response_content(raw_content, self.collection_plugin)
         expected = QueryResponse(
             response="This is a pure string with no JSON object.",
-            citations=[],
-            metadata={
-                "unstructured_data": [],
-            }
+            citations=[]
         )
         self.assertEqual(result.model_dump_json(), expected.model_dump_json())
 
@@ -135,9 +126,6 @@ class TestParseResponseContent(unittest.TestCase):
         result = self.llm_request_manager._parse_response_content(raw_content, self.collection_plugin)
         expected = QueryResponse(
             response=raw_content.strip(),
-            citations=[],
-            metadata={
-                "unstructured_data": [],
-            }
+            citations=[]
         )
         self.assertEqual(result.model_dump_json(), expected.model_dump_json())

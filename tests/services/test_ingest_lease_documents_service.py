@@ -1071,18 +1071,6 @@ class TestIngestionCollectionDocumentServiceGetAllExtractedFields(unittest.TestC
         self.assertEqual(result, {})
 
     @patch("services.ingest_lease_documents_service.logging")
-    def test_get_all_extracted_fields_collection_id_case_handling(self, mock_logging):
-        """Test that collection_id is converted to uppercase when querying."""
-        self.mock_collection_documents_collection.find_one.return_value = None
-
-        self.service._get_all_extracted_fields_from_collection_doc("lowercase_collection", self.config)
-
-        # Verify that the collection_id was converted to uppercase in the query
-        self.mock_collection_documents_collection.find_one.assert_called_with(
-            {"_id": "LOWERCASE_COLLECTION-test_hash"}
-        )
-
-    @patch("services.ingest_lease_documents_service.logging")
     def test_get_all_extracted_fields_document_exists_but_invalid_structure(self, mock_logging):
         """Test when document exists in database but has invalid structure that can't be parsed."""
         # Return a document that exists but has invalid structure

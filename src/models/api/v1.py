@@ -41,4 +41,4 @@ class QueryResponse(BaseModel):
     response: str
     citations: list[list[str]]
     metrics: Optional[QueryMetrics] = None
-    metadata: Dict[str, Any] = {}
+

@@ -8,13 +8,37 @@
             "data_type": "LeaseAgreement",
             "field_schema": [
                 {
-                    "name": "monthly_rent",
-                    "type": "integer",
-                    "description": "Monthly rent",
+                    "name": "license_grant_scope",
+                    "type": "string",
+                    "description": "Scope of license granted to the lessee or company, including rights and limitations",
+                    "method": "extract"
+                },
+                {
+                    "name": "lease_duration",
+                    "type": "string",
+                    "description": "Minimum or expected duration of the lease (e.g., '3 years')",
+                    "method": "extract"
+                },
+                {
+                    "name": "termination_conditions",
+                    "type": "string",
+                    "description": "Conditions under which the lease or agreement can be terminated by either party",
+                    "method": "extract"
+                },
+                {
+                    "name": "compliance_audit_terms",
+                    "type": "string",
+                    "description": "Details around verification of compliance, including audit rights granted to Microsoft or the lessor",
+                    "method": "extract"
+                },
+                {
+                    "name": "prohibited_uses",
+                    "type": "string",
+                    "description": "Any explicitly forbidden uses or restrictions outlined in the agreement (e.g., subleasing, standalone software use)",
                     "method": "extract"
                 }
             ],
-            "analyzer_id": "test-analyzer"
+            "analyzer_id": "test-analyzer2"
         }
     ]
 }

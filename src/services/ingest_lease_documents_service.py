@@ -496,7 +496,7 @@ class IngestionCollectionDocumentService(object):
         # Query Cosmos for collection document
         logging.info(f"Querying CosmosDB for collection ID {collection_id} and Lease Config Hash {config.lease_config_hash}")
         existing_document = self._collection_documents_collection.find_one(
-            {"_id": _build_document_id(collection_id.upper(), config.lease_config_hash)}
+            {"_id": _build_document_id(collection_id, config.lease_config_hash)}
         )
         if not existing_document or existing_document.get("collection_id") is None:
             logging.warning(
