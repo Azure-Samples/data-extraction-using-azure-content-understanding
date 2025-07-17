@@ -33,15 +33,12 @@ if [ ! -f "terraform.tfvars" ]; then
     SUBSCRIPTION_ID=$(az account show --query id -o tsv)
     
     # Replace placeholder values with defaults
-    sed -i "s/<your-subscription-id>/${SUBSCRIPTION_ID}/g" terraform.tfvars
-    sed -i "s/<your-resource-group-location>/East US/g" terraform.tfvars
-    sed -i "s/<your-resource-group-location-abbr>/eus/g" terraform.tfvars
-    sed -i "s/<your-environment-name>/dev/g" terraform.tfvars
-    sed -i "s/<your-usecase-name>/data-extraction/g" terraform.tfvars
+    sed -i "s/your-subscription-id-here/${SUBSCRIPTION_ID}/g" terraform.tfvars
+    sed -i "s/dataext/data-extraction/g" terraform.tfvars
     
     echo "✅ terraform.tfvars created with default values"
     echo "📋 Please review and update the terraform.tfvars file if needed:"
-    echo "   - Resource group location: East US"
+    echo "   - Resource group location: westus"
     echo "   - Environment: dev"
     echo "   - Use case: data-extraction"
 fi

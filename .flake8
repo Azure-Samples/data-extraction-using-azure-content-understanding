@@ -8,7 +8,7 @@ exclude = .git
     ,.venv
     ,documentation
     ,.gitignore
-    ,.gitlab-ci.ymal
+    ,.gitlab-ci.yaml
     ,archive
 max-complexity = 10
 docstring-convention = google
