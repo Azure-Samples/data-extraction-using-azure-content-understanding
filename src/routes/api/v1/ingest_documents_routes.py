@@ -13,20 +13,13 @@ from utils.constants import AZURE_AI_CONTENT_UNDERSTANDING_USER_AGENT
 
 ingest_docs_routes_bp = func.Blueprint()
 
-# This can be switched to a blob trigger if needed
-# https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=python-v2%2Cisolated-process%2Cnodejs-v4%2Cextensionv5&pivots=programming-language-python
-# @ingest_docs_routes_bp.blob_trigger(
-#     arg_name="client",
-#     path="documents/{document_name}",  # TODO: replace with path
-#     connection="AzureWebJobsStorage"  # TODO: replace with connection string variable
-# )
 @ingest_docs_routes_bp.route(
     route="ingest-documents/{collection_id}/{lease_id}/{document_name}",
     methods=["POST"]
 )
 @error_handler
 def ingest_docs(req: func.HttpRequest) -> func.HttpResponse:
-    """Ingests documents using Azure Content Understanding."""
+    """Ingests a single document using Azure Content Understanding."""
     environment_config = get_app_config_manager().hydrate_config()
     config_management_service = IngestConfigManagementService\
         .from_environment_config(environment_config)
